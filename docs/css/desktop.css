@@ -1,0 +1,46 @@
+body {
+	font-size: 12px;
+	font-family: 'ABeeZee', sans-serif !important;
+}
+
+h2 {
+	font-size: 18px !important;
+	margin-bottom: 15px !important;
+	margin-top:30px !important;
+}
+
+h3 {
+	font-size: 15px !important;
+	margin-bottom: 15px !important;
+	margin-top:30px !important;
+	color:#666 !important;
+}
+
+table {
+	font-family: Helvetica !important;
+	margin-top: 20px !important;
+}
+
+/* PRETIFY */
+
+pre {
+	line-height: 20px !important;
+	padding:0 !important;
+	font-size:12px !important;
+}
+
+pre ol {
+	margin-top: 10px !important;
+	margin-left:40px !important;
+	color:#CCC;
+	text-shadow: 0 1px 1px #FFF;
+}
+
+.com { color: #93a1a1; }
+.lit { color: #195f91; }
+.pun, .opn, .clo { color: #93a1a1; }
+.fun { color: #dc322f; }
+.str, .atv { color: #D14; }
+.kwd, .linenums .tag { color: #1e347b; }
+.typ, .atn, .dec, .var { color: teal; }
+.pln { color: #48484c; }
