@@ -33,7 +33,6 @@ class Social {
 	var $twitter_feed_last_id  = 1;
 	
 	// Facebook
-	var $fb_app_id          = "";
 	var $fb_layout          = "button_count";
 	var $fb_send_button     = false;
 	var $fb_width           = 100;
@@ -185,7 +184,7 @@ class Social {
 		else
 		{
 			$formlink  = '<div class="fb-like" ';
-			$formlink .= 'data-href="'.urlencode($this->url).'" ';
+			$formlink .= 'data-href="'.$this->url.'" ';
 			$formlink .= 'data-send="false" ';
 			$formlink .= 'data-layout="button_count" ';
 			$formlink .= 'data-width="450" ';
@@ -355,13 +354,14 @@ class Social {
 	
 	function facebook()
 	{
+		$CI =& get_instance();
 		return '
 		<div id="fb-root"></div>
   		<script>(function(d, s, id) {
 		    var js, fjs = d.getElementsByTagName(s)[0];
 		    if (d.getElementById(id)) return;
 		    js = d.createElement(s); js.id = id;
-		    js.src = "//connect.facebook.net/nl_NL/all.js#xfbml=1&appId='.$this->fb_app_id.'";
+		    js.src = "//connect.facebook.net/nl_NL/all.js#xfbml=1&appId='.$CI->core->fb_app_id.'";
 		    fjs.parentNode.insertBefore(js, fjs);
 		    }(document, "script", "facebook-jssdk"));
 		</script>
