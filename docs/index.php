@@ -58,6 +58,11 @@
 							<li><a href="?page=media">Media</a></li>
 						</ul>
 					</li>
+					<li>Helpers
+						<ul>
+							<li><a href="?page=translate">Translate</a></li>
+						</ul>
+					</li>
 				</ul>
 				
 				<h3>Helpers</h3>

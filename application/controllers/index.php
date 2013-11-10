@@ -10,7 +10,10 @@ class Index extends CI_Controller {
 	public function index()
 	{
 		$config["page"]  = "homepage";
+
         $this->core->initialize($config);
+
+        $this->load->library("social");
 		$this->load->view('index');
 	}
 

@@ -230,6 +230,15 @@ class Social {
     	$limit    = ($this->twitter_feed_limit)    ? $this->twitter_feed_limit    : $limit;
     	
     	$CI =& get_instance();
+    	if( $CI->db->where("username",$username)->count_all_results("social_cron_twitter") == 0)
+    	{
+    		$fields["username"] = $username;
+    		$fields["last_id"]  = 0;
+    		$fields["last_update"] = 0;
+
+    		$CI->db->insert("social_cron_twitter",$fields);
+    	}
+    	// Is the twitter user in the database?
     	$this->_twitter_feed_cron($username);
     	
     	$result = $CI->db->where("username",$username)->limit($limit)->get("social_tweets")->result();
@@ -263,71 +272,61 @@ class Social {
 	
 	function _twitter_feed_cron($username)
 	{
-	
 		$CI =& get_instance();
 		$result = $CI->db->where("username",$username)->get("social_cron_twitter");
-		
-		// Limit van 3600 requests / dag
-		// 1 dag = 86400 seconden
-		// Om de 24 seconden request mogelijk
-		// We kiezen voor om de 60 seconden
-		
-		if($result->num_rows == 1):
-		
-		$result = $result->result();
-		
-		
-		if($result[0]->last_update+60 <= time())
-		{
-		
-			// Op voorhand last_update instellen om duplicaten te vermijden
-			$fields["last_update"] = time();
-			$CI->db->where("username",$username)->update("social_cron_twitter",$fields);
+
+			$result = $result->result();
 			
-			$tweets = simplexml_load_file("https://api.twitter.com/1/statuses/user_timeline.rss?screen_name=".$username."&since_id=".$result[0]->last_id);  
-		
-    		$tweet_array = array();  //Initialize empty array to store tweets
 			
-    		foreach ($tweets->channel->item as $tweet)
-    		{
-        	    $twit = $tweet->description;  //Fetch the tweet itself
+			if($result[0]->last_update+120 <= time())
+			{
 			
-        	    //Remove the preceding 'username: '
-        	    $twit = substr(strstr($twit, ': '), 2, strlen($twit));  
-			
-        	    //Get the date it was posted
-        	    $pubdate = strtotime($tweet->pubDate);
-        	    $propertime = gmdate('d m Y, H:i', $pubdate);  //Customize this to your liking
-			
-				$url = (string)$tweet->link;
-				$id = explode("/",$url);
-					
-				if($this->twitter_feed_last_id == 1)
-				{
-					$this->twitter_feed_last_id = (string)$id[5];
+				// Op voorhand last_update instellen om duplicaten te vermijden
+				$fields["last_update"] = time();
+				$CI->db->where("username",$username)->update("social_cron_twitter",$fields);
+				
+				$tweets = simplexml_load_file("https://api.twitter.com/1/statuses/user_timeline.rss?screen_name=".$username."&since_id=".$result[0]->last_id);  
+				echo "https://api.twitter.com/1/statuses/user_timeline.rss?screen_name=".$username."&since_id=".$result[0]->last_id;
+    			$tweet_array = array();  //Initialize empty array to store tweets
+				
+    			foreach ($tweets->channel->item as $tweet)
+    			{
+        		    $twit = $tweet->description;  //Fetch the tweet itself
+				
+        		    //Remove the preceding 'username: '
+        		    $twit = substr(strstr($twit, ': '), 2, strlen($twit));  
+				
+        		    //Get the date it was posted
+        		    $pubdate = strtotime($tweet->pubDate);
+        		    $propertime = gmdate('d m Y, H:i', $pubdate);  //Customize this to your liking
+				
+					$url = (string)$tweet->link;
+					$id = explode("/",$url);
+						
+					if($this->twitter_feed_last_id == 1)
+					{
+						$this->twitter_feed_last_id = (string)$id[5];
+					}
+	
+        		    //Store tweet and time into the array
+        		    $tweet_item = array(
+        		    	"username" => $username,
+        		    	'status' => $twit,
+        		        'date' => $propertime,
+        		        "url" => (string)$tweet->link,
+        		        "tweet_id" => (string)$id[5]
+        		    );
+	
+        		    $CI->db->insert("social_tweets",$tweet_item);
+        		    
 				}
-
-        	    //Store tweet and time into the array
-        	    $tweet_item = array(
-        	    	"username" => $username,
-        	    	'status' => $twit,
-        	        'date' => $propertime,
-        	        "url" => (string)$tweet->link,
-        	        "tweet_id" => (string)$id[5]
-        	    );
-
-        	    $CI->db->insert("social_tweets",$tweet_item);
-        	    
+				
+				$fields["last_id"]     = $this->twitter_feed_last_id;
+        		$fields["last_update"] = time();
+        		$CI->db->where("username",$username)->update("social_cron_twitter",$fields);
+	
 			}
-			
-			$fields["last_id"]     = $this->twitter_feed_last_id;
-        	$fields["last_update"] = time();
-        	$CI->db->where("username",$username)->update("social_cron_twitter",$fields);
 
-		}
-		
-		endif;
-		
 	}
 	
 	function load_scripts($scripts = null)

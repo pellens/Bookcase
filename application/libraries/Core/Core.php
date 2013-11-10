@@ -21,7 +21,7 @@ class Core {
 	var $type          = "";
 	var $type_id       = "";
 	var $page_title    = "";
-	var $facebook_key  = "";
+	var $fb_app_id  = "";
 	var $lang          = "";
 	var $website_title = "";
 	var $all_pages_open  = "<div>";
@@ -56,7 +56,7 @@ class Core {
 							"type" => "varchar",
 							"constraint" => "300",
 						),
-				"facebook_key" => array(
+				"fb_app_id" => array(
 							"type" => "varchar",
 							"constraint" => "300"
 						),
@@ -303,7 +303,7 @@ class Core {
 		
 		// SEO
 		$this->meta_description = $config[0]->description;
-		$this->facebook_key     = $general[0]->facebook_key;
+		$this->fb_app_id     	= $general[0]->fb_app_id;
 		$this->meta_keywords    = $config[0]->keywords;
 		$this->index            = $config[0]->index;
 		$this->follow           = $config[0]->follow;
@@ -432,7 +432,7 @@ class Core {
 			<meta name="revisit-after"      content="'.$this->revisit.'" />
 			
 			<!-- FACEBOOK -->
-			<meta property="fb:app_id"      content="'.$this->facebook_key.'" />
+			<meta property="fb:app_id"      content="'.$this->fb_app_id.'" />
 			
 			<!-- SOCIAL MEDIA -->
 			<meta property="og:title"       content="'.$this->page_title.'" />
