@@ -39,12 +39,7 @@
 		</tr>
 	</table>
 	
-	<div class="container_12">
-		<div class="grid_12">
-			
-		</div>
-		
-		<div class="grid_12">
+
 			<h2>Example</h2>
 			
 			<pre class="prettyprint linenums">// load the library
@@ -65,10 +60,7 @@ $config["subject"]        = "More information about product #123";
 $this->contactform->initialize($config);
 echo $this->contactform->generate();</pre>
 
-		</div>
-		
-		<div class="grid_12">
-		
+
 			<h2>Functions</h2>
 			
 			<h3>Retrieve all forms</h3>
@@ -147,6 +139,4 @@ echo $this->contactform->generate();</pre>
 			<h3>Generate form</h3>
 			<p><code>$this->contactform->generate()</code></p>
 			<p>Returns an object of all the forms created. This you will most likely use in the admin area...</p>
-		
-		</div>
-	</div>
+

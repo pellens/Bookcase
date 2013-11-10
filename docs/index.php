@@ -46,13 +46,18 @@
 				<h3>Libraries</h3>
 				<ul>
 					<li><a href="?page=installation">How to install</a></li>
-					<li><a href="?page=core">Core</a></li>
-					<li><a href="?page=contactform">Contactform(s)</a></li>
-					<li><a href="?page=products">Products</a></li>
-					<li><a href="?page=social">Social</a></li>
-					<li><a href="?page=blocks">Blocks</a></li>
-					<li><a href="?page=locations">Locations</a></li>
-					<li><a href="?page=media">Media</a></li>
+					<li>Libraries
+						<ul>
+							<li><a href="?page=core">Core</a></li>
+							<li><a href="?page=database">Database</a></li>
+							<li><a href="?page=contactform">Contactform(s)</a></li>
+							<li><a href="?page=products">Products</a></li>
+							<li><a href="?page=social">Social</a></li>
+							<li><a href="?page=blocks">Blocks</a></li>
+							<li><a href="?page=locations">Locations</a></li>
+							<li><a href="?page=media">Media</a></li>
+						</ul>
+					</li>
 				</ul>
 				
 				<h3>Helpers</h3>

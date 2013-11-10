@@ -141,6 +141,39 @@ class Core {
 		    unset($fields);
 
 		}
+
+		if (!$CI->db->table_exists('core_libraries'))
+		{
+		    $CI->load->dbforge();
+		
+		    $fields = array(
+		    	"id" => array(
+		    				"type"           => "INT",
+        	                'auto_increment' => TRUE
+		    			),
+		    	"active" => array(
+		    				"type"           => "INT",
+		    				"default" 		=> "0",
+		    			),
+		    	"title" => array(
+		    				"type" => "varchar",
+		    				"constraint" => "300",
+		    			),
+		    	"description" => array(
+		    				"type" => "text"
+		    			),
+		    	"version" => array(
+		    				"type" => "text"
+		    			)
+		    );
+
+		    $CI->dbforge->add_field($fields);
+		    $CI->dbforge->add_key('id', TRUE);
+		    $CI->dbforge->create_table('core_libraries',TRUE);
+		    
+		    unset($fields);
+
+		}
 		
 		if (!$CI->db->table_exists('core_admins_roles'))
 		{
@@ -431,17 +464,24 @@ class Core {
 		if($view)
 		{
 
-			$output = $this->list_open;
-
 			foreach($pages as $page):
 
-				$output .= "<div class='row'>";
-				$output .= $page->page;
-				$output .= "</div>";
+				$output  = "<table>";
+				$output .= "<tr>";
+				$output .= "<td class='title'>".$page->page."</td>";
+
+				if($admin)
+				{
+					$output .= "<td class='actions'>";
+					$output .= anchor("admin/page/".$page->id,"Edit",'class="edit"');
+					$output .= anchor("admin/page/del/".$page->id,"Delete",'class="del"');
+					$output .= "</td>";
+				}
+
+				$output .= "</tr>";
+				$output .= "</table>";
 			
 			endforeach;
-			
-			$output .= $this->list_close;
 			
 			return $output;
 		}
@@ -449,14 +489,27 @@ class Core {
 		{
 			return $pages;
 		}
-		
-		if($admin)
-		{
-			echo "Admin actions aan toe voegen";
-		}
 	
 	}
 	
+	function libraries()
+	{
+		$libraries = array();
+
+		if ($handle = opendir('./application/libraries/'))
+		{
+        	while (false !== ($entry = readdir($handle)))
+        	{
+            	if ($entry != "." && $entry != "..")
+            	{
+                	$libraries[] = $entry;
+            	}
+        	}
+        	closedir($handle);
+   		}
+   		return $libraries;
+	}
+
 	function page( $page )
 	{
 		$CI =& get_instance();

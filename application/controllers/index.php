@@ -2,10 +2,10 @@
 
 class Index extends CI_Controller {
 
-	 public function __construct()
-	 {
-	 	parent::__construct();
-	 }
+	public function __construct()
+	{
+		parent::__construct();
+	}
 	 
 	public function index()
 	{
@@ -14,14 +14,7 @@ class Index extends CI_Controller {
 
 		$this->load->view('index');
 	}
-	
-	public function portfolio()
-	{
-		$config["page"]  = "portfolio";
-        $this->core->initialize($config);            			
 
-		$this->load->view('index');
-	}
 }
 
 /* End of file welcome.php */

@@ -193,6 +193,7 @@ class CI_Loader {
 	 */
 	public function library($library = '', $params = NULL, $object_name = NULL)
 	{
+
 		if (is_array($library))
 		{
 			foreach ($library as $class)

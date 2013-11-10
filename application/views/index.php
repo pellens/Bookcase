@@ -2,8 +2,10 @@
 <html>
 	<head>
     	<title>Bookcase</title>
+
+    	<?=$this->core->metatags();?>
     	<link href="<?=base_url("css/backend/backend.css");?>" rel="stylesheet" media="screen">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 	</head>
 	<body>
     	<div class="install-box">
