@@ -1,5 +1,13 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+	if ( ! function_exists('lang'))
+	{
+		function lang()
+		{
+			$CI =& get_instance();
+			return $CI->uri->segment(1);
+		}
+	}
 
 	if ( ! function_exists('trans'))
 	{
