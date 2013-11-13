@@ -362,12 +362,13 @@ class Core {
 		$scripts = '
 		<!-- GOOGLE HTML5 SHIV -->
 		<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+		<!-- STANDARD SCRIPTS -->
+		<script src="'.base_url().'js/core/jquery.1.10.2.js" type="text/javascript"></script>
+		<script src="'.base_url().'js/core/modernizr.js" type="text/javascript"></script>
 		';
     	
 		if(is_array($params))
-		{
-			$scripts .= '<script src="http://www.google.com/jsapi"></script>';
-			
+		{		
 			foreach($params as $item):
 				$scripts .= $this->_script($item);
 			endforeach;
@@ -376,16 +377,11 @@ class Core {
 		}
 		elseif($params == null)
 		{
-			return $scripts.'
-		<!-- STANDARD SCRIPTS -->
-		<script src="http://www.google.com/jsapi"></script>
-		<script type="text/javascript">google.load("jquery", "1.4.2");</script>
-		<script src="'.base_url().'js/core/modernizr.js" type="text/javascript"></script>
-		';
+			return $scripts;
 		}
 		else
 		{
-			return '<script src="http://www.google.com/jsapi"></script>'.$this->_script($params);
+			return $this->_script($params);
 		}	
 	}
 	
@@ -393,9 +389,9 @@ class Core {
 	{
 
 		switch($script):
-		
+			
+
 			case "jqueryui"      : return '<script type="text/javascript">google.load("jqueryui","1.7.2");</script>'; break;
-			case "jquery"        : return '<script type="text/javascript" src="'.base_url().'js/core/jquery-1.9.0.min.js"></script>'; break;
 			case "visualization" : return '<script type="text/javascript">google.load("visualization", "1");</script>'; break;
 			case "picker"        : return '<script type="text/javascript">google.load("picker", "1");</script>'; break;
 			case "modernizr"     : return '<script type="text/javascript" src="'.base_url().'js/core/modernizr.js"></script>'; break;

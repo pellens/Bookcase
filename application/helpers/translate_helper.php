@@ -1,5 +1,9 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+	// Nog controle uitvoeren dat als de gekozen taal in de URL wel ondersteunt wordt
+	// door de website. Dit moeten we dus ook ergens toelaten.
+	// Uiteindelijk hier dan ook de group_by() verwijderen uit de code
+
 	if ( ! function_exists('lang'))
 	{
 		function lang()
