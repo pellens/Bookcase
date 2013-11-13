@@ -381,7 +381,7 @@ class Core {
 		}
 		else
 		{
-			return $this->_script($params);
+			return $scripts.= $this->_script($params);
 		}	
 	}
 	
@@ -394,7 +394,6 @@ class Core {
 			case "jqueryui"      : return '<script type="text/javascript">google.load("jqueryui","1.7.2");</script>'; break;
 			case "visualization" : return '<script type="text/javascript">google.load("visualization", "1");</script>'; break;
 			case "picker"        : return '<script type="text/javascript">google.load("picker", "1");</script>'; break;
-			case "modernizr"     : return '<script type="text/javascript" src="'.base_url().'js/core/modernizr.js"></script>'; break;
 			case "uploadify"     : return '<script type="text/javascript" src="'.base_url().'js/core/jquery.uploadify.min.js"></script>'; break;
 			case "maps"		     : return '<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>'; break;
 			case "fancybox"      : return '<script type="text/javascript" src="'.base_url().'js/core/fancybox.js"></script>'; break;
