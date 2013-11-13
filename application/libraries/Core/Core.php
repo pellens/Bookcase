@@ -22,7 +22,6 @@ class Core {
 	var $type_id       = "";
 	var $page_title    = "";
 	var $fb_app_id  = "";
-	var $lang          = "";
 	var $website_title = "";
 	var $all_pages_open  = "<div>";
 	var $all_pages_close = "</div>";
@@ -162,6 +161,9 @@ class Core {
 		    	"description" => array(
 		    				"type" => "text"
 		    			),
+		    	"author" => array(
+		    				"type" => "text"
+		    			),
 		    	"version" => array(
 		    				"type" => "text"
 		    			)
@@ -299,7 +301,6 @@ class Core {
 		$config  = $CI->db->where("page",$this->page)->get("core_pages")->result();
 						
 		$this->page_title       = $config[0]->title;
-		$this->lang             = $general[0]->lang;
 		
 		// SEO
 		$this->meta_description = $config[0]->description;
@@ -414,7 +415,7 @@ class Core {
 
 			$meta  = '
 			<meta charset="utf-8" />
-			<meta name="language" content="'.$this->lang.'" />
+			<meta name="language" content="'.lang().'" />
 			
 			<title>'.$this->page_title.' - '.$this->website_title.'</title>
 			
@@ -499,6 +500,7 @@ class Core {
 
 		if ($handle = opendir('./application/libraries/'))
 		{
+
         	while (false !== ($entry = readdir($handle)))
         	{
             	if ($entry != "." && $entry != ".." && $entry != ".DS_Store")
@@ -515,8 +517,6 @@ class Core {
 					    if( $CI->db->where("title",$config["title"])->count_all_results("core_libraries") == 0)
 					    {
 					    	$config["author"] = serialize($config["author"]);
-
-					    	print_r($config);
 					    	$CI->db->insert("core_libraries",$config);
 					    }
 					    

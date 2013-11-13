@@ -9,6 +9,40 @@
 		}
 	}
 
+	if ( ! function_exists('langswitch'))
+	{
+		function langswitch($view = true)
+		{
+			$CI =& get_instance();
+			foreach($CI->db->group_by("lang")->get("translation")->result() as $lang)
+			{
+				$anchor[] = array(
+					"class" => (lang() == $lang->lang) ? "active" : "",
+					"active" => (lang() == $lang->lang) ? 1 : 0,
+					"lang"   => $lang->lang,
+					"url"    => str_replace("/".lang(), "/".$lang->lang, current_url())
+				);
+			}
+
+			if(!$view)
+			{
+				return $anchor;
+			}
+			else
+			{
+				$widget = "<ul class='languages'>";
+				foreach($anchor as $row):
+					$widget.= "<li class='".$row["class"]."'>";
+					$widget.= "<a href='".$row["url"]."'>".$row["lang"]."</a>";
+					$widget.= "</li>";
+				endforeach;
+				$widget.= "</ul>";
+
+				return $widget;
+			}
+		}
+	}
+
 	if ( ! function_exists('trans'))
 	{
 		function trans($key , $replace = array())
