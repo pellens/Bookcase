@@ -13,18 +13,32 @@
 		}
 	}
 
+	if ( ! function_exists('supported_lang'))
+	{
+		function supported_lang()
+		{
+			$CI =& get_instance();
+			if( $CI->db->where("code",lang())->count_all_results("translation_supported_languages") == 1 )
+			{
+				return true;
+			}
+			return false;
+		}
+	}
+
 	if ( ! function_exists('langswitch'))
 	{
 		function langswitch($view = true)
 		{
 			$CI =& get_instance();
-			foreach($CI->db->group_by("lang")->get("translation")->result() as $lang)
+			foreach($CI->db->get("translation_supported_languages")->result() as $lang)
 			{
 				$anchor[] = array(
-					"class" => (lang() == $lang->lang) ? "active" : "",
-					"active" => (lang() == $lang->lang) ? 1 : 0,
-					"lang"   => $lang->lang,
-					"url"    => str_replace("/".lang(), "/".$lang->lang, current_url())
+					"class"  => (lang() == $lang->code) ? "active" : "",
+					"active" => (lang() == $lang->code) ? 1 : 0,
+					"lang"   => $lang->code,
+					"long"   => $lang->lang,
+					"url"    => str_replace("/".lang(), "/".$lang->code, current_url())
 				);
 			}
 
@@ -82,41 +96,77 @@
 				$CI->dbforge->add_key('id', TRUE);
 				$CI->dbforge->create_table('translation',TRUE);	
 			}
-		
-		
-			$CI->db->where("key",$key);
+
+			// FILE DATABASE AANMAKEN
+    		if (!$CI->db->table_exists('translation_supported_languages'))
+			{
 			
-			if($CI->db->count_all_results("translation") == 0):
-			
-				$fields["key"]  = $key;
-				$fields["lang"] = lang();
-				$CI->db->insert("translation",$fields);
+				$CI->load->dbforge();
 				
-				return $key;
+				$fields = array(
+					"id" => array(
+							"type"           => "INT",
+        	                'auto_increment' => TRUE
+							),
+					"lang" => array(
+							"type" => "varchar",
+							"constraint" => "300"
+							),
+					"code" => array(
+							"type" => "varchar",
+							"constraint" => "10"
+							)
+				);
+				unset($fields);
 			
-			else:
+				$CI->dbforge->add_field($fields);
+				$CI->dbforge->add_key('id', TRUE);
+				$CI->dbforge->create_table('translation_supported_languages',TRUE);	
+			}
+		
+			if(supported_lang())
+			{
+
 			
 				$CI->db->where("key",$key)->where("lang",lang());
-				foreach($CI->db->get("translation")->result() as $item):
-					if ($item->string == "")
-					{
-						return $item->key;
-					}
-					else
-					{
-						$string = $item->string;
-						if(count($replace) > 0)
-						{	
-							foreach($replace as $s => $r)
-							{
-								$string = str_replace($s, $r, $string);
-							}
+				
+				if($CI->db->count_all_results("translation") == 0):
+				
+					$fields["key"]  = $key;
+					$fields["lang"] = lang();
+					$CI->db->insert("translation",$fields);
+					
+					return $key;
+				
+				else:
+				
+					$CI->db->where("key",$key)->where("lang",lang());
+					foreach($CI->db->get("translation")->result() as $item):
+						if ($item->string == "")
+						{
+							return $item->key;
 						}
-						return $string;
-					}
-				endforeach;
-			
-			endif;
+						else
+						{
+							$string = $item->string;
+							if(count($replace) > 0)
+							{	
+								foreach($replace as $s => $r)
+								{
+									$string = str_replace($s, $r, $string);
+								}
+							}
+							return $string;
+						}
+					endforeach;
+				
+				endif;
+
+			}
+			else
+			{
+				return "Unsupported language";
+			}
 
 		}
 		
