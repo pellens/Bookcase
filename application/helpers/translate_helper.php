@@ -11,7 +11,7 @@
 
 	if ( ! function_exists('trans'))
 	{
-		function trans($string)
+		function trans($key , $replace = array())
 		{
 			
 			$CI =& get_instance();
@@ -29,6 +29,14 @@
 							),
 					"string" => array(
 								"type" => "text"
+							),
+					"key" => array(
+							"type" => "varchar",
+							"constraint" => "300"
+							),
+					"lang" => array(
+							"type" => "varchar",
+							"constraint" => "5"
 							)
 				);
 			
@@ -38,20 +46,36 @@
 			}
 		
 		
-			$CI->db->where("string",$string);
+			$CI->db->where("key",$key);
 			
 			if($CI->db->count_all_results("translation") == 0):
 			
-				$fields["string"] = $string;
+				$fields["key"]  = $key;
+				$fields["lang"] = lang();
 				$CI->db->insert("translation",$fields);
 				
-				return $string;
+				return $key;
 			
 			else:
 			
-				$CI->db->where("string",$string);
+				$CI->db->where("key",$key)->where("lang",lang());
 				foreach($CI->db->get("translation")->result() as $item):
-					return $item->string;
+					if ($item->string == "")
+					{
+						return $item->key;
+					}
+					else
+					{
+						$string = $item->string;
+						if(count($replace) > 0)
+						{	
+							foreach($replace as $s => $r)
+							{
+								$string = str_replace($s, $r, $string);
+							}
+						}
+						return $string;
+					}
 				endforeach;
 			
 			endif;
