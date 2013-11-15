@@ -360,11 +360,11 @@ class Core {
 		$CI->load->helper("url");
 		
 		$scripts = '
-		<!-- GOOGLE HTML5 SHIV -->
-		<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
-		<!-- STANDARD SCRIPTS -->
-		<script src="'.base_url().'js/core/jquery.1.10.2.js" type="text/javascript"></script>
-		<script src="'.base_url().'js/core/modernizr.js" type="text/javascript"></script>
+        <!-- GOOGLE HTML5 SHIV -->
+        <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+        <!-- STANDARD SCRIPTS -->
+        <script src="'.base_url().'js/core/jquery.1.10.2.js" type="text/javascript"></script>
+        <script src="'.base_url().'js/core/modernizr.js" type="text/javascript"></script>
 		';
     	
 		if(is_array($params))
@@ -408,39 +408,38 @@ class Core {
 		if($this->page)
 		{
 
-			$meta  = '
-			<meta charset="utf-8" />
-			<meta name="language" content="'.lang().'" />
+			$meta  = '<meta charset="utf-8" />
+        <meta name="language" content="'.lang().'" />
 			
-			<title>'.$this->page_title.' - '.$this->website_title.'</title>
+        <title>'.$this->page_title.' - '.$this->website_title.'</title>
 			
-			<!-- GENERAL SETTINGS -->
-			<meta name="generator"          content="Bookcase" />
-			<meta name="keywords"           content="'.$this->meta_keywords.'">
-			<meta name="description"        content="'.$this->meta_description.'">
-			<meta name="author"             content="">
-			<meta name="viewport"           content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
-			
-			<!-- SEO -->
-			<meta name="google"             content="" />
-			<meta name="language"           content="" />
-			<meta name="robots"             content="'.$this->index.','.$this->follow.'" />
-			<meta name="revisit-after"      content="'.$this->revisit.'" />
-			
-			<!-- FACEBOOK -->
-			<meta property="fb:app_id"      content="'.$this->fb_app_id.'" />
-			
-			<!-- SOCIAL MEDIA -->
-			<meta property="og:title"       content="'.$this->page_title.'" />
-			<meta property="og:type"        content="'.$this->type.'" />
-			<meta property="og:url"         content="'.current_url().'" />
-			<meta property="og:image"       content="" />
-			<meta property="og:description" content="'.$this->meta_description.'" />
-			<meta property="og:site_name"   content="'.$this->website_title.'" />
-			
-			<!-- STYLE -->
-			<link rel="icon"                type="image/x-icon" href="" />
-			<link rel="shortcut icon"       type="image/x-icon" href="" />
+        <!-- GENERAL SETTINGS -->
+        <meta name="generator"          content="Bookcase" />
+        <meta name="keywords"           content="'.$this->meta_keywords.'">
+        <meta name="description"        content="'.$this->meta_description.'">
+        <meta name="author"             content="">
+        <meta name="viewport"           content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
+        
+        <!-- SEO -->
+        <meta name="google"             content="" />
+        <meta name="language"           content="'.lang().'" />
+        <meta name="robots"             content="'.$this->index.','.$this->follow.'" />
+        <meta name="revisit-after"      content="'.$this->revisit.'" />
+        
+        <!-- FACEBOOK -->
+        <meta property="fb:app_id"      content="'.$this->fb_app_id.'" />
+        
+        <!-- SOCIAL MEDIA -->
+        <meta property="og:title"       content="'.$this->page_title.'" />
+        <meta property="og:type"        content="'.$this->type.'" />
+        <meta property="og:url"         content="'.current_url().'" />
+        <meta property="og:image"       content="" />
+        <meta property="og:description" content="'.$this->meta_description.'" />
+        <meta property="og:site_name"   content="'.$this->website_title.'" />
+        
+        <!-- STYLE -->
+        <link rel="icon"                type="image/x-icon" href="" />
+        <link rel="shortcut icon"       type="image/x-icon" href="" />
 			';
 			
 			return $meta;
@@ -460,11 +459,23 @@ class Core {
 		if($view)
 		{
 
+            $output  = "<table class='table table-bordered table-striped'>";
+
+            $output .= "<tr>";
+            $output .= "<th>Page title</th>";
+            $output .= "<th>Machine name</th>";
+            $output .= "<th>Complete</th>";
+            $output .= "</tr>";
+
 			foreach($pages as $page):
 
-				$output  = "<table>";
+				
 				$output .= "<tr>";
-				$output .= "<td class='title'>".$page->page."</td>";
+				$output .= "<td class='title'>".$page->title."</td>";
+                $output .= "<td class='machinename'>".$page->page."</td>";
+                $output .= "<td class='status' width='200'>";
+                $output .= '<div class="progress"><div class="bar" style="width: '.$this->page_progress($page->page).'"></div></div>';
+                $output .= "</td>";
 
 				if($admin)
 				{
@@ -475,9 +486,11 @@ class Core {
 				}
 
 				$output .= "</tr>";
-				$output .= "</table>";
+				
 			
 			endforeach;
+
+            $output .= "</table>";
 			
 			return $output;
 		}
@@ -488,7 +501,32 @@ class Core {
 	
 	}
 	
-	function libraries()
+    function page_progress($page)
+    {
+        $CI =& get_instance();
+
+        $supported  = array("title","keywords","description");
+        $bar        = 0;
+        $total      = 0;
+        $progress   = 0;
+
+        foreach ($CI->db->where("page",$page)->get("core_pages")->result() as $key => $value):
+
+            foreach($supported as $s):
+                
+                $total+=1;
+                if($value->$s != "" && $value->$s != " ") $progress+=1;
+
+            endforeach;
+
+        endforeach;
+
+        $bar = 100 - (($total-$progress)/$total) * 100;
+
+        return round($bar)."%";
+    }
+
+	function libraries( $active = false )
 	{
 		$CI =& get_instance();
 		$libraries = array();
@@ -515,19 +553,25 @@ class Core {
 					    	$CI->db->insert("core_libraries",$config);
 					    }
 					    
-					    $result = $CI->db->select("title,description,author,active")->where("title",$config["title"])->get("core_libraries")->result();
+					    $result = $CI->db->select("title,version,description,author,active")->where("title",$config["title"])->get("core_libraries")->result();
 					    $libraries[] = array(
 					    	"title" => $result[0]->title,
 					    	"description" => $result[0]->description,
-					    	"author" => $result[0]->author,
-					    	"active" => $result[0]->active
+					    	"author" => unserialize($result[0]->author),
+					    	"active" => $result[0]->active,
+                            "version" => $result[0]->version
 				    	);
 
-					} else {
-						$libraries[] = array(
-					    	"title" => $entry,
-					    	"error" => "No configuration file found..."
-					    );
+					}
+                    else
+                    {
+                        if(!$active)
+                        {
+						    $libraries[] = array(
+					       	   "title" => $entry,
+					           "error" => "No configuration file found..."
+					        );
+                        }
 					}
 
             	}

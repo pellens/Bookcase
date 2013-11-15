@@ -8,8 +8,8 @@
 	
 	@package		CodeIgniter 		<http://www.codeigniter.com>
 	@version		1.0
-	@author			Gert Pellens		<http://www.gertpellens.com>
-	@copyright		Gert Pellens		<http://www.gertpellens.com>
+	@author			Gert Pellens		<http://www.gerardo.be>
+	@copyright		Gert Pellens		<http://www.gerardo.be>
 
 **/
 
