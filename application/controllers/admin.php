@@ -26,6 +26,14 @@ class Admin extends CI_Controller {
 		$this->load->view('backend/index',$data);
 	}
 
+	public function library($library,$page,$option=null)
+	{
+		require_once(APPPATH."/libraries/".ucwords($library)."/config.php");
+
+		$data["nav"] = $nav;
+		$this->load->view('backend/index',$data);
+	}
+
 }
 
 /* End of file welcome.php */

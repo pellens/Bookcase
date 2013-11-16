@@ -13,7 +13,7 @@
 
 **/
 
-class Locations {
+class Locality {
 
 	var $CI;
 	var $location       = "";
@@ -28,9 +28,9 @@ class Locations {
 	
 		$CI =& get_instance();
 		
-		$CI->core->type = "location";
+		$CI->core->type = "locality";
 		
-		if (!$CI->db->table_exists('locations'))
+		if (!$CI->db->table_exists('locality_locations'))
 		{
 			$CI->load->dbforge();
 			
@@ -87,7 +87,50 @@ class Locations {
 		
 			$CI->dbforge->add_field($fields);
 			$CI->dbforge->add_key('id', TRUE);
-			$CI->dbforge->create_table('locations',TRUE);	
+			$CI->dbforge->create_table('locality_locations',TRUE);	
+		}
+        
+        if (!$CI->db->table_exists('locality_countries'))
+		{
+
+			$CI->load->dbforge();
+			
+			$fields = array(
+				"id" => array(
+							"type"           => "INT",
+                            'auto_increment' => TRUE
+						),
+				"iso" => array(
+							"type" => "varchar",
+							"constraint" => "2",
+						),
+				"name" => array(
+							"type" => "varchar",
+							"constraint" => "300"
+						),
+				"nicename" => array(
+							"type" => "varchar",
+							"constraint" => "300"
+						),
+				"iso3" => array(
+							"type" => "varchar",
+							"constraint" => "3"
+						),
+				"code" => array(
+							"type" => "int",
+							"constraint" => "6"
+						),
+				"phonecode" => array(
+							"type" => "int",
+							"constraint" => "5"
+						)
+			);
+		
+			$CI->dbforge->add_field($fields);
+			$CI->dbforge->add_key('id', TRUE);
+			$CI->dbforge->create_table('locality_countries',TRUE);
+
+			$this->sql_insert_countries();
 		}
 	
 	}
@@ -107,7 +150,7 @@ class Locations {
 		}
 		
 	}
-	
+
 	function all_locations()
 	{
 		$CI =& get_instance();
@@ -156,6 +199,15 @@ class Locations {
 		$this->address = $item[0]->street."+".$item[0]->city."+".$item[0]->country;
 		
 		return "<img src='https://maps.googleapis.com/maps/api/staticmap?center=".urlencode($this->address)."&zoom=".$this->map_zoom."&size=".$this->static_w."x".$this->static_h."&maptype=".$this->map_type."&markers=color:blue%7Clabel:S%7C".urlencode($this->address)."&sensor=false' class='static_map'/>";
+
+	}
+
+	function sql_insert_countries()
+	{
+		$CI =& get_instance();
+		require_once("countries.php");
+		$CI->db->query($query);
+		
 
 	}
 		

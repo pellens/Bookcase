@@ -14,4 +14,20 @@
 
 	);
 
+	$nav = array(
+
+		"title" => "Core settings",
+		"nav" => array(
+			"General" => array(
+				"Website settings" => "admin/library/core/settings"
+			),
+			"Administrators" => array(
+				"Create admin" => "admin/library/core/add_admin",
+				"Administrators"  => "admin/library/core/admins",
+				"Permissions" => "admin/library/core/permissions"
+			)
+		)
+
+	);
+
 ?>
