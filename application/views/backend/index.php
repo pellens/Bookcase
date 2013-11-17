@@ -18,32 +18,33 @@
 				<nav>
 					<ul>
 						<li class="active"><i class="icon-dashboard icon-2x"></i></li>
-						<li><i class="icon-plus icon-2x"></i></li>
-						<li><i class="icon-envelope-alt icon-2x"></i></li>
-						<li><i class="icon-globe icon-2x"></i></li>
-						<li><i class="icon-gear icon-2x"></i></li>
+						<li><?=anchor('admin/library/','<i class="icon-plus icon-2x"></i>');?></li>
+						<li><?=anchor('admin/library/market/items','<i class="icon-shopping-cart icon-2x"></i>');?></li>
+						<li><?=anchor('admin/library/','<i class="icon-envelope-alt icon-2x"></i>');?></li>
+						<li><?=anchor('admin/library/locality/locations','<i class="icon-globe icon-2x"></i>');?></li>
+						<li><?=anchor('admin/library/core/settings','<i class="icon-gear icon-2x"></i>');?></li>
 					</ul>
 				</nav>
 			
 			</div>
 
 			<div class="submenu">
-				
-				<h2>Mainnavigation</h2>
-				<h3>Subnavigation</h3>
-				<nav>
-					<ul>
-						<li><?=anchor("admin/pages/overview","Page overview");?></li>
-						<li class="active"><?=anchor("admin/library/translate/overview","Translations");?></li>
-					</ul>
-				</nav>
-				<h3>Subnavigation</h3>
-				<nav>
-					<ul>
-						<li><?=anchor("admin/pages/overview","Page overview");?></li>
-						<li class="active"><?=anchor("admin/library/translate/overview","Translations");?></li>
-					</ul>
-				</nav>
+
+				<h2><?=$nav["title"];?></h2>
+
+				<? foreach($nav["nav"] as $sub => $link):?>
+
+					<h3><?=$sub;?></h3>
+
+					<nav>
+						<ul>
+							<? foreach($link as $name => $url):?>
+								<li><?=anchor($url,$name);?></li>
+							<? endforeach;?>
+						</ul>
+					</nav>
+
+				<? endforeach;?>
 			</div>
 			
 			<div class="main">
@@ -79,6 +80,16 @@
 
 				<? endforeach;?>
 				</table>
+
+				<h3>Market categories</h3>
+				<?=$this->market->all_categories("list");?>
+
+				<div class="developer">
+					<pre>$this->market->all_categories( $view );
+					$view = false
+					$view = "list"
+					$view = "tree"
+					$view = "select"</pre>
 
 				<h3>Supported languages</h3>
 				<table class="table table-bordered table-striped">

@@ -136,7 +136,7 @@ class Products {
 			$CI->dbforge->create_table('products_item_form',TRUE);	
 		}
 		
-		if (!$CI->db->table_exists('products_item_locations'))
+		if (!$CI->db->table_exists('products_item_location'))
 		{
 
 			$CI->load->dbforge();
@@ -146,8 +146,8 @@ class Products {
 							"type"           => "INT",
                             'auto_increment' => TRUE
 						),
-				"locations" => array(
-							"type" => "TEXT"
+				"location_id" => array(
+							"type" => "INT"
 						),
 				"product_id" => array(
 							"type" => "INT"
@@ -156,7 +156,7 @@ class Products {
 		
 			$CI->dbforge->add_field($fields);
 			$CI->dbforge->add_key('id', TRUE);
-			$CI->dbforge->create_table('products_item_locations',TRUE);	
+			$CI->dbforge->create_table('products_item_location',TRUE);	
 		}
 
 	}
@@ -201,14 +201,66 @@ class Products {
 
 		return $CI->db->where("id",$this->category)->get("products_categories")->result();
 	}
+
+	function add_category($category=null, $view=true)
+	{
+
+		if($category != null) $this->category = $category;
+		
+		$CI =& get_instance();
+		if(isset($_POST) && $CI->input->post("type") == "add_category")
+		{
+
+			$fields["title"]       		= $CI->input->post("title",true);
+			$fields["url_title"]        = url_title($fields["title"],"-",true);
+			$fields["meta_description"] = $CI->input->post("meta_description",true);
+			$fields["meta_keywords"] 	= $CI->input->post("meta_keywords",true);
+			$fields["parent"]      		= $CI->input->post("parent",true);
+
+			$CI->db->insert("products_categories",$fields);
+
+			redirect(current_url(),"refresh");
+		}
+		else
+		{
+			if($view)
+			{
+				if($this->category != "")
+				{
+					$category   = $this->category();
+					$category   = $category[0]->title;
+				}
+				else
+				{
+					$category = $this->categories(null,"select");
+				}
+
+				$form = form_open();
+				$form.= "<input type='hidden' name='type' value='add_category'/>";
+				$form.= "<p><label>Title</label><input type='text' name='title'/></p>";
+				$form.= "<p><label>Subcategory of</label>";
+				$form.= $category;
+				$form.= "</p>";
+				$form.= "<p><label>Description</label><textarea name='meta_description'></textarea></p>";
+				$form.= "<p><label>Keywords</label><input type='text' name='meta_keywords' placeholder='Tags libarary'/></p>";
+				$form.= "<p><input type='submit' value='Add category'/></p>";
+				$form.= form_close();
+
+				return $form;
+			}
+		}
+	}
 	
 	
-	public function categories($parent=null)
+	public function categories($parent=null,$view=false)
 	{
 		$CI  =& get_instance();
 		
+		// SUBCATEGORY?
 		if($parent != null)
 		{
+
+			// Deze functie apart wrappen, kan meermaals vanpas komen!
 			if(!is_int($parent))
 			{
 				$result = $CI->db->select("id")->where("url_title",$parent)->get("products_categories")->result();
@@ -223,6 +275,23 @@ class Products {
 		}
 		else
 		{
+
+			if($view == "select")
+			{
+	
+				$result  = $CI->db->get("products_categories")->result();
+				$options = "<select name='parent'><option value='0'>No subcategory</option>";
+	
+				foreach($result as $c):
+					$options.= "<option value='".$c->id."'>".$c->title."</option>";
+				endforeach;
+
+				$options.="</select>";
+	
+				return $options;
+	
+			}
+
 			return $CI->db->get("products_categories")->result();
 		}
 	}
@@ -270,6 +339,11 @@ class Products {
 		else:
 			return "No product found...";
 		endif;
+	}
+
+	public function add_product($view = false)
+	{
+
 	}
 	
 	public function product_locations( $product=null )

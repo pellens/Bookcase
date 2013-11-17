@@ -19,7 +19,8 @@
 		"title" => "Core settings",
 		"nav" => array(
 			"General" => array(
-				"Website settings" => "admin/library/core/settings"
+				"Website settings" => "admin/library/core/settings",
+				"Libraries"        => "admin/library/core/libraries"
 			),
 			"Administrators" => array(
 				"Create admin" => "admin/library/core/add_admin",

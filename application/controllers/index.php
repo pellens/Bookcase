@@ -9,12 +9,28 @@ class Index extends CI_Controller {
 	 
 	public function index()
 	{
-		$config["page"]  = "homepage";
 
+		// Core settings
+        $config["page"] = "homepage";
         $this->core->initialize($config);
 
-        $this->load->library("social");
-		$this->load->view('index');
+        // Marketplace
+        $this->load->library("Products");
+
+        // User settigns
+        $data["login_form"] = $this->users->login_form(true);
+        if(is_logged_in())
+        {
+        	$data["user"] = logged_info();
+        }
+
+        $this->load->library("locality");
+        
+        // Zoekertjes
+        //$this->load->library"zoekertjes");
+        //$data["aantal_zoekertjes"]	= $this->zoekertjes->aantal);
+
+		$this->load->view('index',$data);
 	}
 
 }
