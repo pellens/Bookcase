@@ -170,67 +170,45 @@ class Media {
 		
 		return '<form>
 					<div id="queue"></div>
-					<input id="file_upload_'.$rand.'" name="file_upload" type="file" multiple="true">
+					<input id="file_upload" name="file_upload" type="file" multiple="true">
 					<form class="media uploadify" method="post">
-						<div class="error"></div>
-						<div class="media uploadify edit edit_'.$rand.'"></div>
-					
-				
+						<div class="media uploadify edit"></div>
+						<p><input type="submit" value="Save settings"/></p>
+					</form>
+				</form>
 		
 				<script type="text/javascript">
 					$(function() {
-					
-						$("#file_upload_'.$rand.'").uploadify({
+						$("#file_upload").uploadify({
 							"formData"     : {
 								"timestamp" : "'.time().'",
-								"token"     : "'.md5("unique_salt" . time()).'",
-								"target"    : "'.$target.'"
+								"token"     : "'.md5("unique_salt" . time()).'"
 							},
-							"preventCaching" : true,
-							"buttonText" : "+ &nbsp; Bestanden toevoegen",
 							"swf"      : "'.base_url().'js/core/uploadify.swf",
-							"uploader" : "'.base_url("admin/mediahandler/upload").'",
+							"uploader" : "'.base_url().'js/core/uploadify.php",
 							"onUploadSuccess" : function(file, data, response)
 							{
-								if(data == "forbidden")
+								if(data == "Filetype")
 								{
-									$(".uploadify .error").html("This filetype is not allowed...");
+									$(".ready").html("This type is not accepted...");
 								}
 								else
 								{
+									var fill = $(".edit.uploadify").html();
 									
-									var crop = false;
-									var ext  = data.split(".");
-									var ext  = ext[1];
-									
-									switch(ext)
-									{
-										case "jpg"  :
-										case "jpeg" :
-										case "JPG"  :
-										case "png"  :
-										case "gif"  : crop = true;
-									}
-
-									var row = "<div class=\"uploadrow "+data+"\">";
-										row+= "<input type=\"hidden\" name=\"file[]\" value=\""+data+"\"/>";
-										row+= "<div class=\"image\"><img src=\"'.base_url("images/backend/filetypes").'/"+ext+".png\"/></div>";
-										row+= "<div class=\"content\"><h4>"+data+"</h4></div>";
-										row+= "<div class=\"actions\"><a href=\"#\" class=\"del\" data-file=\""+data+"\" onclick=\"delete_upload_row(\'"+data+"\');\">&times;</a></div>";
-										if(crop) row+= "<div class=\"actions\"><a href=\"'.base_url("admin/mediahandler/crop").'?image="+data+"\" onclick=\"return triggerPopup(\'"+data+"\');\" data-crop=\""+data+"\" class=\"crop\"><img src=\"'.base_url("images/backend/icons/crop.png").'\" class=\"icon\"/></a></div>";
+									var row = "<div class=\"row\">";
+										row+= "<img src=\"'.base_url().'uploads/"+data+"\" height=\"200\"/>";
+										row+= "<p><label for=\"title\">Title</label><input type=\"text\" name=\"title[]\" id=\"title\"/></p>";
+										row+= "<p><label for=\"alt\">Alternative</label><input type=\"text\" name=\"alt[]\" id=\"alt\"/></p>";
+										row+= "<textarea name=\"description[]\"></textarea>";
 										row+= "</div>";
             						
-            						$(".edit.uploadify.edit_'.$rand.'").append(row);
+            						$(".edit.uploadify").html(row + fill);
             					}
         					}
 						});
 					});
-				</script>
-				<script>
-				function triggerPopup(file)
-		    		{
-		    			window.open("'.base_url("admin/mediahandler/crop").'?image="+file, "_blank", "width=600,height=300,scrollbars=no,toolbar=no, status=no,location=no,resizable=yes,screenx=0,screeny=0"); return false;
-		    		}</script>';
+				</script>';
 	}
 	
 	public function albums()
