@@ -2,7 +2,6 @@
 <html>
 	<head>
     	<title>Bookcase</title>
-		<?=$this->social->load_scripts("facebook");?>
     	<?=$this->core->metatags();?>
     	<link href="<?=base_url("css/backend/backend.css");?>" rel="stylesheet" media="screen">
 
