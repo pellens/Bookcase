@@ -1,7 +1,13 @@
 <h1>Products</h1>
-			
-<p>The products library is specific for offering products, with future extensions in mind (like online payment integration).<br/>
-It is more a module than a library, but anyway... It let's you:
+
+<p>The products library is specific for offering products, with future extensions in mind (like online payment integration).</p>
+
+<div class="bookmarks">
+<ul>
+<li><a href="#">Databases</a></li>
+<li><a href="#">Front-end example</a></li>
+</ul>
+</div>
 	<ul> 
 		<li>CRUD products</li>
 		<li>CRUD categories &amp; subcategories</li>
@@ -31,6 +37,10 @@ It is more a module than a library, but anyway... It let's you:
 		<tr>
 			<td><code>products_item_form</code></td>
 			<td>Here you can link a specific form (see the <a href="?page=contactforms">Contactforms library</a>) to a product.</td>
+		</tr>
+		<tr>
+			<td><code>products_item_locations</code></td>
+			<td>Here you can link a specific location (see the <a href="?page=locality">Locality library</a>) to a product.</td>
 		</tr>
 	</table>
 
@@ -130,9 +140,7 @@ It is more a module than a library, but anyway... It let's you:
 	<p>In the category controller we just created, we are loading the view <code>product_category_template</code>.</p>
 	
 	<pre class="prettyprint linenums">&lt;html&gt;
-    &lt;head&gt;
-        &lt;?=$this-&gt;core-&gt;metatags();?&gt;
-    &lt;/head&gt;
+    &lt;head&gt; &lt;?=$this-&gt;core-&gt;metatags();?&gt; &lt;/head&gt;
 	
     &lt;body&gt;
         &lt;ul&gt;
@@ -148,10 +156,7 @@ It is more a module than a library, but anyway... It let's you:
 	<p>In the item controller we just created, we are loading the view <code>product_item_template</code>.</p>
 	
 	<pre class="prettyprint linenums">&lt;html&gt;
-    &lt;head&gt;
-        &lt;?=$this-&gt;core-&gt;metatags();?&gt;
-    &lt;/head&gt;
-	
+    &lt;head&gt; &lt;?=$this-&gt;core-&gt;metatags();?&gt; &lt;/head&gt;
     &lt;body&gt;
 
         &lt;?
@@ -159,12 +164,9 @@ It is more a module than a library, but anyway... It let's you:
             $product = $this-&gt;products-&gt;product();
         ?&gt;
 
-        &lt;h1&gt;&lt;?=$product[0]-&gt;title;?&gt;&lt;/h1&gt;
-        &lt;p&gt;&lt;?=$product[0]-&gt;description;?&gt;&lt;/p&gt;
-        &lt;p&gt;
-            &lt;strong&gt;Price:&lt;/strong&gt;
-            &lt;?=$product[0]-&gt;price;?&gt; $
-        &lt;/p&gt;
+        &lt;h1&gt; &lt;?=$product[0]-&gt;title;?&gt; &lt;/h1&gt;
+        &lt;p&gt;  &lt;?=$product[0]-&gt;description;?&gt; &lt;/p&gt;
+        &lt;p&gt;  &lt;strong&gt;Price:&lt;/strong&gt;&lt;?=$product[0]-&gt;price;?&gt; $ &lt;/p&gt;
 
     &lt;/body&gt;
 &lt;/html&gt;</pre>
@@ -224,11 +226,47 @@ It is more a module than a library, but anyway... It let's you:
 	</table>
 
 
+	<h2>Add category</h2>
+	
+	<pre class="prettyprint linenums"># $config["category"] = 1;
+# $this->products->initialize($config);
+$this->products->add_category( $category , $view );</pre>
+	
+
+	<table class="table table-bordered">
+		<tr>
+			<th>Parameter</th>
+			<th>Values</th>
+			<th>Description</th>
+		</tr>
+		<tr>
+			<td><code>$category</code></td>
+			<td>empty</td>
+			<td>If initialized, returns a form with a specific parent category based on the configuration.</td>
+		</tr>
+		<tr>
+			<td><code>$category</code></td>
+			<td>string</td>
+			<td>Returns a specific category based on its <u>url_title</u>.</td>
+		</tr>
+		<tr>
+			<td><code>$view</code></td>
+			<td>empty</td>
+			<td>Returns a basic form for adding categories.</td>
+		</tr>
+	</table>
+
+
 	<h2>Products within category</h2>
 	
 	<code>$this->products->category_products( $category )</code>
 	
 	<table class="table table-bordered">
+		<tr>
+			<th>Parameter</th>
+			<th>Values</th>
+			<th>Description</th>
+		</tr>
 		<tr>
 			<td><code>$category</code></td>
 			<td>empty</td>
@@ -253,6 +291,11 @@ It is more a module than a library, but anyway... It let's you:
 	<code>$this->products->product( $product )</code>
 	
 	<table class="table table-bordered">
+		<tr>
+			<th>Parameter</th>
+			<th>Values</th>
+			<th>Description</th>
+		</tr>
 		<tr>
 			<td><code>$product</code></td>
 			<td>empty</td>

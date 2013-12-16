@@ -1,0 +1,135 @@
+/*  Gradient color for every background
+/*---------------------------------------------------*/
+
+.gradient-bg(@start,@stop) {
+	background-color: @stop;
+	background-image: -moz-linear-gradient(top, @start, @stop);
+	background-image: -ms-linear-gradient(top, @start, @stop);
+	background-image: -webkit-gradient(linear, 0 0, 0 100%, from(@start), to(@stop));
+	background-image: -webkit-linear-gradient(top, @start, @stop);
+	background-image: -o-linear-gradient(top, @start, @stop);
+	background-image: linear-gradient(top, @start, @stop);
+	background-repeat: repeat-x;
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='@start', endColorstr='@stop', GradientType=0);
+	filter: progid:dximagetransform.microsoft.gradient(enabled=false);
+}
+
+
+/*  Border-radius
+/*  Build up corner by corner
+/*---------------------------------------------------*/
+
+.radius-top-left(@px:3px) {
+	-moz-border-radius-topleft: @px;
+	-webkit-border-top-left-radius: @px;
+	border-top-left-radius: @px;
+}
+
+.radius-top-right(@px:3px) {
+	-moz-border-radius-topright: @px;
+	-webkit-border-top-right-radius: @px;
+	border-top-right-radius: @px;
+}
+
+.radius-bottom-left(@px:3px) {
+	-moz-border-radius-bottomleft: @px;
+	-webkit-border-bottom-left-radius: @px;
+	border-bottom-left-radius: @px;
+}
+
+.radius-bottom-right(@px:3px) {
+	-moz-border-radius-bottomright: @px;
+	-webkit-border-bottom-right-radius: @px;
+	border-bottom-right-radius: @px;
+}
+
+
+/*  Make rounded corners
+/*  Dependency of top/bottom/left/right
+/*---------------------------------------------------*/
+
+.border-radius(@px:3px) {
+	.radius-top-right(@px);
+	.radius-top-left(@px);
+	.radius-bottom-right(@px);
+	.radius-bottom-left(@px);
+}
+
+
+/*  Represent inner line
+/*  Mainly for button effects
+/*---------------------------------------------------*/
+
+.inner-shadow( @color:#000, @px:5px, @offset:1px ) {
+  -webkit-box-shadow: inset 0 @offset @px @color;
+  -moz-box-shadow: inset 0 @offset @px @color;
+  box-shadow: inset 0 @offset @px @color;
+}
+
+.box-shadow( @color:#000 , @px:5px, @offset:1px) {
+	box-shadow:0 @offset @px @color;
+	-moz-box-shadow: 0 @offset @px @color;
+	-webkit-box-shadow: 0 @offset @px @color;
+}
+
+
+/* Opacity & Fading
+/*---------------------------------------------------*/
+
+.opacity(@op:50) {
+	-ms-filter: ~"progid:DXImageTransform.Microsoft.Alpha(opacity=@{op})"; 
+    filter: ~"alpha(opacity = @{op})";
+	-moz-opacity:@op/100;
+	-khtml-opacity: @op/100;
+	opacity: @op/100;
+}
+
+.background-cover() {
+	-webkit-background-size: cover;
+ 	   -moz-background-size: cover;
+ 	     -o-background-size: cover;
+  		    background-size: cover;
+}
+
+
+/* Transition
+/* Rotation
+/* Reflection
+/*---------------------------------------------------*/
+
+.transition(@duration:0.2s, @ease:ease-out) {
+  -webkit-transition: all @duration @ease;
+     -moz-transition: all @duration @ease;
+      -ms-transition: all @duration @ease;
+       -o-transition: all @duration @ease;
+  		  transition: all @duration @ease;
+}
+
+.delay(@time:200ms){
+    -webkit-transition-delay: @time;
+       -moz-transition-delay: @time;
+         -o-transition-delay: @time;
+        -ms-transition-delay: @time;
+            transition-delay: @time;
+}
+
+.rotation(@deg:5deg){
+  -webkit-transform: rotate(@deg);
+  -moz-transform: rotate(@deg);
+  transform: rotate(@deg);
+}
+
+.reflect (@length: 50%, @opacity: 20){
+    -webkit-box-reflect: below 0px -webkit-gradient(linear, left top, left bottom, from(transparent), color-stop(@length, transparent), to(rgba(255,255,255,@opacity/100)));
+}
+
+
+/* Polyfills
+/*---------------------------------------------------*/
+
+.box-sizing() {
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	*behavior: url(/boxsizing.htc);
+}

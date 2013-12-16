@@ -18,11 +18,11 @@
 
 		"title" => "Locality",
 		"nav" => array(
-			"Locations" => array(
+			"General" => array(
 				"Add a location" => "admin/library/locality/add_location",
 				"All locations"  => "admin/library/locality/locations"
 			),
-			"Global" => array(
+			"Administrators" => array(
 				"Countries" => "admin/library/locality/countries",
 				"Settings"  => "admin/library/locality/settings"
 			)

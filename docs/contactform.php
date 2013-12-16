@@ -1,5 +1,8 @@
 <h1>Contactform(s)</h1>
 
+TODO<br/>
+Baisc redirect instellen:
+bv: een inlogformulier autoamtisch laten inloggen naar admin of zelf kunnen instellen.
 			
 <p>The contactform let's you:
     <ul>

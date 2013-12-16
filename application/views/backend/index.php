@@ -1,51 +1,112 @@
+<?php
+    require "less/lessc.inc.php";
+    $less = new lessc;
+    $less->checkedCompile("less/backend.less", "css/backend/backend.css");
+?>
 <!DOCTYPE html>
 <html>
 	<head>
     	<title>Bookcase</title>
     	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css'>
     	<link rel="stylesheet" type="text/css" href="<?=base_url("css/backend")?>/bootstrap.css"/>
+    	<link rel="stylesheet" type="text/css" href="<?=base_url("css/backend")?>/ui.fancytree.css"/>
     	<link rel="stylesheet" type="text/css" href="<?=base_url("css/backend")?>/backend.css"/>
     	<link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+
     	<script type="text/javascript" src="<?=base_url("js/core")?>/jquery.1.10.2.js"></script>
-    	<script type="text/javascript" src="<?=base_url("js/core")?>/bootstrap.js"></script>
+    	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.js"></script>
+    	<!--<script type="text/javascript" src="<?=base_url("js/core")?>/bootstrap.js"></script>-->
+    	<script type="text/javascript" src="<?=base_url("js/backend")?>/custom.js"></script>
+    	<script type="text/javascript" src="<?=base_url("js/backend")?>/jquery.fancytree-all.js"></script>
+    	<script type="text/javascript" src="<?=base_url("js/backend")?>/jquery.fancytree-dnd.js"></script>
+    	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places&sensor=true"></script>
+
+    	<script type="text/javascript">
+    $(function(){
+      $("#tree").fancytree({
+      extensions: ["dnd"],
+      dnd: {
+        preventVoidMoves: true, // Prevent dropping nodes 'before self', etc.
+        preventRecursiveMoves: true, // Prevent dropping nodes on own descendants
+        autoExpandMS: 400,
+        dragStart: function(node, data) {
+          /** This function MUST be defined to enable dragging for the tree.
+           *  Return false to cancel dragging of node.
+           */
+          return true;
+        },
+        dragEnter: function(node, data) {
+          /** data.otherNode may be null for non-fancytree droppables.
+           *  Return false to disallow dropping on node. In this case
+           *  dragOver and dragLeave are not called.
+           *  Return 'over', 'before, or 'after' to force a hitMode.
+           *  Return ['before', 'after'] to restrict available hitModes.
+           *  Any other return value will calc the hitMode from the cursor position.
+           */
+          // Prevent dropping a parent below another parent (only sort
+          // nodes under the same parent)
+/*           if(node.parent !== data.otherNode.parent){
+            return false;
+          }
+          // Don't allow dropping *over* a node (would create a child)
+          return ["before", "after"];
+*/
+           return true;
+        },
+        dragDrop: function(node, data) {
+          /** This function MUST be defined to enable dropping of items on
+           *  the tree.
+           */
+          data.otherNode.moveTo(node, data.hitMode);
+        }
+      },
+      activate: function(e, data) {
+//        alert("activate " + data.node);
+      }
+    });
+    });
+  </script>
+
 	</head>
 	<body>
 
 	<div class="container">
+
+		<div class="header">
+			<h1>Bookcase</h1>
+			<nav>
+			<ul>
+
+				<li <?=($active_link == "website") ? "class='active'" : "";?>><?=anchor("admin","Website");?></li>
+				<li <?=($active_link == "lib") ? "class='active'" : "";?>><?=anchor("admin/modules","Modules");?></li>
+				<li <?=($active_link == "settings") ? "class='active'" : "";?>><a href="#">Instellingen</a></li>
+				
+			</ul>
+			</nav>
+		</div>
+
+		<div class="sidebar">
+			<?
+				switch($this->uri->segment(2))
+				{
+					case "" 		: $this->load->view("backend/sidebar-website"); break;
+					case "settings" : $this->load->view("backend/sidebar-settings"); break;
+					default 		: $this->load->view("backend/sidebar-modules"); break;
+				}
+			?>
+		</div>
+
+		<div class="main">
+			<?=$this->load->view($main);?>
+		</div>
+
+	</div>
+
+	<div class="container">
     		
-    	<div class="menu">
-			
-				<nav>
-					<ul>
-						<li class="active"><i class="icon-dashboard icon-2x"></i></li>
-						<li><?=anchor('admin/library/','<i class="icon-plus icon-2x"></i>');?></li>
-						<li><?=anchor('admin/library/market/items','<i class="icon-shopping-cart icon-2x"></i>');?></li>
-						<li><?=anchor('admin/library/','<i class="icon-envelope-alt icon-2x"></i>');?></li>
-						<li><?=anchor('admin/library/locality/locations','<i class="icon-globe icon-2x"></i>');?></li>
-						<li><?=anchor('admin/library/core/settings','<i class="icon-gear icon-2x"></i>');?></li>
-					</ul>
-				</nav>
-			
-			</div>
 
-			<div class="submenu">
-
-				<h2><?=$nav["title"];?></h2>
-
-				<? foreach($nav["nav"] as $sub => $link):?>
-
-					<h3><?=$sub;?></h3>
-
-					<nav>
-						<ul>
-							<? foreach($link as $name => $url):?>
-								<li><?=anchor($url,$name);?></li>
-							<? endforeach;?>
-						</ul>
-					</nav>
-
-				<? endforeach;?>
-			</div>
 			
 			<div class="main">
 
@@ -53,43 +114,6 @@
 
 				<?=$this->users->users(true);?>
 
-
-				<h3>Page overview</h3>
-				<? print_r($this->core->all_pages(true));?>
-
-				<h3>Libraries</h3>
-
-				<table class="table table-bordered table-striped">
-				<tr>
-					<th>Library</th>
-					<th>Description</th>
-					<th>Version</th>
-				</tr>
-				<? foreach( $this->core->libraries(true) as $library):?>
-
-					<tr>
-						<td class="title"><?=$library["title"];?></td>
-
-						<? if(isset($library["error"])):?>
-						<td class="error" colspan="2"><?=$library["error"];?></td>
-						<? else: ?>
-							<td class="description"><?=$library["description"];?></td>
-							<td class="version"><?=$library["version"];?></td>
-						<? endif;?>
-					</tr>
-
-				<? endforeach;?>
-				</table>
-
-				<h3>Market categories</h3>
-				<?=$this->market->all_categories("list");?>
-
-				<div class="developer">
-					<pre>$this->market->all_categories( $view );
-					$view = false
-					$view = "list"
-					$view = "tree"
-					$view = "select"</pre>
 
 				<h3>Supported languages</h3>
 				<table class="table table-bordered table-striped">

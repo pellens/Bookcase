@@ -1,20 +1,8 @@
 body {
 	font-size: 12px;
-	font-family: 'ABeeZee', sans-serif !important;
+	background: #EEE;
 }
 
-h2 {
-	font-size: 18px !important;
-	margin-bottom: 15px !important;
-	margin-top:30px !important;
-}
-
-h3 {
-	font-size: 15px !important;
-	margin-bottom: 15px !important;
-	margin-top:30px !important;
-	color:#666 !important;
-}
 
 table {
 	font-family: Helvetica !important;
@@ -24,9 +12,9 @@ table {
 /* PRETIFY */
 
 pre {
-	line-height: 20px !important;
+	line-height: 18px !important;
 	padding:0 !important;
-	font-size:12px !important;
+	font-size:11px !important;
 }
 
 pre ol {
@@ -36,6 +24,10 @@ pre ol {
 	text-shadow: 0 1px 1px #FFF;
 }
 
+pre ol li {
+	line-height: 18px !important;
+} 
+
 .com { color: #93a1a1; }
 .lit { color: #195f91; }
 .pun, .opn, .clo { color: #93a1a1; }
@@ -44,3 +36,118 @@ pre ol {
 .kwd, .linenums .tag { color: #1e347b; }
 .typ, .atn, .dec, .var { color: teal; }
 .pln { color: #48484c; }
+
+.title {
+	margin-bottom: 0 !important;
+}
+.title h1 {
+	font-weight: normal;
+	font-size: 20px;
+	line-height: 50px;
+	margin:0;
+	padding:0;
+	color:#555;
+	border-bottom: 1px solid #E0D9D9;
+}
+.title h1 i {
+	font-size: 20px;
+	margin-right: 5px;
+	color: #444;
+}
+.crumbs {
+	margin-top: 0 !important;
+	border-top:1px solid #F4F4F4;
+}
+.crumbs ul {
+	list-style: none;
+	margin:5px 0;
+	padding:0;
+}
+.crumbs ul li {
+	float: left;
+	margin-right: 5px;
+}
+.crumbs ul li:after {
+	content:"\203A";
+}
+.crumbs ul li:last-child:after {
+	content: none;
+}
+.crumbs ul li a {
+	display: inline;
+	line-height: 20px;
+	color:#999;
+	margin-right: 5px;
+}
+.menu {
+	margin-top: 25px;
+}
+.menu h3 {
+	color:#333;
+	font-size: 12px;
+	line-height: 30px;
+	margin:0;
+	padding:0;
+}
+
+.menu ul {
+	margin:0 0 20px 0px;
+	list-style: none;
+	padding:0;
+}
+.menu ul li {
+
+}
+
+.menu ul li a {
+	line-height: 20px;
+	font-size: 12px;
+	color:#3498db;
+}
+
+.main {
+	background: #FFF;
+	box-shadow: 0 0 3px #CCC;
+}
+
+.main .content {
+	padding: 20px 30px;
+}
+
+.main .content .bookmarks {
+	background: #F7F7F7;
+	border-bottom: 1px dotted #CCC;
+	border-top:1px dotted #CCC;
+	margin-left: -30px;
+	margin-right: -30px;
+}
+
+.main .content .bookmarks ul {
+	margin:20px 30px;
+	padding:0;
+	list-style: none;
+}
+
+.main .content .bookmarks ul li {
+	line-height: 25px;
+	font-size: 13px;
+}
+
+.main .content p {
+	font-size: 13px;
+	line-height: 22px;
+}
+.main .content h1 {
+	font-size: 20px;
+	color:#333;
+	padding:0;
+	margin: 0 0 10px 0;
+}
+
+.main .content h2 {
+	/*color:#c0392b;*/
+	color:#4281C5;
+	margin:30px 0 10px 0;
+	padding:0;
+	font-size: 16px;
+}
