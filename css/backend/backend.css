@@ -296,6 +296,12 @@ body {
   padding-left: 15px;
   color: #006699;
 }
+.sidebar .box ul.nav li a i {
+  font-size: 10px;
+  line-height: 30px;
+  float: left;
+  margin-right: 10px;
+}
 .sidebar .box ul.nav li a:hover {
   background-color: #FFF;
 }
@@ -377,12 +383,27 @@ body {
 }
 .main .form-inline p {
   line-height: 30px;
+  margin: 0 0 10px 0;
+  padding: 0;
 }
 .main .form-inline p label {
   float: left;
   line-height: 30px;
   width: 100px;
   padding-left: 10px;
+}
+.main .form-seo span.info {
+  line-height: 15px;
+  margin-bottom: 5px;
+  font-size: 11px;
+  color: #888;
+}
+.main .form-seo textarea {
+  width: 100% !important;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  *behavior: url(/boxsizing.htc);
 }
 .main .tabs {
   margin: 0 -20px;
@@ -408,9 +429,14 @@ body {
 }
 .main .tabs .panes .pane {
   display: none;
+  padding: 0 20px;
 }
 .main .tabs .panes .pane.active {
   display: block;
+}
+.main .tabs .panes table .small {
+  width: 20px;
+  text-align: center;
 }
 .list.locations .item {
   float: left;

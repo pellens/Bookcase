@@ -17,6 +17,9 @@
 		<? foreach($array["nav"]["General"] as $title => $link):?>
 		<li <?=($link==uri_string())?"class='active'":"";?>><?=anchor($link,$title);?></li>
 		<? endforeach;?>
+		<? foreach($array["nav"]["Administrators"] as $title => $link):?>
+		<li <?=($link==uri_string())?"class='active'":"";?>><?=anchor($link,'<i class="icon-star"></i> '.$title);?></li>
+		<? endforeach;?>
 	</ul>
 
 </div>

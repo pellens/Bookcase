@@ -89,6 +89,18 @@ class Locations {
 							"type" => "varchar",
 							"constraint" => "300"
 						),
+				"index" => array(
+							"type" => "varchar",
+							"constraint" => "30"
+						),
+				"follow" => array(
+							"type" => "varchar",
+							"constraint" => "30"
+						),
+				"revisit" => array(
+							"type" => "varchar",
+							"constraint" => "30"
+						),
 				"meta_description" => array(
 							"type" => "text"
 						),
@@ -138,11 +150,16 @@ class Locations {
 			$fields["title"] 		= "Basic";
 			$fields["url_title"] 	= "basic";
 			$CI->db->insert("locations_types",$fields);
+
+			unset($fields);
+			$fields["title"] 		= "Headquarter";
+			$fields["url_title"] 	= "headquarter";
+			$CI->db->insert("locations_types",$fields);
 		}
 
 	}
 
-	public function overview($parent = null)
+	public function locations_overview($parent = null)
 	{
 		$CI =& get_instance();
 
@@ -150,7 +167,7 @@ class Locations {
 		return $CI->db->order_by("title")->get("locations_items")->result();
 	}
 
-	public function types()
+	public function types_overview()
 	{
 		$CI =& get_instance();
 		return $CI->db->order_by("title")->get("locations_types")->result();
@@ -210,6 +227,9 @@ class Locations {
 		$fields["parent"] 			= $CI->input->post("parent",true);
 		$fields["meta_description"]	= $CI->input->post("meta_description",true);
 		$fields["meta_keywords"]	= $CI->input->post("meta_keywords",true);
+		$fields["revisit"]	        = $CI->input->post("revisit",true);
+		$fields["index"]	        = $CI->input->post("index",true);
+		$fields["follow"]	        = $CI->input->post("follow",true);
 
 		return $fields;
 	}

@@ -19,7 +19,7 @@
 		"title" => "Core settings",
 		"nav" => array(
 			"General" => array(
-				"Overview"  		=> "admin/lib/locations/overview",
+				"All locations"		=> "admin/lib/locations/overview",
 				"Add location" 		=> "admin/lib/locations/add"
 			),
 			"Administrators" => array(
@@ -36,23 +36,30 @@
 		"fn" => array(
 
 			"overview" => array(
-				"main"      => "backend/Locations/overview",
+				"view"      => "backend/Locations/overview",
 				"fn" => array(
-					"list" => "overview"
+					"list" => "locations_overview"
 				)
 			),
 
 			"add" => array(
-				"main" 		=> "backend/Locations/add-location",
+				"view" 		=> "backend/Locations/add-location",
 				"submit" 	=> "add_location",
 				"redirect"  => "admin/lib/locations/overview"
 			),
 
 			"edit" => array(
-				"main" 		=> "backend/Locations/add-location",
+				"view" 		=> "backend/Locations/add-location",
 				"submit" 	=> "edit_location",
 				"item"      => "item",
 				"redirect"  => "admin/lib/locations/overview"
+			),
+
+			"types" => array(
+				"view" 		=> "backend/Locations/types_overview",
+				"fn" => array(
+					"list" => "types_overview"
+				)
 			)
 
 		)

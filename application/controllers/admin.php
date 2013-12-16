@@ -41,7 +41,7 @@ class Admin extends CI_Controller {
 		
 		require_once(APPPATH."/libraries/".ucwords($lib)."/config.php");
 		$this->load->library($lib);
-		$data["main"] = $admin["fn"][$fn]["main"];
+		$data["main"] = $admin["fn"][$fn]["view"];
 
 		if($fn)
 		{
@@ -71,42 +71,8 @@ class Admin extends CI_Controller {
 			endif;
 		}
 
-		//switch($lib)
-		//{
-//
-		//	case "locations" :
-//
-		//		$this->load->library("Locations");
-//
-		//			switch($fn)
-		//			{
-		//				case "add" :
-		//					
-		//					if($submitted):
-		//						//$this->locations->add_location($_POST);
-		//					else:
-		//						//$main = "backend/Locations/add-location";
-		//					endif;
-		//					break;
-//
-		//				default :
-		//					$data["locations"] = $this->locations->overview();
-		//					$main = "backend/Locations/overview";
-		//					break;
-		//			}
-//
-		//		break;
-//
-		//}
-//
-		//if($submitted):
-		//	redirect("admin/lib/".$lib,"refresh");
-		//else:
-
 		$data["active_link"] = "lib";
 		$this->load->view("backend/index",$data);
-
-		//endif;
 
 	}
 

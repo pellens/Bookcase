@@ -1,12 +1,9 @@
-
-
-
-	<div class="left">
+<div class="left">
 	
 		<div class="tabs">
 			<ul class="links">
 				<li class="active" data-pane="add">New location</li>
-				<li data-pane="seo">Zoekmachines</li>
+				<li data-pane="seo">Searchengines</li>
 			</ul>
 			<div class="panes">
 				<div class="pane active" data-pane="add">
@@ -41,7 +38,10 @@
 					</div>
 				</div>
 				<div class="pane" data-pane="seo">
-					<?=$this->load->view("backend/snippets/seo_social");?>
+					<?
+						$data["item"] = @$item;
+						$this->load->view("backend/snippets/seo_social",$data);
+					?>
 				</div>
 			</div>
 		</div>
@@ -64,7 +64,7 @@
 			<p>
 				<label for="type">Parent location</label>
 				<select name="parent">
-					<option>No location</option>
+					<option>No parent location</option>
 					<? foreach($this->locations->overview() as $parent):?>
 					<option value="<?=$parent->id;?>" <?=( isset($item->parent) && $item->parent == $parent->id) ? "selected='selected'" : "";?>>
 						<?=$parent->title;?>
@@ -72,7 +72,7 @@
 					<? endforeach;?>
 				</select>
 			</p>
-			<p><input type="submit" class="button green" value="Add location"/></p>
+			<p><input type="submit" class="button green" value="<?=(!isset($item)) ? "Add location" : "Save changes";?>"/></p>
 		</div>
 
 	</div>
