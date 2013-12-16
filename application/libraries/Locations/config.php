@@ -19,13 +19,12 @@
 		"title" => "Core settings",
 		"nav" => array(
 			"General" => array(
-				"All locations"		=> "admin/lib/locations/overview",
-				"Add location" 		=> "admin/lib/locations/add"
+				"All locations"		=> "admin/lib/locations/locations_overview",
+				"Add location" 		=> "admin/lib/locations/add_location"
 			),
 			"Administrators" => array(
 				"Locationtypes" 	=> "admin/lib/locations/types",
-				"Add locationtype"  => "admin/lib/locations/add-type",
-				"Permissions" 		=> "admin/lib/locations/permissions"
+				"Add locationtype"  => "admin/lib/locations/add_type"
 			)
 		)
 
@@ -35,24 +34,37 @@
 
 		"fn" => array(
 
-			"overview" => array(
-				"view"      => "backend/Locations/overview",
+			"locations_overview" => array(
+				"view"      => "backend/Locations/locations_overview",
 				"fn" => array(
 					"list" => "locations_overview"
 				)
 			),
 
-			"add" => array(
-				"view" 		=> "backend/Locations/add-location",
+			"add_location" => array(
+				"view" 		=> "backend/Locations/add_location",
 				"submit" 	=> "add_location",
-				"redirect"  => "admin/lib/locations/overview"
+				"redirect"  => "admin/lib/locations/locations_overview"
 			),
 
-			"edit" => array(
-				"view" 		=> "backend/Locations/add-location",
+			"edit_location" => array(
+				"view" 		=> "backend/Locations/add_location",
 				"submit" 	=> "edit_location",
 				"item"      => "item",
-				"redirect"  => "admin/lib/locations/overview"
+				"redirect"  => "admin/lib/locations/locations_overview"
+			),
+
+			"add_type" => array(
+				"view" 		=> "backend/Locations/add_type",
+				"submit" 	=> "add_type",
+				"redirect" 	=> "admin/lib/locations/types"
+			),
+
+			"edit_type" => array(
+				"view" => "backend/Locations/add_type",
+				"submit" => "edit_type",
+				"item" => "type",
+				"redirect" => "admin/lib/locations/types"
 			),
 
 			"types" => array(

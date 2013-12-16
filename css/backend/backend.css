@@ -392,6 +392,14 @@ body {
   width: 100px;
   padding-left: 10px;
 }
+.main .form-inline p .status .icon-check {
+  color: #CCC;
+  margin-left: 10px;
+}
+.main .form-inline p .status .icon-check-sign {
+  margin-left: 10px;
+  color: #1C9A0B;
+}
 .main .form-seo span.info {
   line-height: 15px;
   margin-bottom: 5px;

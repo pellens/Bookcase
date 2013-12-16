@@ -54,7 +54,7 @@
 			<p>
 				<label for="type">Locationtype</label>
 				<select name="locationtype">
-					<? foreach($this->locations->types() as $type):?>
+					<? foreach($this->locations->types_overview() as $type):?>
 					<option value="<?=$type->id;?>" <?=( isset($item->type) && $item->type == $type->id) ? "selected='selected'" : "";?>>
 						<?=$type->title;?>
 					</option>
@@ -65,7 +65,7 @@
 				<label for="type">Parent location</label>
 				<select name="parent">
 					<option>No parent location</option>
-					<? foreach($this->locations->overview() as $parent):?>
+					<? foreach($this->locations->locations_overview() as $parent):?>
 					<option value="<?=$parent->id;?>" <?=( isset($item->parent) && $item->parent == $parent->id) ? "selected='selected'" : "";?>>
 						<?=$parent->title;?>
 					</option>

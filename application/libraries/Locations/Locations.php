@@ -139,6 +139,28 @@ class Locations {
 				"url_title" => array(
 							"type" => "varchar",
 							"constraint" => "300"
+						),
+				"index" => array(
+							"type" => "varchar",
+							"constraint" => "30"
+						),
+				"follow" => array(
+							"type" => "varchar",
+							"constraint" => "30"
+						),
+				"revisit" => array(
+							"type" => "varchar",
+							"constraint" => "30"
+						),
+				"meta_description" => array(
+							"type" => "text"
+						),
+				"meta_keywords" => array(
+							"type" => "text"
+						),
+				"parent" => array(
+							"type" => "INT",
+							"constraint" => "3"
 						)
 			);
 		
@@ -149,11 +171,13 @@ class Locations {
 			unset($fields);
 			$fields["title"] 		= "Basic";
 			$fields["url_title"] 	= "basic";
+			$fields["parent"] 		= "0";
 			$CI->db->insert("locations_types",$fields);
 
 			unset($fields);
 			$fields["title"] 		= "Headquarter";
 			$fields["url_title"] 	= "headquarter";
+			$fields["parent"] 		= "0";
 			$CI->db->insert("locations_types",$fields);
 		}
 
@@ -175,7 +199,34 @@ class Locations {
 
 	public function add_type()
 	{
+		$CI =& get_instance();
+		$fields["title"] 			= $CI->input->post("title",true);
+		$fields["url_title"] 		= url_title($fields["title"],"-",true);
+		$fields["meta_description"]	= $CI->input->post("meta_description",true);
+		$fields["meta_keywords"]	= $CI->input->post("meta_keywords",true);
+		$fields["revisit"]	        = $CI->input->post("revisit",true);
+		$fields["index"]	        = $CI->input->post("index",true);
+		$fields["follow"]	        = $CI->input->post("follow",true);
 
+		$CI->db->insert("locations_types",$fields);
+		return true;
+	}
+
+	public function edit_type()
+	{
+		$CI =& get_instance();
+
+		$fields["title"] 			= $CI->input->post("title",true);
+		$fields["url_title"] 		= url_title($fields["title"],"-",true);
+		$fields["meta_description"]	= $CI->input->post("meta_description",true);
+		$fields["meta_keywords"]	= $CI->input->post("meta_keywords",true);
+		$fields["revisit"]	        = $CI->input->post("revisit",true);
+		$fields["index"]	        = $CI->input->post("index",true);
+		$fields["follow"]	        = $CI->input->post("follow",true);
+
+		$CI->db->where("id",$CI->input->post("id",true))->update("locations_types",$fields);
+
+		return true;
 	}
 
 	public function add_location()
@@ -201,6 +252,13 @@ class Locations {
 	{
 		$CI =& get_instance();
 		$result = $CI->db->where("id",$id)->get("locations_items")->result();
+		return $result[0];
+	}
+
+	public function type($id)
+	{
+		$CI =& get_instance();
+		$result = $CI->db->where("id",$id)->get("locations_types")->result();
 		return $result[0];
 	}
 
