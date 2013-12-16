@@ -17,8 +17,8 @@
 						<td class="small"><input type="checkbox"/></td>
 						<td><?=$type->title;?></td>
 						<td>
+							<?=anchor("admin/lib/locations/edit_type/".$type->id,"Edit");?>
 							<? if($type->id != 1 && $type->id != 2):?>
-								<?=anchor("admin/lib/locations/edit_type/".$type->id,"Edit");?>
 								<?=anchor("admin/lib/locations/del_type/".$type->id,"Delete","class='del'  data-alert='Are you sure you want to delete this locationtype?'");?>
 							<? endif;?>
 						</td>

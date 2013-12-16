@@ -3,7 +3,9 @@
 		<div class="tabs">
 			<ul class="links">
 				<li class="active" data-pane="add">New location</li>
-				<li data-pane="seo">Searchengines</li>
+				<li data-pane="seo">Searchengine</li>
+				<li data-pane="photos">Photos</li>
+				<li data-pane="videos">Videos</li>
 			</ul>
 			<div class="panes">
 				<div class="pane active" data-pane="add">

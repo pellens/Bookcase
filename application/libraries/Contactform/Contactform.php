@@ -167,7 +167,7 @@ class Contactform {
 		
 			$form = "";
 			
-			if(@$_GET["s"]==1) $form.= "<p class='success'>Your message has been sent!</p>";
+			if(@$_GET["s"]==1) $form.= "<p class='success'>Your message has been send!</p>";
 
 			// Contactform inladen
 			$form.= $this->full_tag_open;

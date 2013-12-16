@@ -43,13 +43,13 @@
 			</select>
 		</p>
 
-		<? if(isset($item)):?>
+		<? if(isset($item) && $item->id !=2 && $item->id != 1):?>
 			<p class="buttons-half">
 			<a data-alert="Are you sure you want to delete this locationtype?" href="<?=base_url("admin/lib/locations/del_type/".$item->id);?>" class="action del"><i class="icon-trash"></i></a>
 			<input type="submit" class="button green" value="Save changes"/>
 			</p>
 		<? else: ?>
-			<p><input type="submit" class="button green" value="Add locationtype"/></p>
+			<p><input type="submit" class="button green" value="<?=(isset($item))? "Save locationtype" : "Add locationtype";?>"/></p>
 		<? endif;?>
 	</div>
 
