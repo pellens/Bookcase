@@ -233,6 +233,8 @@ class Locations {
 	{
 		$CI =& get_instance();
 
+		$fields["parent"] = "0";
+		$CI->db->where("parent",$id)->update("locations_items",$fields);
 		$CI->db->where("id",$id)->delete("locations_items");
 		return true;
 	}
@@ -241,6 +243,8 @@ class Locations {
 	{
 		$CI =& get_instance();
 
+		$fields["type"] = "1";
+		$CI->db->where("type",$id)->update("locations_items",$fields);
 		$CI->db->where("id",$id)->delete("locations_types");
 		return true;
 	}
