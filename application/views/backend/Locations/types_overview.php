@@ -18,7 +18,7 @@
 						<td><?=$type->title;?></td>
 						<td>
 							<?=anchor("admin/lib/locations/edit_type/".$type->id,"Edit");?>
-							<?=anchor("admin/lib/locations/del_type/".$type->id,"Delete");?>
+							<?=anchor("admin/lib/locations/del_type/".$type->id,"Delete","class='del'  data-alert='Are you sure you want to delete this locationtype?'");?>
 						</td>
 					</tr>
 					<? endforeach;?>

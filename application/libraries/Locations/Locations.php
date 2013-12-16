@@ -229,6 +229,22 @@ class Locations {
 		return true;
 	}
 
+	public function del_location($id)
+	{
+		$CI =& get_instance();
+
+		$CI->db->where("id",$id)->delete("locations_items");
+		return true;
+	}
+
+	public function del_type($id)
+	{
+		$CI =& get_instance();
+
+		$CI->db->where("id",$id)->delete("locations_types");
+		return true;
+	}
+
 	public function add_location()
 	{
 		$CI =& get_instance();

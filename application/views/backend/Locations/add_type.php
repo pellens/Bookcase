@@ -34,6 +34,7 @@
 		<p>
 			<label for="type">Parent locationtype</label>
 			<select name="locationtype">
+				<option value="0">No parent locationtype</option>
 				<? foreach($this->locations->types_overview() as $type):?>
 				<option value="<?=$type->id;?>" <?=( isset($item->type) && $item->type == $type->id) ? "selected='selected'" : "";?>>
 					<?=$type->title;?>
@@ -41,7 +42,15 @@
 				<? endforeach;?>
 			</select>
 		</p>
-		<p><input type="submit" class="button green" value="<?=(!isset($item)) ? "Add locationtype" : "Save changes";?>"/></p>
+
+		<? if(isset($item)):?>
+			<p class="buttons-half">
+			<a data-alert="Are you sure you want to delete this locationtype?" href="<?=base_url("admin/lib/locations/del_type/".$item->id);?>" class="action del"><i class="icon-trash"></i></a>
+			<input type="submit" class="button green" value="Save changes"/>
+			</p>
+		<? else: ?>
+			<p><input type="submit" class="button green" value="Add locationtype"/></p>
+		<? endif;?>
 	</div>
 
 </div>

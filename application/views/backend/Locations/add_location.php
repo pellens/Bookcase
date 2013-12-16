@@ -9,7 +9,14 @@
 				<div class="pane active" data-pane="add">
 					<div class="form-inline">
 
-						<p><label for="adres">Adres</label><input type="text" name="adres" id="adres" value="<?=@$item->adres;?>"/><span class="status"><i class="icon-check"></i></span></p>
+						<p><label for="adres">Adres</label><input type="text" name="adres" id="adres" value="<?=@$item->adres;?>"/>
+						<span class="status">
+							<? if(isset($item->adres)):?>
+							<i class="icon-check-sign"></i>
+							<? else: ?>
+							<i class="icon-check"></i>
+							<? endif;?>
+						</span></p>
 						
 						<?=form_open();?>
 						
@@ -72,7 +79,14 @@
 					<? endforeach;?>
 				</select>
 			</p>
-			<p><input type="submit" class="button green" value="<?=(!isset($item)) ? "Add location" : "Save changes";?>"/></p>
+			<? if(isset($item)):?>
+			<p class="buttons-half">
+				<a data-alert="Are you sure you want to delete this location?" href="<?=base_url("admin/lib/locations/del_location/".$item->id);?>" class="action del"><i class="icon-trash"></i></a>
+				<input type="submit" class="button green" value="Save changes"/>
+				</p>
+			<? else: ?>
+				<p><input type="submit" class="button green" value="Add location"/></p>
+			<? endif;?>
 		</div>
 
 	</div>

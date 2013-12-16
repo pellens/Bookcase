@@ -23,7 +23,7 @@
 				"Add location" 		=> "admin/lib/locations/add_location"
 			),
 			"Administrators" => array(
-				"Locationtypes" 	=> "admin/lib/locations/types",
+				"Locationtypes" 	=> "admin/lib/locations/types_overview",
 				"Add locationtype"  => "admin/lib/locations/add_type"
 			)
 		)
@@ -54,20 +54,36 @@
 				"redirect"  => "admin/lib/locations/locations_overview"
 			),
 
+			"del_location" => array(
+				"view" => "",
+				"redirect" => "admin/lib/locations/locations_overview",
+				"fn" => array(
+					"delete" => "del_location"
+				)
+			),
+
 			"add_type" => array(
 				"view" 		=> "backend/Locations/add_type",
 				"submit" 	=> "add_type",
-				"redirect" 	=> "admin/lib/locations/types"
+				"redirect" 	=> "admin/lib/locations/types_overview"
 			),
 
 			"edit_type" => array(
 				"view" => "backend/Locations/add_type",
 				"submit" => "edit_type",
 				"item" => "type",
-				"redirect" => "admin/lib/locations/types"
+				"redirect" => "admin/lib/locations/types_overview"
 			),
 
-			"types" => array(
+			"del_type" => array(
+				"view" => "",
+				"redirect" => "admin/lib/locations/types_overview",
+				"fn" => array(
+					"delete" => "del_type"
+				)
+			),
+
+			"types_overview" => array(
 				"view" 		=> "backend/Locations/types_overview",
 				"fn" => array(
 					"list" => "types_overview"

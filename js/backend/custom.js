@@ -16,6 +16,26 @@ $(document).ready(function(){
 
 	});
 
+	// DELETE
+
+	$(".del").bind("click submit",function(){
+
+		var r = confirm($(this).attr("data-alert"));
+		if (r == true)
+		{
+  			return true;
+  		}
+		else
+  		{
+  			return false;
+  		}
+
+	});
+
+
+
+
+
 
 
 	$(".google_search_results_preview .description").html($("#meta_description").val());
