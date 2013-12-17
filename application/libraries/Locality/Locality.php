@@ -157,7 +157,6 @@ class Locality {
 		return $CI->db->order_by("title","ASC")->get("locations");
 	}
 	
-	
 	function location($location = null)
 	{
 		$CI =& get_instance();

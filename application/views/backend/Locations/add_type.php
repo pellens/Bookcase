@@ -18,11 +18,11 @@
 				</div>
 			</div>
 			<div class="pane" data-pane="seo">
-					<?
-						$data["item"] = @$item;
-						$this->load->view("backend/snippets/seo_social",$data);
-					?>
-				</div>
+				<?
+					$data["item"] = @$item;
+					$this->load->view("backend/snippets/seo_social",$data);
+				?>
+			</div>
 		</div>
 	</div>
 

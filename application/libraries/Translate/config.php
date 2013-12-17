@@ -19,13 +19,27 @@
 		"title" => "Translate",
 		"nav" => array(
 			"General" => array(
-				"Overiew" => "admin/lib/translate/"
+				"Translation overiew" => "admin/lib/translate/translation_overview"
 			),
 			"Administrators" => array(
 				"Active languages" 	=> "admin/lib/translate/languages",
-				"Add language" 		=> "admin/lib/translate/add-language",
+				"Add language" 		=> "admin/lib/translate/add_language",
 				"Settings"  		=> "admin/lib/translate/settings",
 				"Permissions" 		=> "admin/lib/translate/permissions"
+			)
+		)
+
+	);
+
+	$admin = array(
+
+		"fn" => array(
+
+			"translation_overview" => array(
+				"view" => "backend/Translate/translation_overview",
+				"fn" => array(
+					"list" => "translation"
+				)
 			)
 		)
 

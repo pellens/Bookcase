@@ -81,8 +81,8 @@
 			<nav>
 			<ul>
 
-				<li <?=($active_link == "website") ? "class='active'" : "";?>><?=anchor("admin","Website");?></li>
-				<li <?=($active_link == "lib") ? "class='active'" : "";?>><?=anchor("admin/modules","Modules");?></li>
+				<li <?=($active_link == "website")  ? "class='active'" : "";?>><?=anchor("admin","Website");?></li>
+				<li <?=($active_link == "lib")      ? "class='active'" : "";?>><?=anchor("admin/modules","Modules");?></li>
 				<li <?=($active_link == "settings") ? "class='active'" : "";?>><a href="#">Instellingen</a></li>
 				
 			</ul>
@@ -91,7 +91,7 @@
 
 		<div class="sidebar">
 			<?
-				switch($this->uri->segment(2))
+				switch($this->uri->segment(3))
 				{
 					case "" 		: $this->load->view("backend/sidebar-website"); break;
 					case "settings" : $this->load->view("backend/sidebar-settings"); break;

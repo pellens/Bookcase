@@ -65,7 +65,6 @@
 			$CI =& get_instance();
 			if(supported_lang())
 			{
-
 			
 				$CI->db->where("key",$key)->where("lang",lang());
 				

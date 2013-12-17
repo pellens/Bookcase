@@ -3,7 +3,6 @@
 
 class Translate {
 
-
 	public function __construct($params = array())
 	{
 	
@@ -81,6 +80,14 @@ class Translate {
 			);
 			$CI->db->insert("translation_supported_languages",$primary);
 		}
+
+		if( $CI->uri->segment(1) == "" || strlen($CI->uri->segment(1)) != 2)
+		{
+			$primary = $CI->db->select("code")->where("primary",1)->get("translation_supported_languages")->result();
+
+			$url = $primary[0]->code."/".uri_string()."?".$_SERVER["QUERY_STRING"];
+			redirect($url);
+		}
 	}
 
 	public function all_supported_languages($active = false)
@@ -89,5 +96,23 @@ class Translate {
 		if($active) $CI->db->where("active",1);
 		return $CI->db->get("translation_supported_languages")->result();
 	}
+
+	public function translation($lang = false)
+	{
+		$CI =& get_instance();
+
+		return $CI->db->order_by("key")->get("translation")->result();
+	}
+
+	public function progress_translation($lang)
+	{
+		$CI =& get_instance();
+		$bar = 0;
+		$total  	= $CI->db->where("lang",$lang)->count_all_results("translation");
+		$progress 	= $CI->db->where("lang",$lang)->where("string","")->count_all_results("translation");
+		$bar 		= 100 - (($progress)/$total) * 100;
+		return $bar."%";
+	}
+
 
 }

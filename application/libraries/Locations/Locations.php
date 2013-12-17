@@ -20,7 +20,7 @@ class Locations {
 	
 		$CI =& get_instance();
 		
-		$CI->core->type = "location";
+		$CI->core->type = "locations";
 		
 		if (!$CI->db->table_exists('locations_items'))
 		{
@@ -200,6 +200,7 @@ class Locations {
 	public function add_type()
 	{
 		$CI =& get_instance();
+
 		$fields["title"] 			= $CI->input->post("title",true);
 		$fields["url_title"] 		= url_title($fields["title"],"-",true);
 		$fields["meta_description"]	= $CI->input->post("meta_description",true);
@@ -263,7 +264,6 @@ class Locations {
 		$CI =& get_instance();
 
 		$fields = $this->prep_data();
-		
 		$CI->db->where("id",$CI->input->post("id",true))->update("locations_items",$fields);
 		return true;
 	}
@@ -271,6 +271,7 @@ class Locations {
 	public function item($id)
 	{
 		$CI =& get_instance();
+
 		$result = $CI->db->where("id",$id)->get("locations_items")->result();
 		return $result[0];
 	}
@@ -278,6 +279,7 @@ class Locations {
 	public function type($id)
 	{
 		$CI =& get_instance();
+
 		$result = $CI->db->where("id",$id)->get("locations_types")->result();
 		return $result[0];
 	}
