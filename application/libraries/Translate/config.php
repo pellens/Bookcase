@@ -22,7 +22,7 @@
 				"Translation overiew" => "admin/lib/translate/translation_overview"
 			),
 			"Administrators" => array(
-				"Active languages" 	=> "admin/lib/translate/languages",
+				"Supported languages" 	=> "admin/lib/translate/languages",
 				"Add language" 		=> "admin/lib/translate/add_language",
 				"Settings"  		=> "admin/lib/translate/settings",
 				"Permissions" 		=> "admin/lib/translate/permissions"
@@ -40,6 +40,20 @@
 				"fn" => array(
 					"list" => "translation"
 				)
+			),
+
+			"languages" => array(
+				"view" => "backend/Translate/languages",
+				"fn" => array(
+					"list" => "all_supported_languages"
+				)
+			),
+
+			"edit_translation" => array(
+				"view" => "backend/Translate/edit_translation",
+				"submit" => "edit_translation",
+				"item"  => "key",
+				"redirect" => "admin/lib/translate/translation_overview"
 			)
 		)
 

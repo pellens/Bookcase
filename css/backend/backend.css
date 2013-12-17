@@ -51,6 +51,50 @@
   color: #FFF;
   text-shadow: 0 1px 1px #225301;
 }
+.progress {
+  width: 100%;
+  float: right;
+  height: 6px;
+  -moz-border-radius-topright: 3px;
+  -webkit-border-top-right-radius: 3px;
+  border-top-right-radius: 3px;
+  -moz-border-radius-topleft: 3px;
+  -webkit-border-top-left-radius: 3px;
+  border-top-left-radius: 3px;
+  -moz-border-radius-bottomright: 3px;
+  -webkit-border-bottom-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+  -moz-border-radius-bottomleft: 3px;
+  -webkit-border-bottom-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+  background-color: rgba(0,0,0,0.1);
+}
+.progress .bar {
+  height: 6px;
+  background-color: #0854c5;
+  background-image: -moz-linear-gradient(top,#0073cc,#0854c5);
+  background-image: -ms-linear-gradient(top,#0073cc,#0854c5);
+  background-image: -webkit-gradient(linear,0 0,0 100%,from(#0073cc),to(#0854c5));
+  background-image: -webkit-linear-gradient(top,#0073cc,#0854c5);
+  background-image: -o-linear-gradient(top,#0073cc,#0854c5);
+  background-image: linear-gradient(top,#0073cc,#0854c5);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='@start',endColorstr='@stop',GradientType=0);
+  filter: progid:dximagetransform.microsoft.gradient(enabled=false);
+  -moz-border-radius-topright: 3px;
+  -webkit-border-top-right-radius: 3px;
+  border-top-right-radius: 3px;
+  -moz-border-radius-topleft: 3px;
+  -webkit-border-top-left-radius: 3px;
+  border-top-left-radius: 3px;
+  -moz-border-radius-bottomright: 3px;
+  -webkit-border-bottom-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+  -moz-border-radius-bottomleft: 3px;
+  -webkit-border-bottom-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+  float: left;
+}
 .newsfeed.tiles .news-item {
   margin-bottom: 20px;
   float: left;
@@ -422,6 +466,31 @@ body {
   font-size: 14px;
   font-weight: bold;
 }
+.main .right .box ul.lang-stats {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.main .right .box ul.lang-stats li {
+  line-height: 30px;
+  float: left;
+  width: 100%;
+}
+.main .right .box ul.lang-stats label {
+  width: 15%;
+  line-height: 30px;
+  float: left;
+  font-weight: bold;
+}
+.main .right .box ul.lang-stats .progress {
+  width: 80%;
+  float: right;
+  margin-top: 12px;
+}
+.main .form-inline h2 {
+  font-size: 14px;
+  margin-bottom: 20px;
+}
 .main .form-inline p {
   line-height: 30px;
   margin: 0 0 10px 0;
@@ -486,6 +555,9 @@ body {
 .main .tabs .panes table .small {
   width: 20px;
   text-align: center;
+}
+.main .tabs .panes table .progress {
+  margin-top: 7px;
 }
 .list.locations .item {
   float: left;

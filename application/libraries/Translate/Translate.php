@@ -101,7 +101,30 @@ class Translate {
 	{
 		$CI =& get_instance();
 
-		return $CI->db->order_by("key")->get("translation")->result();
+		return $CI->db->group_by("key")->order_by("key")->get("translation")->result();
+	}
+
+	public function key($key)
+	{
+		$CI =& get_instance();
+
+		return $CI->db->where("key",$key)->get("translation")->result();
+	}
+
+	public function edit_translation()
+	{
+		$CI =& get_instance();
+
+		$nr = count($_POST)-1;
+
+		for($i=0;$i<=$nr;$i++):
+
+			$fields["string"] = $_POST["string"][$i];
+			$CI->db->where("id",$_POST["id"][$i])->update("translation",$fields);
+			unset($fields);
+
+		endfor;
+		return true;
 	}
 
 	public function progress_translation($lang)
@@ -110,7 +133,15 @@ class Translate {
 		$bar = 0;
 		$total  	= $CI->db->where("lang",$lang)->count_all_results("translation");
 		$progress 	= $CI->db->where("lang",$lang)->where("string","")->count_all_results("translation");
-		$bar 		= 100 - (($progress)/$total) * 100;
+
+		if($total!=0)
+		{
+			$bar 		= 100 - (($progress)/$total) * 100;
+		}
+		else
+		{
+			$bar = 100;
+		}
 		return $bar."%";
 	}
 
