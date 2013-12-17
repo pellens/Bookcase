@@ -401,7 +401,6 @@ body {
   filter: progid:dximagetransform.microsoft.gradient(enabled=false);
   border: 1px solid #741B12;
   text-shadow: 0 1px 1px #741B12;
-  border-right: none;
   box-sizing: border-box;
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
