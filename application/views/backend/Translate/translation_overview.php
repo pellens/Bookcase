@@ -34,7 +34,7 @@
 <div class="right">
 	<div class="box">
 		<ul class="lang-stats">
-			<? foreach($this->translate->all_supported_languages() as $lang):?>
+			<? foreach($this->translate->all_supported_languages(true) as $lang):?>
 			<li>
 				<label><?=strtoupper($lang->code);?></label>
 				<span class="progress">

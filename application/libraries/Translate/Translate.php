@@ -72,13 +72,24 @@ class Translate {
 			$CI->dbforge->create_table('translation_supported_languages',TRUE);	
 			unset($fields);
 
+			require_once("languages.php");
+
+			foreach($fields as $lang)
+			{
+				$in["lang"] = $lang[1];
+				$in["code"] = $lang[0];
+
+				$CI->db->insert("translation_supported_languages",$in);
+				unset($in);
+
+			}
+
 			$primary = array(
-				"lang" => "English",
-				"code" => "en",
 				"primary" => 1,
 				"active"  => 1
 			);
-			$CI->db->insert("translation_supported_languages",$primary);
+
+			$CI->db->where("code","en")->update("translation_supported_languages",$primary);
 		}
 
 		if( $CI->uri->segment(1) == "" || strlen($CI->uri->segment(1)) != 2)
@@ -125,6 +136,82 @@ class Translate {
 
 		endfor;
 		return true;
+	}
+
+	public function deactivate_language($code)
+	{
+		$CI =& get_instance();
+
+		//-----------------------------------------------------------------------------
+		// If this was the primary language
+		// We will set the English language as primary and active
+		//-----------------------------------------------------------------------------
+		
+		$result = $CI->db->where("code",$code)->get("translation_supported_languages")->result();
+		if($result[0]->primary == 1)
+		{
+			$fields["primary"] = 1;
+			$fields["active"]  = 1;
+			$CI->db->where("code","en")->update("translation_supported_languages",$fields);
+			unset($fields);
+		}
+
+		//-----------------------------------------------------------------------------
+		// Deactivate the language
+		//-----------------------------------------------------------------------------
+
+		$update["active"]  = 0;
+		$update["primary"] = 0;
+		$CI->db->where("code",$code)->update("translation_supported_languages",$update);
+		unset($update);
+		return true;
+
+	}
+
+	public function activate_language()
+	{
+		$CI =& get_instance();
+
+		$code = $CI->input->post("language",true);
+
+		$fields["active"]  = "1";
+		$fields["primary"] = $CI->input->post("primary",true);
+
+		if($fields["primary"] == 1)
+		{
+			$edit["primary"] = 0;
+			$CI->db->where("primary","1")->update("translation_supported_languages",$edit);
+		}
+		$CI->db->where("code",$code)->update("translation_supported_languages",$fields);
+		return true;
+	}
+
+	public function make_primary($code)
+	{
+		$CI =& get_instance();
+
+		//-----------------------------------------------------------------------------
+		// Un-primary the current primary language
+		//-----------------------------------------------------------------------------
+
+		$fields["primary"] = 0;
+		$CI->db->where("primary",1)->update("translation_supported_languages",$fields);
+		unset($fields);
+
+		//-----------------------------------------------------------------------------
+		// Make new primary language
+		//-----------------------------------------------------------------------------
+
+		$fields["primary"] = 1;
+		$CI->db->where("code",$code)->update("translation_supported_languages",$fields);
+		unset($fields);
+
+		return true;
+	}
+
+	public function add_language()
+	{
+
 	}
 
 	public function progress_translation($lang)

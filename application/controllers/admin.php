@@ -56,8 +56,7 @@ class Admin extends CI_Controller {
 				{
 					foreach($admin["fn"][$fn]["fn"] as $key => $function)
 					{
-
-						if($key == "delete")
+						if($key == "delete" || $key == "update")
 						{
 							$this->$lib->$function($id);
 							redirect($admin["fn"][$fn]["redirect"],"refresh");

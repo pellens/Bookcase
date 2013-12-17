@@ -1,4 +1,4 @@
-<div class="left">
+<div class="full">
 
 	<div class="tabs">
 		<ul class="links">
@@ -12,18 +12,22 @@
 						<th>Language</th>
 						<th>Base url</th>
 						<th>Progress</th>
-						<th>Active</th>
+						<th></th>
 					</tr>
-					<? foreach($list as $lang):?>
+					<? foreach($this->translate->all_supported_languages(true) as $lang):?>
 					<tr>
-						<td><?=$lang->lang;?></td>
+						<td>
+							<?=($lang->primary == 1) ? "<span class='label label-info'>Primary</span>" : "";?> <?=$lang->lang;?></td>
 						<td><?=base_url($lang->code);?></td>
 						<td width="200">
 							<div class="progress">
 								<div class="bar" style="width:<?=$this->translate->progress_translation($lang->code);?>"></div>
 							</div>
 						</td>
-						<td><?=($lang->active == 1) ? "yes" : "no";?></td>
+						<td>
+							<?=anchor("admin/lib/translate/make_primary/".$lang->code,"Make primary");?>
+							<?=anchor("admin/lib/translate/deactivate_language/".$lang->code,"Deactivate");?>
+						</td>
 					</tr>
 				<? endforeach;?>
 				</table>
