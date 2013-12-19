@@ -548,6 +548,7 @@ body {
 .main .tabs .panes .pane {
   display: none;
   padding: 0 20px;
+  min-height: 400px !important;
 }
 .main .tabs .panes .pane.active {
   display: block;

@@ -15,7 +15,7 @@
 		</div>
 
 		<div class="actions">
-			<a href="#" class="button blue">Pagina toevoegen</a>
+			<a href="<?=base_url("admin/page/add");?>" class="button blue">Pagina toevoegen</a>
 		</div>
 
 	</div>

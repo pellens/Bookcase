@@ -24,6 +24,14 @@ class Admin extends CI_Controller {
 		$this->load->view('backend/index',$data);
 	}
 
+	public function settings($param = false)
+	{
+		$data["active_link"] = "settings";
+		$data["main"] = "backend/Core/settings";
+
+		$this->load->view("backend/index",$data);
+	}
+
 	public function modules()
 	{
 
@@ -32,6 +40,21 @@ class Admin extends CI_Controller {
 		$data["modules"] = $this->core->libraries(true);
 
 		$this->load->view("backend/index",$data);
+	}
+
+	public function page($fn,$id=false)
+	{
+		if(count($_POST)>0)
+		{
+			print_r($_POST);
+		}
+		else
+		{
+			$data["active_link"] = "website";
+			$data["main"] = "backend/Core/add_page";
+	
+			$this->load->view("backend/index",$data);
+		}
 	}
 
 	public function lib($lib,$fn=false,$id=false)

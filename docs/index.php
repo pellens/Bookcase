@@ -44,6 +44,7 @@
 				<h3>Getting started</h3>
 				<ul>
 					<li><a href="?page=installation">How to install</a></li>
+					<li><a href="?page=workflow">How it works</a></li>
 				</ul>
 
 				<h3>Libraries</h3>

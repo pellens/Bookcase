@@ -77,13 +77,13 @@
 	<div class="container">
 
 		<div class="header">
-			<h1>Bookcase</h1>
+			<h1><?=$this->core->website_title;?></h1>
 			<nav>
 			<ul>
 
 				<li <?=($active_link == "website")  ? "class='active'" : "";?>><?=anchor("admin","Website");?></li>
 				<li <?=($active_link == "lib")      ? "class='active'" : "";?>><?=anchor("admin/modules","Modules");?></li>
-				<li <?=($active_link == "settings") ? "class='active'" : "";?>><a href="#">Instellingen</a></li>
+				<li <?=($active_link == "settings") ? "class='active'" : "";?>><?=anchor("admin/settings/website_settings","Settings");?></li>
 				
 			</ul>
 			</nav>
@@ -93,7 +93,8 @@
 			<?
 				switch($this->uri->segment(3))
 				{
-					case "" 		: $this->load->view("backend/sidebar-website"); break;
+					case "" 		:
+					case "page"		: $this->load->view("backend/sidebar-website"); break;
 					case "settings" : $this->load->view("backend/sidebar-settings"); break;
 					default 		: $this->load->view("backend/sidebar-modules"); break;
 				}

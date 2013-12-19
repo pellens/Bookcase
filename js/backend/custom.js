@@ -6,6 +6,8 @@ $(document).ready(function(){
 
 	$(".tabs .links li").bind("click",function(){
 
+		equalHeights();
+
 		$(".tabs .links li").removeClass("active");
 		$(this).addClass("active");
 
@@ -66,13 +68,29 @@ $(window).resize(function(){
 function equalHeights()
 {
 	var sidebar_height = $(".sidebar").height();
-	var main_height    = $(".main").height();
-	
-	console.log(sidebar_height);
+	var main_height    = $(".main .tabs").height();
+	var left_height    = $(".main .left").height();
+	var right_height   = $(".main .right").height();
+
+	console.log(main_height);
+		console.log(left_height+" "+right_height);
 	if(sidebar_height > main_height)
 	{
 		$(".main .left").css("height",sidebar_height+"px");
 		$(".main .right").css("height",sidebar_height+"px");
 		$(".main .full").css("height",sidebar_height+"px");
+	}
+	else if(main_height > sidebar_height)
+	{
+		
+		if(left_height > right_height)
+		{
+			$(".main .right").css("height",left_height+"px");
+		}
+		else
+		{
+			console.log("change left");
+			$(".main .left").css("height",right_height+"px");
+		}
 	}
 }
