@@ -47,6 +47,13 @@
 				"fn" => array(
 					"list" => "_contactform_contacts"
 				)
+			),
+
+			"forms_overview" => array(
+				"view" => "backend/Contactform/forms_overview",
+				"fn" => array(
+					"list" => "all_forms"
+				)
 			)
 
 			/*"edit_location" => array(

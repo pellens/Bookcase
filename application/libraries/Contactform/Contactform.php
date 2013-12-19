@@ -41,6 +41,15 @@ class Contactform {
 			$CI->dbforge->add_key('id', TRUE);
 			$CI->dbforge->create_table('contactform_contacts');
 		}
+
+		if(!$CI->db->table_exists('contactform_receivers'))
+		{
+			// Basis contacten systeem (adresboek)
+			$CI->load->dbforge();
+			$CI->dbforge->add_field($this->_contactform_receivers());
+			$CI->dbforge->add_key('id', TRUE);
+			$CI->dbforge->create_table('contactform_receivers');
+		}
 		
 		if(!$CI->db->table_exists('contactform_forms'))
 		{
@@ -254,6 +263,22 @@ class Contactform {
 		
 		return $fields;
 	}
+
+	function _contactform_receivers()
+	{
+		$fields = array(
+			"id" => array(
+						"type"           => "INT",
+						"auto_increment" => TRUE
+					),
+			"email" => array(
+						"type" => "varchar",
+						"constraint" => "300"
+					)
+		);
+
+		return $fields;
+	}
 	
 	function _contactform_contacts()
 	{
@@ -304,6 +329,10 @@ class Contactform {
 							"default"        => 0
 						),
 				"save_contact" => array(
+							"type"           => "INT",
+							"default"        => 0
+						),
+				"send_mail" => array(
 							"type"           => "INT",
 							"default"        => 0
 						)
@@ -412,13 +441,13 @@ class Contactform {
 
 		$CI =& get_instance();
 		$CI->load->helper("url");
-		$list = $CI->db->order_by("name","ASC")->get("contactform_forms");
+		$list = $CI->db->order_by("name","ASC")->get("contactform_forms")->result();
 
 		if($view == true):
 		
 			$overview = "<ul>";
 			
-			foreach($list->result() as $item):
+			foreach($list as $item):
 				
 				$overview .= "<li>";
 				$overview .= "<div class='name'>".$item->name."</div>";
