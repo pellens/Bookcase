@@ -87,6 +87,9 @@
 				
 			</ul>
 			</nav>
+
+      <?=langswitch();?>
+      
 		</div>
 
 		<div class="sidebar">

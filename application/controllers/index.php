@@ -33,13 +33,24 @@ class Index extends CI_Controller {
         $this->load->library("contactform");
         $config["form"]           = "general_contactform";
         $this->contactform->initialize($config);
-echo $this->contactform->generate();
+        echo $this->contactform->generate();
 
 		$this->load->view('index');
 
        
 
 	}
+
+    public function about()
+    {
+        $config["page"] = "about";
+        $this->core->initialize($config);
+
+        $this->load->library("contactform");
+        $config["form"]           = "about_contactform";
+        $this->contactform->initialize($config);
+        echo $this->contactform->generate();
+    }
 
 }
 

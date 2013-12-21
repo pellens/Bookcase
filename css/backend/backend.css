@@ -254,6 +254,30 @@ body {
 .header nav ul li.active a {
   color: #FFF;
 }
+.header .languages {
+  float: right;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.header .languages li {
+  float: left;
+  border-left: 1px solid #082867;
+}
+.header .languages li a {
+  display: block;
+  line-height: 50px;
+  padding: 0 20px;
+  text-transform: uppercase;
+  color: #FFF;
+  text-shadow: 0 -1px 1px #082867;
+}
+.header .languages li.active {
+  background-color: rgba(255,255,255,0.1);
+}
+.header .languages li.active a {
+  font-weight: bold;
+}
 .sidebar {
   padding: 10px 10px 0 10px;
   width: 22%;

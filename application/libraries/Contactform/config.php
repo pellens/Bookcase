@@ -54,16 +54,16 @@
 				"fn" => array(
 					"list" => "all_forms"
 				)
-			)
-
-			/*"edit_location" => array(
-				"view" 		=> "backend/Locations/add_location",
-				"submit" 	=> "edit_location",
-				"item"      => "item",
-				"redirect"  => "admin/lib/locations/locations_overview"
 			),
 
-			"del_location" => array(
+			"edit_form" => array(
+				"view" 		=> "backend/Contactform/edit_form",
+				"submit" 	=> "edit_form",
+				"item"      => "item",
+				"redirect"  => "admin/lib/contactform/forms_overview"
+			),
+
+			/*"del_location" => array(
 				"view" => "",
 				"redirect" => "admin/lib/locations/locations_overview",
 				"fn" => array(
