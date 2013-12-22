@@ -50,6 +50,15 @@ class Contactform {
 			$CI->dbforge->add_key('id', TRUE);
 			$CI->dbforge->create_table('contactform_receivers');
 		}
+
+		if(!$CI->db->table_exists('contactform_messages'))
+		{
+			// Basis contacten systeem (adresboek)
+			$CI->load->dbforge();
+			$CI->dbforge->add_field($this->_contactform_messages());
+			$CI->dbforge->add_key('id', TRUE);
+			$CI->dbforge->create_table('contactform_messages');
+		}
 		
 		if(!$CI->db->table_exists('contactform_forms'))
 		{
@@ -59,7 +68,7 @@ class Contactform {
 			$CI->dbforge->add_key('id', TRUE);
 			$CI->dbforge->create_table('contactform_forms');
 			
-			$fields["name"]          = "Basic";
+			$fields["name"]          = "basic";
 			$fields["to"]            = "admin@thiswebsite.com";
 			$fields["save_contact"]  = 1;
 			$fields["save_submit"]   = 1;
@@ -259,6 +268,29 @@ class Contactform {
 							"constraint" => "100"
 						),
 				"required" => array(
+							"type" => "INT",
+							"default" => 0
+						)
+		);
+		
+		return $fields;
+	}
+
+	function _contactform_messages()
+	{
+	
+		$fields = array(
+				"id" => array(
+							"type"           => "INT",
+                            'auto_increment' => TRUE
+						),
+				"reply_message" => array(
+							"type" => "text"
+						),
+				"notification_message" => array(
+							"type" => "text"
+						),
+				"form_id" => array(
 							"type" => "INT",
 							"default" => 0
 						)
@@ -526,6 +558,37 @@ class Contactform {
 		$CI =& get_instance();
 		return $CI->db->order_by("id","DESC")->get("contactform_submitted");
 	}
+
+	function edit_form($array)
+	{
+		$CI =& get_instance();
+
+		$form_id						= $CI->input->post("form_id",true);
+		$fields["form_id"]              = $form_id;
+		$fields["reply_message"]        = $CI->input->post("reply_message",true);
+		$fields["notification_message"] = $CI->input->post("reply_message",true);
+
+		// Update or add email notifications
+		if($CI->db->where("form_id",$form_id)->count_all_results("contactform_messages") == 0)
+		{
+			$CI->db->insert("contactform_messages",$fields);
+		}
+		else
+		{
+			$CI->db->where("form_id",$form_id)->update("contactform_messages",$fields);
+		}
+
+		unset($fields);
+
+		$fields["save_submit"]	= $CI->input->post("save_submit",true);
+		$fields["save_contact"]	= $CI->input->post("save_contact",true);
+		$fields["send_mail"]	= $CI->input->post("send_email",true);
+
+		$CI->db->update("contactform_forms",$fields);
+		unset($fields);
+
+		return true;
+	}
 	
 	function add()
 	{
@@ -538,6 +601,7 @@ class Contactform {
 	{
 		$CI =& get_instance();
 		$array = array();
+
 		$result = $CI->db->where("contactform_forms.id",$id)->from("contactform_forms")->get()->result();
 		foreach($result as $key => $value):
 		
@@ -545,6 +609,12 @@ class Contactform {
 				$array[$nr] = $item;
 			endforeach;
 		
+			$messages = $CI->db->where("contactform_messages.form_id",$value->id)->get("contactform_messages")->result();
+			foreach($messages as $mes):
+				$array["messages"]["reply_message"] = $mes->reply_message;
+				$array["messages"]["notification_message"] = $mes->notification_message;
+			endforeach;
+
 			$fields = $CI->db->where("contactform_fields.form_id",$value->id)->get("contactform_fields")->result();
 			foreach($fields as $in => $field):
 				$array["fields"][$in] = $field;

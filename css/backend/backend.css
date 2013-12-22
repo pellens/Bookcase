@@ -511,6 +511,14 @@ body {
   float: right;
   margin-top: 12px;
 }
+.main form .email-message {
+  width: 100%;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  *behavior: url(/boxsizing.htc);
+  height: 100px;
+}
 .main .form-inline h2 {
   font-size: 14px;
   margin-bottom: 20px;

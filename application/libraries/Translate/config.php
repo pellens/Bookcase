@@ -23,7 +23,7 @@
 			),
 			"Administrators" => array(
 				"Supported languages" 	=> "admin/lib/translate/languages_overview",
-				"Active language" 		=> "admin/lib/translate/active_language"
+				"Add language" 		=> "admin/lib/translate/active_language"
 			)
 		)
 

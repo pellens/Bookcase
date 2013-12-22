@@ -1,18 +1,23 @@
+<?=form_open();?>
+
 <div class="left">
 
 	<div class="tabs">
 
 		<ul class="links">
 			<li class="active" data-pane="edit">Edit contactform</li>
-			<li data-pane="reply">Reply settings</li>
+			<li data-pane="reply">E-mail settings</li>
 		</ul>
 
 		<div class="panes">
 			<div class="pane active" data-pane="edit">
 
 				<div class="form-contact-fields">
+					<? if(isset($item["fields"])):?>
+
 					<ul class="fields">
 
+						
 						<? foreach($item["fields"] as $field):?>
 						
 						<li id="field_<?=$field->id;?>">
@@ -29,15 +34,20 @@
 						<? endforeach;?>
 
 					</ul>
+					<? else: ?>
+					<p class="empty">There are no fields assigned to this form...</p>
+					<ul class="fields">
+					</ul>
+					<? endif;?>
 				</div>
 
 				<div class="form-contact-fields">
 					<ul>
 						<li>
 							<i class="icon-plus handle"></i>
-							<span class="field_label"><input type="text" name="label" id="label"></span>
+							<span class="field_label"><input type="text" id="label"></span>
 							<span class="field_type">
-								<select name="inputtype" id="inputtype">
+								<select id="inputtype">
 									<option value="text">Text</option>
 									<option value="email">E-mail</option>
 									<option value="textarea">Textarea</option>
@@ -47,7 +57,7 @@
 								</select>
 							</span>
 							<span class="required">
-								<input type="checkbox" name="required"/>Required
+								<input type="checkbox" id="required"/>Required
 							</span>
 							<span class="actions">
 								<a href="#" class="add_field button green">Add field</a>
@@ -55,13 +65,29 @@
 						</li>
 						<li class="option input">
 							<i class="icon-angle-right handle"></i>
-							<span class="field_label"><input type="text" name="option" id="option"></span>
+							<span class="field_label"><input type="text" id="option"></span>
 							<span class="required">
 							<a href="#" class="add_option button blue">Add option</a>
 							</span>
 						</li>
 					</ul>
 				</div>
+
+			</div>
+
+			<div class="pane" data-pane="reply">
+			<input type="hidden" name="form_id" value="<?=$item["id"];?>"/>
+				<p>
+					<label for="reply_message">Reply message</label>
+					<textarea name="reply_message" class="email-message" id="reply_message"><?=$item["messages"]["reply_message"];?></textarea>
+				</p>
+				<p class="info">If the user fills in the form, what message will they receive as confirmation?</p>
+
+				<p>
+					<label for="notification_message">Notfication message</label>
+					<textarea name="notification_message" class="email-message" id="notification_message"><?=$item["messages"]["notification_message"];?></textarea>
+				</p>
+				<p class="info">What message will the form-administrator(s) receive?</p>
 
 			</div>
 		</div>
@@ -97,6 +123,8 @@
 		<p><input type="submit" value="Save contactform" class="button blue"/></p>
 	</div>
 </div>
+
+<?=form_close();?>
 
 <script>
 
@@ -181,13 +209,15 @@ $(document).ready(function(){
     	var fields = JSON.stringify(field);
     	$.post( "<?=base_url(lang().'/admin/lib/contactform/ajax_add_field');?>", { field: fields }).done(function( data ) {
 
+    		var req = ($("#required").is(":checked")) ? "Required" : "&nbsp;";
+    		console.log(req);
     		var row = "<li id='field_"+data+"'>";
     			row+= '<i class="icon-reorder handle"></i>';
     			row+= '<span class="field_label">'+$("#label").val()+'</span>';
     			row+= '<span class="field_type">'+$("#inputtype").val()+'</span>';
-    			row+= '<span class="required">'+($("#required").is(":checked")) ? "Required" : ""+'</span>';
+    			row+= '<span class="required">'+req+'</span>';
 				row+= '<span class="actions">';
-				row+= '<?=anchor("admin/lib/contactform/edit_field/".$field->id,"Edit");?>';
+				row+= '<?=anchor("admin/lib/contactform/edit_field/'+data+'","Edit");?>';
 				row+= '<a href="#" onclick="return deleteField('+data+');"" class="delete_field">Delete</a>';
 				row+= '</span>';
 				row+= '</li>';
@@ -196,6 +226,7 @@ $(document).ready(function(){
     		$("li.option.show").remove();
     		$("li.option").slideUp();
     		$("#label").val("");
+    		$("p.empty").remove();
 
   		});
 
