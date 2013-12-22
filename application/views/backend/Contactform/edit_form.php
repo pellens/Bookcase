@@ -4,30 +4,65 @@
 
 		<ul class="links">
 			<li class="active" data-pane="edit">Edit contactform</li>
+			<li data-pane="reply">Reply settings</li>
 		</ul>
 
 		<div class="panes">
 			<div class="pane active" data-pane="edit">
-				<? print_r($item);?>
 
-				<div class="form-inline">
-					<p>
-						<label for="inputtype">Inputtype</label>
-						<select name="inputtype">
-							<option value="text">Text</option>
-							<option value="email">E-mail</option>
-							<option value="textarea">Textarea</option>
-							<option value="select">Select</option>
-						</select>
-					</p>
-					<p><label for="label">Label</label><input type="text" name="label" id="label"></p>
-				</div>
-				<ul class="form_fields">
-					<li><a href="#" class="add">Add a field</a></li>
-					<li>
+				<div class="form-contact-fields">
+					<ul class="fields">
+
+						<? foreach($item["fields"] as $field):?>
 						
-					</li>
-				</ul>
+						<li id="field_<?=$field->id;?>">
+							<i class="icon-reorder handle"></i>
+							<span class="field_label"><?=$field->label;?></span>
+							<span class="field_type"><?=$field->type;?></span>
+							<span class="required"><?=($field->required==1)?"Required":"";?></span>
+							<span class="actions">
+								<?=anchor("admin/lib/contactform/edit_field/".$field->id,"Edit");?>
+								<a href="#" data-id="<?=$field->id;?>" onclick='return deleteField(<?=$field->id;?>);' class"delete_field">Delete</a>
+							</span>
+						</li>
+
+						<? endforeach;?>
+
+					</ul>
+				</div>
+
+				<div class="form-contact-fields">
+					<ul>
+						<li>
+							<i class="icon-plus handle"></i>
+							<span class="field_label"><input type="text" name="label" id="label"></span>
+							<span class="field_type">
+								<select name="inputtype" id="inputtype">
+									<option value="text">Text</option>
+									<option value="email">E-mail</option>
+									<option value="textarea">Textarea</option>
+									<option value="select">Select</option>
+									<option value="checkbox">Checkbox</option>
+									<option value="radio">Radiobutton</option>
+								</select>
+							</span>
+							<span class="required">
+								<input type="checkbox" name="required"/>Required
+							</span>
+							<span class="actions">
+								<a href="#" class="add_field button green">Add field</a>
+							</span>
+						</li>
+						<li class="option input">
+							<i class="icon-angle-right handle"></i>
+							<span class="field_label"><input type="text" name="option" id="option"></span>
+							<span class="required">
+							<a href="#" class="add_option button blue">Add option</a>
+							</span>
+						</li>
+					</ul>
+				</div>
+
 			</div>
 		</div>
 
@@ -62,3 +97,113 @@
 		<p><input type="submit" value="Save contactform" class="button blue"/></p>
 	</div>
 </div>
+
+<script>
+
+function deleteField(id)
+{
+	var answer = confirm("Are you sure?");
+	if(answer)
+	{
+		$.post( "<?=base_url(lang().'/admin/lib/contactform/ajax_delete_field');?>", { id : id }).done(function( data ) {
+			$("#field_"+id).remove();
+		});
+	}
+	return false;
+}
+
+$(document).ready(function(){
+
+	$("#inputtype").bind("change",function(){
+
+		switch($(this).val())
+		{
+			case "radio" :
+			case "checkbox" :
+			case "select" : $("li.option").slideDown(75); break;
+			default : $("li.option").slideUp(75); break;
+		}
+
+	});
+
+	$(".add_option").bind("click",function(){
+
+		var val = $("li.option.input #option").val();
+		if(val != "" || val != " ")
+		{
+			var row = "<li class='option show'>";
+				row+= "<i class='icon-angle-right handle'></i>";
+				row+= "<span class='field_label'>"+val+"</span>";
+				row+= "<span class='field_type'><a href='#' class='button red'>Delete</a></span>";
+				row+= "</li>";
+			$("li.option.input #option").val("");
+			$(this).closest("ul").append(row);
+
+		}
+
+		return false;
+
+	});
+
+	$(".add_field").bind("click",function(){
+
+		var fields 				= new Array();
+			fields["options"]   = {};
+			fields["label"] 	= $("#label").val();
+			fields["inputtype"] = $("#inputtype").val();
+			fields["required"]  = ($("#required").is(":checked")) ? 1 : 0;
+
+		switch(fields["inputtype"])
+		{
+			case "radio" :
+			case "checkbox" :
+			case "select" :
+
+				var i = 0;
+				$("li.option.show").each(function(){
+					fields["options"][i] = $(this).children(".field_label").html();
+					i++;
+				});
+
+				break;
+		}
+
+		var field = {
+  			0: {
+  				form_id     : '<?=$item["id"];?>',
+    			inputtype	: fields["inputtype"],
+    			label 		: fields["label"],
+    			required 	: fields["required"],
+    			options     : fields["options"]
+    		}
+    	}
+
+    	var fields = JSON.stringify(field);
+    	$.post( "<?=base_url(lang().'/admin/lib/contactform/ajax_add_field');?>", { field: fields }).done(function( data ) {
+
+    		var row = "<li id='field_"+data+"'>";
+    			row+= '<i class="icon-reorder handle"></i>';
+    			row+= '<span class="field_label">'+$("#label").val()+'</span>';
+    			row+= '<span class="field_type">'+$("#inputtype").val()+'</span>';
+    			row+= '<span class="required">'+($("#required").is(":checked")) ? "Required" : ""+'</span>';
+				row+= '<span class="actions">';
+				row+= '<?=anchor("admin/lib/contactform/edit_field/".$field->id,"Edit");?>';
+				row+= '<a href="#" onclick="return deleteField('+data+');"" class="delete_field">Delete</a>';
+				row+= '</span>';
+				row+= '</li>';
+    		$("ul.fields").append(row);
+
+    		$("li.option.show").remove();
+    		$("li.option").slideUp();
+    		$("#label").val("");
+
+  		});
+
+
+		return false;
+
+	});
+
+});
+
+</script>

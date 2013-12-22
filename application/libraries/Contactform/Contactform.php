@@ -247,6 +247,9 @@ class Contactform {
 							"type" => "varchar",
 							"constraint" => "100"
 						),
+				"options" => array(
+							"type" => "text"
+						),
 				"value" => array(
 							"type" => "varchar",
 							"constraint" => "100"
@@ -364,6 +367,46 @@ class Contactform {
 	public function basicTemplate()
 	{
 	
+	}
+
+	public function ajax_delete_field($id)
+	{
+		$CI =& get_instance();
+
+		$form = $CI->db->where("id",$id["id"])->select("form_id")->get("contactform_fields")->result();
+		$form = $form[0]->form_id;
+
+		$CI->db->where("id",$id["id"])->delete("contactform_fields");
+
+		return true;
+	}
+
+	public function ajax_add_field( $data )
+	{
+		$CI =& get_instance();
+
+		$array = json_decode($data["field"]);
+
+		foreach($array as $row):
+
+			$fields["form_id"] 		= $row->form_id;
+			$fields["type"] 		= $row->inputtype;
+			$fields["label"] 		= $row->label;
+			$fields["value"] 		= url_title($fields["label"],"-",true);
+			$fields["placeholder"] 	= "";
+			$fields["required"] 	= $row->required;
+
+			foreach($row->options as $option):
+				$options[] = $option; 
+			endforeach;
+
+			if(count(@$options) > 0) $fields["options"] = serialize($options);
+
+			$CI->db->insert("contactform_fields",$fields);
+			echo $CI->db->insert_id();
+			die();
+
+		endforeach;
 	}
 		
 	function _submitForm( $data )

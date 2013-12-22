@@ -65,7 +65,6 @@ class Admin extends CI_Controller {
 		require_once(APPPATH."/libraries/".ucwords($lib)."/config.php");
 		$this->load->library($lib);
 		$data["main"] = $admin["fn"][$fn]["view"];
-
 		if($fn)
 		{
 			if($submitted):
@@ -79,7 +78,7 @@ class Admin extends CI_Controller {
 				{
 					foreach($admin["fn"][$fn]["fn"] as $key => $function)
 					{
-						if($key == "delete" || $key == "update")
+						if($key == "delete" || $key == "update" || $key == "add")
 						{
 							$this->$lib->$function($id);
 							redirect($admin["fn"][$fn]["redirect"],"refresh");

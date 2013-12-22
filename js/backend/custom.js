@@ -67,13 +67,15 @@ $(window).resize(function(){
 
 function equalHeights()
 {
+
 	var sidebar_height = $(".sidebar").height();
-	var main_height    = $(".main .tabs").height();
+	var main_height    = $(".main").height();
 	var left_height    = $(".main .left").height();
 	var right_height   = $(".main .right").height();
 
 	console.log(main_height);
-		console.log(left_height+" "+right_height);
+	console.log(left_height+" "+right_height);
+
 	if(sidebar_height > main_height)
 	{
 		$(".main .left").css("height",sidebar_height+"px");

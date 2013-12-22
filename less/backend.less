@@ -357,7 +357,7 @@ html, body {
 			label {
 				float:left;
 				line-height: 30px;
-				width:100px;
+				width:150px;
 				padding-left: 10px;
 			}
 
@@ -370,6 +370,85 @@ html, body {
 					margin-left: 10px;
 					color: #1C9A0B;
 				}
+			}
+		}
+	}
+
+	.form-contact-fields {
+
+		ul {
+			margin:0 0 20px 0;
+			padding:0;
+			list-style: none;
+			border:1px solid #EEE;
+			border-bottom: none;
+			float:left;
+			width:100%;
+
+			li {
+				border-bottom: 1px solid #EEE;
+				line-height: 35px;
+				font-size: 12px;
+				float:left;
+				width:100%;
+
+				a.button {
+					line-height: 25px;
+					float:left;
+					margin-top: 4px;
+					font-size: 12px;
+				}
+
+				span {
+					line-height: 35px;
+					float:left;
+
+					input[type=text],
+					select {
+						width: 95%;
+						height:28px;
+						padding:5px !important;
+						margin:0 !important;
+						font-size: 12px;
+						.box-sizing();
+					}
+					select {
+						height: 28px;
+					}
+				}
+				.handle {
+					line-height: 35px;
+					width:7%;
+					text-align: center;
+					float: left;
+				}
+				.field_label {
+					float:left;
+					width:30%;
+				}
+				.field_type {
+					float:left;
+					width:25%;
+				}
+				.required {
+					float:left;
+					width:15%;
+
+					input {
+						float:left;
+						margin: 10px 10px 0 10px;
+					}
+				}
+				.actions {
+					float:right;
+					width:15%;
+				}
+			}
+			li.option {
+				display: none;
+			}
+			li.option.show {
+				display: block;
 			}
 		}
 	}

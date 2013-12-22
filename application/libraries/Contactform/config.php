@@ -63,6 +63,24 @@
 				"redirect"  => "admin/lib/contactform/forms_overview"
 			),
 
+			"ajax_delete_field" => array(
+				"view" => "",
+				"redirect" => false,
+				"submit" => "ajax_delete_field",
+				"fn" => array(
+					"delete" => "ajax_delete_field"
+				)
+			),
+
+			"ajax_add_field" => array(
+				"view" => "",
+				"redirect" => false,
+				"submit" => "ajax_add_field",
+				"fn" => array(
+					"add" => "ajax_add_field"
+				)
+			)
+
 			/*"del_location" => array(
 				"view" => "",
 				"redirect" => "admin/lib/locations/locations_overview",
