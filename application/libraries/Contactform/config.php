@@ -79,6 +79,15 @@
 				"fn" => array(
 					"add" => "ajax_add_field"
 				)
+			),
+
+			"ajax_field_order" => array(
+				"view" => "",
+				"redirect" => false,
+				"submit" => "ajax_field_order",
+				"fn" => array(
+					"add" => "ajax_field_order"
+				)
 			)
 
 			/*"del_location" => array(

@@ -79,13 +79,13 @@
 			<input type="hidden" name="form_id" value="<?=$item["id"];?>"/>
 				<p>
 					<label for="reply_message">Reply message</label>
-					<textarea name="reply_message" class="email-message" id="reply_message"><?=$item["messages"]["reply_message"];?></textarea>
+					<textarea name="reply_message" class="email-message" id="reply_message"><?=@$item["messages"]["reply_message"];?></textarea>
 				</p>
 				<p class="info">If the user fills in the form, what message will they receive as confirmation?</p>
 
 				<p>
 					<label for="notification_message">Notfication message</label>
-					<textarea name="notification_message" class="email-message" id="notification_message"><?=$item["messages"]["notification_message"];?></textarea>
+					<textarea name="notification_message" class="email-message" id="notification_message"><?=@$item["messages"]["notification_message"];?></textarea>
 				</p>
 				<p class="info">What message will the form-administrator(s) receive?</p>
 
@@ -141,6 +141,19 @@ function deleteField(id)
 }
 
 $(document).ready(function(){
+
+	$("ul.fields").sortable({
+			opacity: 0.6,
+			cursor: 'move',
+			axis: "y",
+			connectWith: "ul.fields",
+			update: function() {
+			var order = $(this).sortable("serialize") + '&action=updateRecordsListings'; 
+			$.post("<?=base_url(lang().'/admin/lib/contactform/ajax_field_order');?>", order, function(data){
+
+			}); 															 
+		}								  
+	});
 
 	$("#inputtype").bind("change",function(){
 

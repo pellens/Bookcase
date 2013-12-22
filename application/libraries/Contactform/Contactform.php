@@ -270,6 +270,10 @@ class Contactform {
 				"required" => array(
 							"type" => "INT",
 							"default" => 0
+						),
+				"position" => array(
+							"type" => "INT",
+							"default" => 0
 						)
 		);
 		
@@ -411,6 +415,20 @@ class Contactform {
 		$CI->db->where("id",$id["id"])->delete("contactform_fields");
 
 		return true;
+	}
+
+	public function ajax_field_order($fields)
+	{
+		$CI =& get_instance();
+
+
+		foreach($fields["field"] as $pos => $id):
+			
+			$update["position"] = $pos;
+			$CI->db->where("id",$id)->update("contactform_fields",$update);
+			unset($update);
+
+		endforeach;
 	}
 
 	public function ajax_add_field( $data )
@@ -561,6 +579,7 @@ class Contactform {
 
 	function edit_form($array)
 	{
+
 		$CI =& get_instance();
 
 		$form_id						= $CI->input->post("form_id",true);
@@ -582,9 +601,9 @@ class Contactform {
 
 		$fields["save_submit"]	= $CI->input->post("save_submit",true);
 		$fields["save_contact"]	= $CI->input->post("save_contact",true);
-		$fields["send_mail"]	= $CI->input->post("send_email",true);
+		$fields["send_mail"]	= $CI->input->post("send_mail",true);
 
-		$CI->db->update("contactform_forms",$fields);
+		$CI->db->where("id",$form_id)->update("contactform_forms",$fields);
 		unset($fields);
 
 		return true;
@@ -615,7 +634,7 @@ class Contactform {
 				$array["messages"]["notification_message"] = $mes->notification_message;
 			endforeach;
 
-			$fields = $CI->db->where("contactform_fields.form_id",$value->id)->get("contactform_fields")->result();
+			$fields = $CI->db->where("contactform_fields.form_id",$value->id)->order_by("position","ASC")->get("contactform_fields")->result();
 			foreach($fields as $in => $field):
 				$array["fields"][$in] = $field;
 			endforeach;
