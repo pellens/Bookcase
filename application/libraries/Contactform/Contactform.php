@@ -571,10 +571,27 @@ class Contactform {
 		endif;
 	}
 	
+	function delete_form($item)
+	{
+		$CI =& get_instance();
+		$CI->db->where("form_id",$item)->delete("contactform_fields");
+		$CI->db->where("id",$item)->delete("contactform_forms");
+		return true;
+	}
+
 	function submitted_forms()
 	{
 		$CI =& get_instance();
-		return $CI->db->order_by("id","DESC")->get("contactform_submitted");
+		return $CI->db->select("name, contactform_forms.id as form_id, contactform_submitted.id, contactform_submitted.fields")->order_by("contactform_submitted.id","DESC")->join("contactform_forms","contactform_forms.id = contactform_submitted.form_id","left")->get("contactform_submitted")->result();
+	}
+
+	function submission_stats()
+	{
+		$CI =& get_instance();
+		$array["inbox"]  = $CI->db->count_all_results("contactform_submitted");
+		$array["unread"] = 0;
+
+		return $array;
 	}
 
 	function edit_form($array)

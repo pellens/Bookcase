@@ -17,19 +17,19 @@
 						<th>Submissions</th>
 						<th></th>
 					</tr>
-				<? foreach($list as $form):?>
-					<tr>
-						<td><?=$form->name;?></td>
-						<td><?=($form->save_submit==1)?"Yes":"No";?></td>
-						<td><?=($form->save_contact==1)?"Yes":"No";?></td>
-						<td><?=($form->send_mail==1)?"Yes":"No";?></td>
-						<td>x</td>
-						<td>
-							<?=anchor("admin/lib/contactform/edit_form/".$form->id,"Edit");?>
-							<?=anchor("admin/lib/contactform/del_form/".$form->id,"Delete","class'delete'");?>
-						</td>
-					</tr>
-				<? endforeach;?>
+					<? foreach($list as $form):?>
+						<tr>
+							<td><?=$form->name;?></td>
+							<td><?=($form->save_submit==1)?"Yes":"No";?></td>
+							<td><?=($form->save_contact==1)?"Yes":"No";?></td>
+							<td><?=($form->send_mail==1)?"Yes":"No";?></td>
+							<td>x</td>
+							<td>
+								<?=anchor("admin/lib/contactform/edit_form/".$form->id,"Edit");?>
+								<?=anchor("admin/lib/contactform/delete_form/".$form->id,"Delete","class='del' data-alert='Are you sure you want to delete this form?'");?>
+							</td>
+						</tr>
+					<? endforeach;?>
 				</table>
 			</div>
 		</div>

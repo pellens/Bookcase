@@ -583,6 +583,9 @@ body {
 .main .form-contact-fields ul li span select {
   height: 28px;
 }
+.main .form-contact-fields ul li i.icon-reorder {
+  cursor: move;
+}
 .main .form-contact-fields ul li .handle {
   line-height: 35px;
   width: 7%;

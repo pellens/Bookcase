@@ -85,6 +85,14 @@ class Locations {
 							"type" => "varchar",
 							"constraint" => "300"
 						),
+				"website" => array(
+							"type" => "varchar",
+							"constraint" => "300"
+						),
+				"btw" => array(
+							"type" => "varchar",
+							"constraint" => "300"
+						),
 				"country" => array(
 							"type" => "varchar",
 							"constraint" => "300"
@@ -310,6 +318,8 @@ class Locations {
 		$fields["revisit"]	        = $CI->input->post("revisit",true);
 		$fields["index"]	        = $CI->input->post("index",true);
 		$fields["follow"]	        = $CI->input->post("follow",true);
+		$fields["website"]	        = $CI->input->post("website",true);
+		$fields["btw"]	        	= $CI->input->post("btw",true);
 
 		return $fields;
 	}

@@ -33,6 +33,7 @@
 
 <div class="right">
 	<div class="box">
+		<p><label>Total progress:</label></p>
 		<ul class="lang-stats">
 			<? foreach($this->translate->all_supported_languages(true) as $lang):?>
 			<li>

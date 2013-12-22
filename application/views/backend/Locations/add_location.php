@@ -44,6 +44,8 @@
 						<p><label for="tel">Tel:</label><input type="text" name="tel" id="tel" value="<?=@$item->tel;?>"/></p>
 						<p><label for="fax">Fax:</label><input type="text" name="fax" id="fax" value="<?=@$item->fax;?>"/></p>
 						<p><label for="email">Email:</label><input type="email" name="email" id="email" value="<?=@$item->email;?>"/></p>
+						<p><label for="website">Website:</label><input type="text" name="website" id="website" value="<?=@$item->website;?>"/></p>
+						<p><label for="btw">BTW:</label><input type="text" name="btw" id="btw" value="<?=@$item->btw;?>"/></p>
 					</div>
 				</div>
 				<div class="pane" data-pane="seo">

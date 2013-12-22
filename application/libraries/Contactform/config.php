@@ -38,7 +38,8 @@
 			"messages_overview" => array(
 				"view"      => "backend/Contactform/messages_overview",
 				"fn" => array(
-					"list" => "submitted_forms"
+					"list" => "submitted_forms",
+					"stats" => "submission_stats"
 				)
 			),
 
@@ -61,6 +62,14 @@
 				"submit" 	=> "edit_form",
 				"item"      => "item",
 				"redirect"  => "admin/lib/contactform/forms_overview"
+			),
+
+			"delete_form" => array(
+				"view" => "",
+				"redirect" => "admin/lib/contactform/forms_overview",
+				"fn" => array(
+					"delete" => "delete_form"
+				)
 			),
 
 			"ajax_delete_field" => array(
