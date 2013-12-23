@@ -60,7 +60,7 @@
 								<input type="checkbox" id="required"/>Required
 							</span>
 							<span class="actions">
-								<a href="#" class="add_field button green">Add field</a>
+								<a href="#" class="add_field button blue">Add field</a>
 							</span>
 						</li>
 						<li class="option input">
@@ -120,7 +120,10 @@
 			</select>
 		</p>
 
-		<p><input type="submit" value="Save contactform" class="button blue"/></p>
+		<p class="buttons-half">
+			<a href="<?=base_url("admin/lib/contactform/delete_form/".$item["id"]);?>" class="action del" data-alert="Are you sure you want to delete this form?"><i class="icon-trash"></i></a>
+			<input type="submit" value="Save contactform" class="button green"/>
+		</p>
 	</div>
 </div>
 
