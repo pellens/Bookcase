@@ -6,7 +6,8 @@
 
 		<ul class="links">
 			<li class="active" data-pane="edit">Edit contactform</li>
-			<li data-pane="reply">E-mail settings</li>
+			<li data-pane="receivers">Receivers</li>
+			<li data-pane="reply">Messages</li>
 		</ul>
 
 		<div class="panes">
@@ -75,9 +76,7 @@
 
 			</div>
 
-			<div class="pane" data-pane="reply">
-			<input type="hidden" name="form_id" value="<?=$item["id"];?>"/>
-
+			<div class="pane" data-pane="receivers">
 				<p><label>Receivers:</label></p>
 				<ul class="receivers">
 					<? foreach($this->contactform->receivers_overview($item["id"]) as $rec):?>
@@ -85,6 +84,10 @@
 					<? endforeach;?>
 					<li>New e-mailadres <input type="text" id="receiver"><a href="#" class="button blue add-email">Add e-mail</a></li>
 				</ul>
+			</div>
+
+			<div class="pane" data-pane="reply">
+				<input type="hidden" name="form_id" value="<?=$item["id"];?>"/>
 				<p>
 					<label for="reply_message">Reply message</label>
 					<textarea name="reply_message" class="email-message" id="reply_message"><?=@$item["messages"]["reply_message"];?></textarea>

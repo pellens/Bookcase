@@ -433,6 +433,10 @@ class Contactform {
 		    "form_id" => array(
 		    			"type" => "INT"
 		    		),
+		    "lang" => array(
+		    			"type" => "varchar",
+		    			"constraint" => "2"
+		    		),
 		    "fields" => array(
 		    			"type" => "text"
 		    		)
@@ -461,8 +465,6 @@ class Contactform {
 	public function ajax_field_order($fields)
 	{
 		$CI =& get_instance();
-
-		print_r($fields);
 
 		foreach($fields["field"] as $pos => $id):
 			
@@ -529,8 +531,13 @@ class Contactform {
 		$CI =& get_instance();
 		$this->specific_form = $CI->db->where("id",$data["form_id"])->get("contactform_forms")->result();
 		
+		$form = $this->specific_form;
+
 		// Email verzenden naar de admin van website
-		$this->_emailForm($data);
+		if($form[0]->send_mail == 1)
+		{
+			$this->_emailForm($data);
+		}
 		
 		// Bericht opslaan in de database?
 		if($this->specific_form[0]->save_submit == 1):
@@ -540,7 +547,7 @@ class Contactform {
 		// Potentiele klanten bijhouden?
 		if($this->specific_form[0]->save_contact == 1):
 			$fields["name"]    = $data["name"];
-			$fields["email"]   = $data["e-mail"];
+			$fields["email"]   = $data["email"];
 			$fields["tel"]     = $data["tel"];
 			$fields["website"] = $data["website"];
 			$this->_saveSubmitters($fields);
@@ -553,27 +560,34 @@ class Contactform {
 	{
 		$CI =& get_instance();
 		$form = $this->specific_form;
-		
-		$CI->load->library("email");
-		
-		print_r($form);
-		die();
 
-		$CI->email->to($form[0]->to);
-		$CI->email->from($data["e-mail"]);
-		//$CI->email->message($data["message"]);
-		$CI->email->subject($data["subject"]);
-		if($CI->email->send()):
-			return TRUE;
-		else:
-			return FALSE;
-		endif;
+		$result = $CI->db->where("form_id",$form[0]->id)->get("contactform_messages")->result();
+		$result = $result[0];
+
+		$receivers = $CI->db->where("form_id",$form[0]->id)->get("contactform_receivers")->result();
+		$receivers = $receivers[0];
+
+		$CI->load->library("email");
+
+		foreach($receivers as $rec):
+			$CI->email->to($form[0]->to);
+			$CI->email->from($data["email"]);
+			$CI->email->message($result->notification_message);
+			$CI->email->subject("New message");
+			
+			if($CI->email->send()):
+				return TRUE;
+			else:
+				return FALSE;
+			endif;
+		endforeach;
 	
 	}
 	
 	function _saveForm($data)
 	{
 		$data["date"]      = time();
+		$fields["lang"]    = lang();
 		$fields["form_id"] = $data["form_id"];
 		unset($data["redirect"]);
 		unset($data["form_id"]);
@@ -676,7 +690,7 @@ class Contactform {
 		$form_id						= $CI->input->post("form_id",true);
 		$fields["form_id"]              = $form_id;
 		$fields["reply_message"]        = $CI->input->post("reply_message",true);
-		$fields["notification_message"] = $CI->input->post("reply_message",true);
+		$fields["notification_message"] = $CI->input->post("notification_message",true);
 
 		// Update or add email notifications
 		if($CI->db->where("form_id",$form_id)->count_all_results("contactform_messages") == 0)
