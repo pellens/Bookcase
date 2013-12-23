@@ -20,7 +20,7 @@
 						
 						<? foreach($item["fields"] as $field):?>
 						
-						<li id="field_<?=$field->id;?>">
+						<li id="item-<?=$field->id;?>">
 							<i class="icon-reorder handle"></i>
 							<span class="field_label"><?=$field->label;?></span>
 							<span class="field_type"><?=$field->type;?></span>

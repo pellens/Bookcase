@@ -41,6 +41,15 @@
 				)
 			),
 
+			"ajax_locations_order" => array(
+				"view" => "",
+				"redirect" => false,
+				"submit" => "ajax_locations_order",
+				"fn" => array(
+					"add" => "ajax_locations_order"
+				)
+			),
+
 			"add_location" => array(
 				"view" 		=> "backend/Locations/add_location",
 				"submit" 	=> "add_location",

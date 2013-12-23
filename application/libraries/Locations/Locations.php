@@ -122,6 +122,10 @@ class Locations {
 				"parent" => array(
 							"type" => "INT",
 							"constraint" => "1"
+						),
+				"position" => array(
+							"type" => "INT",
+							"constraint" => "1"
 						)
 			);
 		
@@ -196,7 +200,7 @@ class Locations {
 		$CI =& get_instance();
 
 		if($parent != null) $CI->db->where("parent",$parent);
-		return $CI->db->order_by("title")->get("locations_items")->result();
+		return $CI->db->order_by("position","ASC")->get("locations_items")->result();
 	}
 
 	public function types_overview()
@@ -290,6 +294,20 @@ class Locations {
 
 		$result = $CI->db->where("id",$id)->get("locations_types")->result();
 		return $result[0];
+	}
+
+	public function ajax_locations_order($fields)
+	{
+		$CI =& get_instance();
+
+		foreach($fields["item"] as $pos => $id):
+			
+			$update["position"] = $pos;
+			$CI->db->where("id",$id)->update("locations_items",$update);
+			unset($update);
+
+		endforeach;
+		return true;
 	}
 
 	public function prep_data()

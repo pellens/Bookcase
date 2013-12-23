@@ -421,6 +421,7 @@ class Contactform {
 	{
 		$CI =& get_instance();
 
+		print_r($fields);
 
 		foreach($fields["field"] as $pos => $id):
 			
