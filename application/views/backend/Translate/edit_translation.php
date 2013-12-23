@@ -11,8 +11,8 @@
 			<div class="pane active" data-pane="edit">
 				<div class="form-inline">
 					<h2>Translation of "<?=$item[0]->key;?>"</h2>
-					
-					<? foreach($item as $lang):?>
+
+					<? foreach($item as $lang): ?>
 					<p>
 						<label for="lang_<?=$lang->id;?>"><?=strtoupper($lang->lang);?></label>
 						<input type="text" name="string[]" value="<?=$lang->string;?>"/>

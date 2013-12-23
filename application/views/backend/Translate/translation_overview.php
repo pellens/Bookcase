@@ -13,11 +13,18 @@
 				<table class="table table-bordered table-striped">
 					<tr>
 						<th>Keyword</th>
+						<th>Progress</th>
 						<th>&nbsp;</th>
 					</tr>
 					<? foreach($list as $trans):?>
 					<tr>
 						<td><?=$trans->key;?></td>
+						<td width="200">
+							
+							<div class="progress">
+								<div class="bar" style="width:<?=$this->translate->key_progress($trans->key);?>%"></div>
+							</div>
+						</td>
 						<td><?=anchor("admin/lib/translate/edit_translation/".$trans->key,"Edit");?></td>
 					</tr>
 					<? endforeach;?>

@@ -122,6 +122,16 @@ class Translate {
 		return $CI->db->where("key",$key)->get("translation")->result();
 	}
 
+	public function key_progress($key)
+	{
+		$CI =& get_instance();
+
+		$total 		= $CI->db->where("key",$key)->count_all_results("translation");
+		$complete 	= $CI->db->where("key",$key)->where("string !=","")->count_all_results("translation");
+
+		return (($complete/$total)*100)."%";
+	}
+
 	public function edit_translation()
 	{
 		$CI =& get_instance();
