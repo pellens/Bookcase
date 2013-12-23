@@ -259,6 +259,9 @@ class Core {
 							"type"=>"varchar",
 							"constraint" => "40",
 							"default" => "7 days"
+						),
+				"redirect" => array(
+							"type"=>"int"
 						)
 			);
 		

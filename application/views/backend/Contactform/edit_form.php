@@ -89,6 +89,11 @@
 			<div class="pane" data-pane="reply">
 				<input type="hidden" name="form_id" value="<?=$item["id"];?>"/>
 				<p>
+					<label for="thanks_message">Thank you message</label>
+					<textarea name="thanks_message" class="email-message" id="thanks_message"><?=@$item["messages"]["thanks_message"];?></textarea>
+				</p>
+				<p class="info">If the user fills in the form, what message will they receive as confirmation?</p>
+				<p>
 					<label for="reply_message">Reply message</label>
 					<textarea name="reply_message" class="email-message" id="reply_message"><?=@$item["messages"]["reply_message"];?></textarea>
 				</p>

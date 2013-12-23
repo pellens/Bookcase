@@ -215,7 +215,7 @@ class Contactform {
 		}
 		
 		unset($fields);
-		$fields = $CI->db->where("form_id",$form_id)->get("contactform_fields");
+		$fields = $CI->db->order_by("position","ASC")->where("form_id",$form_id)->get("contactform_fields");
 
 		if($fields->num_rows == 0)
 		{
@@ -226,7 +226,9 @@ class Contactform {
 		
 			$form = "";
 			
-			if(@$_GET["s"]==1) $form.= "<p class='success'>Your message has been send!</p>";
+			$message = $CI->db->where("form_id",$form_id)->get("contactform_messages")->result();
+			$message = $message[0]->thanks_message;
+			if(@$_GET["s"]==1) $form.= "<p class='success'>".$message."</p>";
 
 			// Contactform inladen
 			$form.= $this->full_tag_open;
@@ -333,6 +335,9 @@ class Contactform {
 							"type" => "text"
 						),
 				"notification_message" => array(
+							"type" => "text"
+						),
+				"thanks_message" => array(
 							"type" => "text"
 						),
 				"form_id" => array(
@@ -691,6 +696,7 @@ class Contactform {
 		$fields["form_id"]              = $form_id;
 		$fields["reply_message"]        = $CI->input->post("reply_message",true);
 		$fields["notification_message"] = $CI->input->post("notification_message",true);
+		$fields["thanks_message"] 		= $CI->input->post("thanks_message",true);
 
 		// Update or add email notifications
 		if($CI->db->where("form_id",$form_id)->count_all_results("contactform_messages") == 0)
@@ -735,8 +741,9 @@ class Contactform {
 		
 			$messages = $CI->db->where("contactform_messages.form_id",$value->id)->get("contactform_messages")->result();
 			foreach($messages as $mes):
-				$array["messages"]["reply_message"] = $mes->reply_message;
-				$array["messages"]["notification_message"] = $mes->notification_message;
+				$array["messages"]["reply_message"] 		= $mes->reply_message;
+				$array["messages"]["notification_message"] 	= $mes->notification_message;
+				$array["messages"]["thanks_message"] 		= $mes->thanks_message;
 			endforeach;
 
 			$fields = $CI->db->where("contactform_fields.form_id",$value->id)->order_by("position","ASC")->get("contactform_fields")->result();
