@@ -65,6 +65,7 @@ class Admin extends CI_Controller {
 		(@include_once (APPPATH."/libraries/".ucwords($lib)."/config.php")) or die("This library is not installed or doesn't have a config-file...");
 		$this->load->library($lib);
 		$data["main"] = $admin["fn"][$fn]["view"];
+		
 		if($fn)
 		{
 			if($submitted):

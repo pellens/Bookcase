@@ -77,6 +77,14 @@
 
 			<div class="pane" data-pane="reply">
 			<input type="hidden" name="form_id" value="<?=$item["id"];?>"/>
+
+				<p><label>Receivers:</label></p>
+				<ul class="receivers">
+					<? foreach($this->contactform->receivers_overview($item["id"]) as $rec):?>
+						<li id="receiver_<?=$rec->id;?>"><i class="icon-trash" onclick="deleteReceiver(<?=$rec->id;?>);"></i> <?=$rec->email;?></li>
+					<? endforeach;?>
+					<li>New e-mailadres <input type="text" id="receiver"><a href="#" class="button blue add-email">Add e-mail</a></li>
+				</ul>
 				<p>
 					<label for="reply_message">Reply message</label>
 					<textarea name="reply_message" class="email-message" id="reply_message"><?=@$item["messages"]["reply_message"];?></textarea>
@@ -143,7 +151,34 @@ function deleteField(id)
 	return false;
 }
 
+function deleteReceiver(id)
+{
+	var answer = confirm("Are you sure?");
+	if(answer)
+	{
+		$.post( "<?=base_url(lang().'/admin/lib/contactform/ajax_delete_receiver');?>", { id : id }).done(function( data ) {
+			$("#receiver_"+id).remove();
+		});
+	}
+	return false;
+}
+
 $(document).ready(function(){
+
+	$(".add-email").bind("click",function(){
+		var value = $("#receiver").val();
+		$("#receiver").val("");
+
+		var receiver = {
+			id : '<?=$item["id"];?>',
+			email : value
+		};
+		var fields = JSON.stringify(receiver);
+		$.post( "<?=base_url(lang().'/admin/lib/contactform/ajax_add_receiver');?>", { receiver : fields }).done(function( data ) {
+			$("ul.receivers").prepend("<li>"+value+"</li>");
+		});
+
+	});
 
 	$("ul.fields").sortable({
 			opacity: 0.6,

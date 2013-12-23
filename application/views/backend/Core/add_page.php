@@ -28,7 +28,7 @@
 					<tr>
 						<td><?=$block->title;?></htd>
 						<td><?=character_limiter(strip_tags($block->content),100);?></td>
-						<td><?=anchor("admin/lib/blocks/edit_block/".$block->id,"Edit");?></td>
+						<td><?=anchor("admin/lib/blocks/edit_block/".$block->block_id,"Edit");?></td>
 					</tr>
 					<? endforeach;?>
 				</table>

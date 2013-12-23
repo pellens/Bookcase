@@ -155,9 +155,50 @@ class Contactform {
 			$fields["save_submit"]  = 1;
 			$fields["save_contact"] = 1;
 			
-			
 			$CI->db->insert("contactform_forms",$fields);
 			$form_id = $CI->db->insert_id();
+
+			$data[] = array(
+				"form_id"     => $form_id,
+				"value"       => "email",
+				"label"       => "E-mail",
+				"type"        => "email",
+				"placeholder" => "E-mail",
+				"required"    => 1,
+				"position"    => 1
+			);
+			$data[] = array(
+				"form_id"     => $form_id,
+				"value"       => "name",
+				"label"       => "Firstname and Name",
+				"type"        => "text",
+				"placeholder" => "Firstname and Name",
+				"required"    => 1,
+				"position"    => 0
+			);
+			$data[] = array(
+				"form_id"     => $form_id,
+				"value"       => "tel",
+				"label"       => "Telephone",
+				"type"        => "text",
+				"placeholder" => "Telephone",
+				"required"    => 1,
+				"position"    => 2
+			);
+			$data[] = array(
+				"form_id"     => $form_id,
+				"value"       => "website",
+				"label"       => "Website",
+				"type"        => "text",
+				"placeholder" => "Website",
+				"required"    => 1,
+				"position"    => 3
+			);
+
+			foreach($data as $fields):
+				$CI->db->insert("contactform_fields",$fields);
+				unset($fields);
+			endforeach;
 		}
 		
 		// Contactform bestaat nog niet, maar niet aanmaken
@@ -432,6 +473,29 @@ class Contactform {
 		endforeach;
 	}
 
+	public function ajax_add_receiver( $data )
+	{
+		$CI =& get_instance();
+		$row = json_decode($data["receiver"]);
+
+			$insert["form_id"] = $row->id;
+			$insert["email"]   = $row->email;
+
+			$CI->db->insert("contactform_receivers",$insert);
+			unset($insert);
+
+
+		return true;
+	}
+
+	public function ajax_delete_receiver( $data )
+	{
+		$CI =& get_instance();
+		$CI->db->where("id",$data["id"])->delete("contactform_receivers");
+
+		return true;
+	}
+
 	public function ajax_add_field( $data )
 	{
 		$CI =& get_instance();
@@ -492,9 +556,12 @@ class Contactform {
 		
 		$CI->load->library("email");
 		
+		print_r($form);
+		die();
+
 		$CI->email->to($form[0]->to);
 		$CI->email->from($data["e-mail"]);
-		$CI->email->message($data["message"]);
+		//$CI->email->message($data["message"]);
 		$CI->email->subject($data["subject"]);
 		if($CI->email->send()):
 			return TRUE;
@@ -528,6 +595,12 @@ class Contactform {
 		{
 			$CI->db->insert("contactform_contacts",$fields);
 		}
+	}
+
+	function receivers_overview($form_id)
+	{
+		$CI =& get_instance();
+		return $CI->db->where("form_id",$form_id)->get("contactform_receivers")->result();
 	}
 	
 	function all_forms($view = false, $admin = false)

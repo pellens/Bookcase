@@ -90,6 +90,24 @@
 				)
 			),
 
+			"ajax_add_receiver" => array(
+				"view" => "",
+				"redirect" => false,
+				"submit" => "ajax_add_receiver",
+				"fn" => array(
+					"add" => "ajax_add_receiver"
+				)
+			),
+
+			"ajax_delete_receiver" => array(
+				"view" => "",
+				"redirect" => false,
+				"submit" => "ajax_delete_receiver",
+				"fn" => array(
+					"delete" => "ajax_delete_receiver"
+				)
+			),
+
 			"ajax_field_order" => array(
 				"view" => "",
 				"redirect" => false,
@@ -98,42 +116,6 @@
 					"add" => "ajax_field_order"
 				)
 			)
-
-			/*"del_location" => array(
-				"view" => "",
-				"redirect" => "admin/lib/locations/locations_overview",
-				"fn" => array(
-					"delete" => "del_location"
-				)
-			),
-
-			"add_type" => array(
-				"view" 		=> "backend/Locations/add_type",
-				"submit" 	=> "add_type",
-				"redirect" 	=> "admin/lib/locations/types_overview"
-			),
-
-			"edit_type" => array(
-				"view" => "backend/Locations/add_type",
-				"submit" => "edit_type",
-				"item" => "type",
-				"redirect" => "admin/lib/locations/types_overview"
-			),
-
-			"del_type" => array(
-				"view" => "",
-				"redirect" => "admin/lib/locations/types_overview",
-				"fn" => array(
-					"delete" => "del_type"
-				)
-			),
-
-			"types_overview" => array(
-				"view" 		=> "backend/Locations/types_overview",
-				"fn" => array(
-					"list" => "types_overview"
-				)
-			)*/
 
 		)
 
