@@ -21,6 +21,7 @@
     	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.js"></script>
     	<!--<script type="text/javascript" src="<?=base_url("js/core")?>/bootstrap.js"></script>-->
     	<script type="text/javascript" src="<?=base_url("js/backend")?>/custom.js"></script>
+      <script type="text/javascript" src="<?=base_url("ckeditor/ckeditor.js?rand=".rand()*100000);?>"></script>
     	<script type="text/javascript" src="<?=base_url("js/backend")?>/jquery.fancytree-all.js"></script>
     	<script type="text/javascript" src="<?=base_url("js/backend")?>/jquery.fancytree-dnd.js"></script>
     	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places&sensor=true"></script>

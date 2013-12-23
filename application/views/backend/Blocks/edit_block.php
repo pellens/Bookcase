@@ -1,3 +1,5 @@
+<?=form_open();?>
+
 <div class="left">
 
 	<div class="tabs">
@@ -10,7 +12,8 @@
 				<? foreach($item as $block):?>
 				<div class="item">
 					<p><strong><?=$block->title;?> (<?=$block->lang;?>)</strong></p>
-					<textarea name="content"><?=$block->content;?></textarea>
+					<input type="hidden" name="id[]" value="<?=$block->id;?>"/>
+					<textarea id="ckeditor_<?=$block->id;?>" name="content[]"><?=$block->content;?></textarea>
 				</div>
 				<? endforeach;?>
 
@@ -21,5 +24,17 @@
 </div>
 
 <div class="right">
-
+<div class="box">
+<input type="submit" value="Save content" class="button green"/>
 </div>
+</div>
+
+<?=form_close();?>
+
+<script>
+<? foreach($item as $block):?>
+CKEDITOR.replace( 'ckeditor_<?=$block->id;?>', {
+	toolbar : "Bookcase"
+});
+<? endforeach;?>
+</script>

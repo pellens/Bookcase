@@ -91,29 +91,51 @@ class Blocks {
 		else
 		{
 
-			$result = $CI->db->where("blocks.title",$name)->from("blocks")->join("blocks_content","blocks_content.block_id = blocks.id","left")->get();
-			
+			$result = $CI->db->where("blocks.title",$name)->from("blocks")->get();
+
 			// Block bestaat nog niet
+			// Block algemeen aanmaken
 			if($result->num_rows == 0):
 			
+				// Block toevoegen
 				$fields["title"] = $name;
-				
-				$fields["page"] = (!$general) ? $CI->core->page : "general";
+				$fields["page"]  = (!$general) ? $CI->core->page : "general";
 				$CI->db->insert("blocks",$fields);
-				
-				$block = $CI->db->where("title",$name)->get("blocks")->result();
-				
+				$id = $CI->db->insert_id();
 				unset($fields);
-				
-				$fields["lang"]     = lang();
-				$fields["block_id"] = $block[0]->id;
-				$fields["content"]  = "<p>The block <b>".$name."</b> has been succesfully created. You can now edit this text.</p>";
-				
-				$CI->db->insert("blocks_content",$fields);
-				
-				unset($block);
+
+				// Bestaat de content al voor deze lang?
+				$content = $CI->db->where("blocks_content.block_id",$id)->where("lang",lang())->from("blocks_content")->get();
+				if($content->num_rows == 0):
+
+					$fields["lang"]     = lang();
+					$fields["block_id"] = $id;
+					$fields["content"]  = "<p>The block <b>".$name."</b> has been succesfully created. You can now edit this text.</p>";
+					$this->add_content_block($fields);
+					unset($fields);
+
+				endif;
 			
+			else:
+
+				$result = $result->result();
+				$id = $result[0]->id;
+				$result = $CI->db->where("blocks_content.block_id",$id)->where("lang",lang())->from("blocks_content")->get();
+				// Block bestaat
+				// Bestaat ook de content voor deze lang al?
+				if($result->num_rows == 0):
+
+					$fields["lang"]     = lang();
+					$fields["block_id"] = $id;
+					$fields["content"]  = "<p>The block <b>".$name."</b> has been succesfully created. You can now edit this text.</p>";
+					$this->add_content_block($fields);
+					unset($fields);
+
+				endif;
+
 			endif;
+
+			
 			
 			$block = $CI->db->where("blocks.title",$name)
 							->from("blocks AS blocks")
@@ -127,6 +149,15 @@ class Blocks {
 		}
 	
 		
+	}
+
+	function add_content_block($fields)
+	{
+		$CI =& get_instance();
+		
+		$CI->db->insert("blocks_content",$fields);
+		$id = $CI->db->insert_id();
+		return $id;
 	}
 
 	function item($id)
@@ -148,14 +179,41 @@ class Blocks {
 	{
 		$CI =& get_instance();
 		
-		return $CI->db->where("page",$page)->from("blocks")->join("blocks_content","blocks_content.block_id = blocks.id","left")->get()->result();
+		return $CI->db->group_by("blocks.id")->where("lang",lang())->where("page",$page)->from("blocks")->join("blocks_content","blocks_content.block_id = blocks.id","left")->get()->result();
 	}
 
-	function block_edit( $block )
+	function edit_block( $block )
 	{
 		$CI =& get_instance();
-		
-		return $CI->db->where("blocks.id",$block)->from("blocks")->join("blocks_content","blocks_content.block_id = blocks.id","left")->get()->result();
+
+		if(isset($_POST["id"]))
+		{
+			
+			foreach($_POST as $key => $val):
+
+				$a = 0;
+				foreach($val as $i):
+					$fields[$a][$key] = $i;
+					$a++;
+				endforeach;
+
+			endforeach;
+
+			foreach($fields as $item):
+
+				$data["content"] = $item["content"];
+				$CI->db->where("id",$item["id"])->update("blocks_content",$data);
+				unset($data);
+
+			endforeach;
+
+			return true;
+			
+		}
+		else
+		{
+			return $CI->db->where("blocks.id",$block)->from("blocks")->join("blocks_content","blocks_content.block_id = blocks.id","left")->get()->result();
+		}
 	}
 
 }
