@@ -10,18 +10,36 @@
 		</ul>
 
 		<div class="panes">
+
 			<div class="pane active" data-pane="page">
+
 				<div class="form-inline">
-					<p><label for="title">Page title</label> <input autocomplete="off" type="text" name="title" id="title"/></p>
+					<p><label for="title">Page title</label> <input autocomplete="off" type="text" name="title" id="title" value="<?=$item->title;?>"/></p>
 					<p><label>Permalink</label> <?=site_url();?><span class="parents"></span><span class="permalink"></span></p>
 				</div>
+
+				<table class="table table-bordered table-striped">
+					<tr>
+						<th>Blockname</th>
+						<th>Content preview</th>
+						<th>&nbsp;</th>
+					</tr>
+					<? foreach($this->blocks->blocks_page($item->page) as $block):?>
+					<tr>
+						<td><?=$block->title;?></htd>
+						<td><?=character_limiter(strip_tags($block->content),100);?></td>
+						<td><?=anchor("admin/lib/blocks/edit_block/".$block->id,"Edit");?></td>
+					</tr>
+					<? endforeach;?>
+				</table>
+
 			</div>
 
 			<div class="pane" data-pane="seo">
-					<?
-						$data["item"] = @$item;
-						$this->load->view("backend/snippets/seo_social",$data);
-					?>
+				<?
+					$data["item"] = @$item;
+					$this->load->view("backend/snippets/seo_social",$data);
+				?>
 			</div>
 
 			<div class="pane" data-pane="modules">

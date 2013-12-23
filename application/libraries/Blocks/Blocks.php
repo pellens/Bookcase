@@ -78,7 +78,7 @@ class Blocks {
 	
 	}
 	
-	public function block($name, $lang="", $general=false)
+	public function block($name, $general=false)
 	{
 		
 		$CI =& get_instance();
@@ -91,7 +91,7 @@ class Blocks {
 		else
 		{
 
-			$result = $CI->db->where("title",$name)->get("blocks");
+			$result = $CI->db->where("blocks.title",$name)->from("blocks")->join("blocks_content","blocks_content.block_id = blocks.id","left")->get();
 			
 			// Block bestaat nog niet
 			if($result->num_rows == 0):
@@ -105,7 +105,7 @@ class Blocks {
 				
 				unset($fields);
 				
-				$fields["lang"]     = $CI->core->lang;
+				$fields["lang"]     = lang();
 				$fields["block_id"] = $block[0]->id;
 				$fields["content"]  = "<p>The block <b>".$name."</b> has been succesfully created. You can now edit this text.</p>";
 				
@@ -115,11 +115,9 @@ class Blocks {
 			
 			endif;
 			
-			$lang = ($CI->core->lang) ? $CI->core->lang : $lang;
-			
 			$block = $CI->db->where("blocks.title",$name)
 							->from("blocks AS blocks")
-							->where("blocks_content.lang",$lang)
+							->where("blocks_content.lang",lang())
 							->join("blocks_content AS blocks_content","blocks_content.block_id = blocks.id","left")
 							->get()
 							->result();
@@ -130,8 +128,16 @@ class Blocks {
 	
 		
 	}
+
+	function item($id)
+	{
+		$CI =& get_instance();
+		
+		$block = $CI->db->where("blocks.id",$id)->from("blocks")->join("blocks_content","blocks_content.block_id = blocks.id","left")->get()->result();
+		return $block;
+	}
 	
-	function all()
+	function blocks_overview()
 	{
 		$CI =& get_instance();
 		

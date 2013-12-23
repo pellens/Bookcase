@@ -51,8 +51,8 @@ class Admin extends CI_Controller {
 		else
 		{
 			$data["active_link"] = "website";
-			$data["main"] = "backend/Core/add_page";
-	
+			$data["main"] 		 = "backend/Core/add_page";
+			$data["item"] 		 = $this->core->page($id);
 			$this->load->view("backend/index",$data);
 		}
 	}
@@ -62,7 +62,7 @@ class Admin extends CI_Controller {
 
 		$submitted = (isset($_POST) && count($_POST) > 0) ? true : false;
 		
-		require_once(APPPATH."/libraries/".ucwords($lib)."/config.php");
+		(@include_once (APPPATH."/libraries/".ucwords($lib)."/config.php")) or die("This library is not installed or doesn't have a config-file...");
 		$this->load->library($lib);
 		$data["main"] = $admin["fn"][$fn]["view"];
 		if($fn)

@@ -7,7 +7,7 @@
 		  <ul id="treeData" style="display:none;">
 
 		  	<? foreach($this->core->all_pages() as $page):?>
-		  	<li><?=anchor("admin/page/edit/".$page->id,$page->page);?></li>
+		  	<li data-id="<?=$page->id;?>"><?=anchor("admin/page/edit/".$page->id,$page->page);?></li>
 		 	<? endforeach;?>
 		    
 		    <!--

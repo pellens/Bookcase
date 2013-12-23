@@ -583,10 +583,20 @@ class Core {
    		return $libraries;
 	}
 
-	function page( $page )
+	public function page( $page )
 	{
+
 		$CI =& get_instance();
-		$CI->db->where("page",$page);
+		if(is_numeric($page))
+		{
+			$CI->db->where("id",$page);
+		}
+		else
+		{
+			$CI->db->where("page",$page);
+		}
+		
+		
 		$result = $CI->db->get("core_pages")->result();
 		
 		return $result[0];

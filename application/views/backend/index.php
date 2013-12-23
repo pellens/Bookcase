@@ -65,7 +65,7 @@
         }
       },
       activate: function(e, data) {
-//        alert("activate " + data.node);
+        window.location = data.node.data.href;
       }
     });
     });

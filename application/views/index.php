@@ -11,5 +11,7 @@
 			<h1>Bookcase freshly installed!</h1>
 			<p><?=anchor("admin","Visit the core backend");?></p>
 		</div>
+
+		<?=$this->blocks->block("homepage_tekst",false);?>
 	</body>
 </html>
