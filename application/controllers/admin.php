@@ -51,7 +51,7 @@ class Admin extends CI_Controller {
 		else
 		{
 			$data["active_link"] = "website";
-			$data["main"] 		 = "backend/Core/add_page";
+			$data["main"] 		 = "backend/Core/edit_page";
 			$data["item"] 		 = $this->core->page($id);
 			$this->load->view("backend/index",$data);
 		}

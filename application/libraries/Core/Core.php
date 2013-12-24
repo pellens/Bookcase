@@ -262,6 +262,10 @@ class Core {
 						),
 				"redirect" => array(
 							"type"=>"int"
+						),
+				"homepage" => array(
+							"type" => "int",
+							"default" => "0"
 						)
 			);
 		
@@ -591,7 +595,7 @@ class Core {
 
 		$CI =& get_instance();
 		if(is_numeric($page))
-		{
+		{	
 			$CI->db->where("id",$page);
 		}
 		else

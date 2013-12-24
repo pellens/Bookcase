@@ -4,7 +4,7 @@
 	
 	<div class="tabs">
 		<ul class="links">
-			<li class="active" data-pane="page">Add new page</li>
+			<li class="active" data-pane="page">Edit page</li>
 			<li data-pane="modules">Linked modules</li>
 			<li data-pane="seo">Searchengine</li>
 		</ul>
@@ -15,8 +15,10 @@
 
 				<div class="form-inline">
 					<p><label for="title">Page title</label> <input autocomplete="off" type="text" name="title" id="title" value="<?=$item->title;?>"/></p>
-					<p><label>Permalink</label> <?=site_url();?><span class="parents"></span><span class="permalink"></span></p>
+					<p><label>Permalink</label> <?=site_url(lang());?>/<span class="parents"></span><span class="permalink"></span></p>
+					<input type="hidden" name="url" id="url"/>
 				</div>
+
 
 				<table class="table table-bordered table-striped">
 					<tr>
@@ -37,7 +39,7 @@
 
 			<div class="pane" data-pane="seo">
 				<?
-					$data["item"] = @$item;
+					$data["item"] = $item;
 					$this->load->view("backend/snippets/seo_social",$data);
 				?>
 			</div>
@@ -52,6 +54,13 @@
 
 <div class="right">
 	<div class="box">
+		<p>
+			<label for="homepage">This is the homepage?</label>
+			<select name="homepage" id="homepage">
+				<option <?=($item->homepage == 0) ? "selected" : "";?> value="0">No</option>
+				<option <?=($item->homepage == 1) ? "selected" : "";?> value="1">Yes</option>
+			</select>
+		</p>
 		<p>
 			<label for="main_nav">Place in main navigation?</label>
 			<select name="main_nav" id="main_nav">
@@ -92,7 +101,17 @@
 $(document).ready(function(){
 
 	$("#title").bind("keyup",function(){
-		$(".permalink").html($(this).val().toLowerCase().split(' ').join('-'));
+
+		if($("#homepage").val() != 1)
+		{
+			$(".permalink").html($(this).val().toLowerCase().split(' ').join('-'));
+			$("#url").val("<?=site_url(lang());?>/"+$(".permalink").html());
+		}
+	});
+
+	$("#homepage").bind("change",function(){
+		$(".permalink").html("");
+		$("#url").val("<?=site_url(lang());?>/");
 	});
 
 	$("#parent").bind("change",function(){
