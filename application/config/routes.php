@@ -41,8 +41,33 @@
 $route['default_controller'] = "index";
 $route['404_override'] = '';
 
+require_once( BASEPATH .'database/DB'. EXT );
+$db =& DB();
+foreach($db->order_by("url","desc")->get("core_pages")->result() as $page):
+
+	if($page->homepage == 1)
+	{
+	    $route["(\w{2})"] = strtolower($page->class)."/".$page->function;
+	}
+	else
+	{
+		$aphix = "";
+		$segs = explode("/",$page->url);
+		$a = 1;
+		foreach($segs as $seg):
+			if($seg == "(:any)")
+			{
+				$aphix.="/$".$a;
+				$a++;
+			}
+		endforeach;
+
+		$route['(\w{2})/'.$page->url.''] = strtolower($page->class)."/".$page->function.$aphix;
+	}
+
+endforeach;
+
 $route['(\w{2})/(.*)'] = '$2';
-$route['(\w{2})'] = $route['default_controller'];
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

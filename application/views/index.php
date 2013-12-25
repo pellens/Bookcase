@@ -8,6 +8,7 @@
 	</head>
 	<body>
 		<?=langswitch();?>
+		<?=crumbs();?>
     	<div class="install-box">
 			<h1>Bookcase freshly installed!</h1>
 			<p><?=anchor("admin","Visit the core backend");?></p>

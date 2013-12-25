@@ -1,10 +1,11 @@
 <div class="box">
 		<h2>Pagina overzicht</h2>
 
+<?=tree();?>
 
-
-		<div id="tree">
+		<div>
 		  <ul id="treeData" style="display:none;">
+
 
 		  	<? foreach($this->core->all_pages() as $page):?>
 		  	<li data-id="<?=$page->id;?>"><?=anchor("admin/page/edit/".$page->id,$page->page);?></li>
@@ -20,7 +21,6 @@
 		     -->
 		  </ul>
 		</div>
-
 		<div class="actions">
 			<a href="<?=base_url("admin/page/add");?>" class="button blue">Pagina toevoegen</a>
 		</div>

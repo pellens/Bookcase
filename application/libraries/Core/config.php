@@ -18,14 +18,13 @@
 
 		"title" => "Core settings",
 		"nav" => array(
-			"General" => array(
-				"Website settings" => "admin/library/core/settings",
-				"Libraries"        => "admin/library/core/libraries"
+			"Settings" => array(
+				"Website settings" => "admin/settings/website_settings",
+				"Modules"        => "admin/settings/libraries"
 			),
 			"Administrators" => array(
-				"Create admin" => "admin/library/core/add_admin",
-				"Administrators"  => "admin/library/core/admins",
-				"Permissions" => "admin/library/core/permissions"
+				"New user" => "admin/settings/add_user",
+				"Permissions" => "admin/settings/permissions"
 			)
 		)
 

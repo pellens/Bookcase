@@ -11,45 +11,55 @@ class Index extends CI_Controller {
 	{
 
 		// Core settings
-        $config["page"] = "homepage";
+        $config["function"] = __FUNCTION__;
+        $config["class"]    = __CLASS__;
+        $config["page"]     = "homepage";
         $this->core->initialize($config);
 
-        // Marketplace
-        //$this->load->library("Products");
-//
-        //// User settigns
-        //$data["login_form"] = $this->users->login_form(true);
-        //if(is_logged_in())
-        //{
-        //	$data["user"] = logged_info();
-        //}
-//
-        //$this->load->library("locality");
-        //
-        //// Zoekertjes
-        ////$this->load->library"zoekertjes");
-        ////$data["aantal_zoekertjes"]	= $this->zoekertjes->aantal);
-
+        // Form on this page
         $this->load->library("contactform");
-        $config["form"]           = "general_contactform";
+        $config["form"]     = "general_contactform";
         $this->contactform->initialize($config);
-        echo $this->contactform->generate();
+
+        //echo $this->contactform->generate();
 
 		$this->load->view('index');
-
-       
-
 	}
 
     public function about()
     {
-        $config["page"] = "about";
+        // Core settings
+        $config["function"] = __FUNCTION__;
+        $config["class"]    = __CLASS__;
+        $config["page"]     = "about";
+        $config["parent"]   = "homepage";
         $this->core->initialize($config);
 
-        $this->load->library("contactform");
-        $config["form"]           = "about_contactform";
-        $this->contactform->initialize($config);
-        echo $this->contactform->generate();
+        $this->load->view('index');
+    }
+
+    public function location()
+    {
+        // Core settings
+        $config["function"] = __FUNCTION__;
+        $config["class"]    = __CLASS__;
+        $config["page"]     = "location";
+        $config["parent"]   = "about";
+        $this->core->initialize($config);
+
+        echo crumbs();
+    }
+
+    public function location_item($id)
+    {
+        // Core settings
+        $config["function"] = __FUNCTION__;
+        $config["class"]    = __CLASS__;
+        $config["page"]     = "location_item";
+        $config["parent"]   = "location";
+        $this->core->initialize($config);
+
+        echo crumbs();
     }
 
 }

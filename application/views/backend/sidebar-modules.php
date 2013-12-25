@@ -8,10 +8,12 @@
 
 	foreach($data["nav"] as $lib => $array):
 
+		if(isset($array["nav"]["General"])):
+
 ?>
 
 <div class="box">
-	<h2><?=$lib;?></h2>
+	<h2><?=$array["title"];?></h2>
 
 	<ul class="nav">
 		<? foreach($array["nav"]["General"] as $title => $link):?>
@@ -23,5 +25,6 @@
 	</ul>
 
 </div>
+<? endif;?>
 
 <? endforeach;?>

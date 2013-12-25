@@ -16,17 +16,18 @@
 class Core {
 	
 	var $CI;
-	var $page          = "";
-	var $scripts       = "";
-	var $type          = "";
-	var $type_id       = "";
-	var $page_title    = "";
-	var $fb_app_id  = "";
-	var $website_title = "";
-	var $all_pages_open  = "<div>";
-	var $all_pages_close = "</div>";
-	var $list_open 		= "<div class='list'>";
-	var $list_close     = "</div>";
+	var $page         	  = "";
+	var $scripts      	  = "";
+	var $type         	  = "";
+	var $type_id      	  = "";
+	var $page_title   	  = "";
+	var $url          	  = "";
+	var $fb_app_id    	  = "";
+	var $website_title	  = "";
+	var $all_pages_open   = "<div>";
+	var $all_pages_close  = "</div>";
+	var $list_open 		  = "<div class='list'>";
+	var $list_close       = "</div>";
 
 	public function __construct($params = array())
 	{
@@ -229,7 +230,7 @@ class Core {
 						),
 				"page" => array(
 							"type" => "varchar",
-							"constraint" => "300",
+							"constraint" => "300"
 						),
 				"keywords" => array(
 							"type" => "TEXT"
@@ -239,7 +240,7 @@ class Core {
 						),
 				"url" => array(
 							"type" => "varchar",
-							"constraint" => "500",
+							"constraint" => "500"
 						),
 				"author" => array(
 							"type" => "varchar",
@@ -263,6 +264,10 @@ class Core {
 				"redirect" => array(
 							"type"=>"int"
 						),
+				"parent" => array(
+							"type" => "varchar",
+							"constraint" => "300"
+						),
 				"homepage" => array(
 							"type" => "int",
 							"default" => "0"
@@ -282,7 +287,6 @@ class Core {
 		
 		$settings = $CI->db->get("core_settings")->result();
 		$this->website_title = $settings[0]->title;
-
 
 	}
 	
@@ -311,6 +315,7 @@ class Core {
 		
 		// SEO
 		$this->meta_description = $config[0]->description;
+		$this->url 				= base_url(lang()."/".$config[0]->url);
 		$this->fb_app_id     	= $general[0]->fb_app_id;
 		$this->meta_keywords    = $config[0]->keywords;
 		$this->index            = $config[0]->index;
@@ -433,13 +438,15 @@ class Core {
         <meta name="robots"             content="'.$this->index.','.$this->follow.'" />
         <meta name="revisit-after"      content="'.$this->revisit.'" />
         
+        <link rel="canonical" href="'.$this->url.'"/>
+
         <!-- FACEBOOK -->
         <meta property="fb:app_id"      content="'.$this->fb_app_id.'" />
         
         <!-- SOCIAL MEDIA -->
         <meta property="og:title"       content="'.$this->page_title.'" />
         <meta property="og:type"        content="'.$this->type.'" />
-        <meta property="og:url"         content="'.current_url().'" />
+        <meta property="og:url"         content="'.$this->url.'" />
         <meta property="og:image"       content="" />
         <meta property="og:description" content="'.$this->meta_description.'" />
         <meta property="og:site_name"   content="'.$this->website_title.'" />

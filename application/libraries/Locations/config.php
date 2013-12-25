@@ -16,7 +16,7 @@
 
 	$nav = array(
 
-		"title" => "Core settings",
+		"title" => "Locations",
 		"nav" => array(
 			"General" => array(
 				"All locations"		=> "admin/lib/locations/locations_overview",
