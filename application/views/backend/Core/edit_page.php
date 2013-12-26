@@ -15,7 +15,7 @@
 
 				<div class="form-inline">
 					<p><label for="title">Page title</label> <input autocomplete="off" type="text" name="title" id="title" value="<?=$item->title;?>"/></p>
-					<p><label>Permalink</label> <?=site_url(lang());?>/<span class="parents"></span><span class="permalink"></span></p>
+					<p><label>Permalink</label> <?=site_url(lang());?>/<span class="parents"><?=$item->url;?></span><span class="permalink"></span></p>
 					<input type="hidden" name="url" id="url"/>
 				</div>
 

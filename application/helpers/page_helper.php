@@ -57,13 +57,14 @@
 		function tree()
 		{
 			$CI =& get_instance();
-			$result = $CI->db->select("p0.id, p0.url, p0.page, p0.parent, p1.id as parent_id")->order_by("parent_id","DESC")->from("core_pages as p0")->join("core_pages as p1","p1.page = p0.parent","left")->get()->result();
+			$result = $CI->db->select("p0.id, p0.url, p0.title, p0.page, p0.parent, p1.id as parent_id")->order_by("parent_id","DESC")->from("core_pages as p0")->join("core_pages as p1","p1.page = p0.parent","left")->get()->result();
 
 			$pages = array();
 			foreach($result as $item):
 				
 					$pages[] = array(
 						"id" => $item->id,
+						"title" => $item->title,
 						"name" => $item->page,
 						"parent" => ($item->parent_id == "") ? 0 : $item->parent_id,
 						"parent_name" => $item->parent,
@@ -119,7 +120,8 @@
 		    foreach($nav as $page)
 		    {
 		        $html .= '<ul><li data-id="'.$page['id'].'">';
-		        $html .= '<a href="' . base_url("admin/page/edit/".$page["id"]) . '">' . $page['name'] . '</a>';
+		        $title = ($page["title"] == "") ? $page["name"] : $page["title"];
+		        $html .= '<a href="' . base_url("admin/page/edit/".$page["id"]) . '">' . $title . '</a>';
 		        $html .= GenerateNavHTML($page['sub']);
 		        $html .= '</li></ul>';
 		    }

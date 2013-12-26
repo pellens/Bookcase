@@ -89,7 +89,7 @@ class Products {
 				"description" => array(
 							"type" => "text"
 						),
-				"product_category" => array(
+				"category_id" => array(
 							"type" => "INT"
 						),
 				"lang" => array(
@@ -232,7 +232,7 @@ class Products {
 				}
 				else
 				{
-					$category = $this->categories(null,"select");
+					$category = $this->categories_overview(null,"select");
 				}
 
 				$form = form_open();
@@ -252,7 +252,7 @@ class Products {
 	}
 	
 	
-	public function categories($parent=null,$view=false)
+	public function categories_overview($parent=null,$view=false)
 	{
 		$CI  =& get_instance();
 		
@@ -303,7 +303,7 @@ class Products {
 		$this->category = ($category != null) ? $category : $this->category;
 		$this->products_string_to_int();
 		
-		$CI->db->where("product_category",$this->category);
+		$CI->db->where("category_id",$this->category);
 		if($num!=null)
 		{
 			$CI->db->limit($num)->order_by("id","DESC"); 
@@ -335,7 +335,7 @@ class Products {
 			$this->meta_description = $result[0]->meta_description;
 			$this->meta_keywords    = $result[0]->meta_keywords;
 			
-			return $result;
+			return $result[0];
 		else:
 			return "No product found...";
 		endif;
@@ -389,10 +389,10 @@ class Products {
 		else return false;
 	}
 	
-	public function all_products()
+	public function products_overview()
 	{
 		$CI  =& get_instance();
-		return $CI->db->order_by("id","DESC")->get("products_items");
+		return $CI->db->select("p.title, p.id, p.price, p.description, c.title as category_title")->order_by("p.id","DESC")->from("products_items AS p")->join("products_categories as c","c.id = p.category_id","left")->get()->result();
 	}
 	
 	public function products_string_to_int()
@@ -420,7 +420,7 @@ class Products {
 		$category = $this->product_parent($product);
 		
 		return $CI->db
-					->where("product_category",$category)
+					->where("category_id",$category)
 					->where("id !=",$product)
 					->limit($limit)
 					->get("products_items")->result();
@@ -436,8 +436,22 @@ class Products {
 		$CI  =& get_instance();
 		$result = $CI->db
 						->where("id",$product)
-						->select("product_category")->get("products_items")->result();
-		return $result[0]->product_category;
+						->select("category_id")->get("products_items")->result();
+		return $result[0]->category_id;
+	}
+
+	public function edit_product($item)
+	{
+		$CI  =& get_instance();
+		foreach($item as $key => $field):
+
+			$fields[$key] = $CI->input->post($key,true);
+
+		endforeach;
+
+		$CI->db->where("id",$fields["id"])->update("products_items",$fields);
+
+		return true;
 	}
 	
 	public function form()

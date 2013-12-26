@@ -6,14 +6,22 @@
 
 	</head>
 	<body>
-		<h1><?=$this->core->website_title;?></h1>
-		<?=langswitch();?>
-		<?=crumbs();?>
+		
+		
     	<div class="install-box">
-			<h1>Bookcase freshly installed!</h1>
+			<h2>Bookcase freshly installed!</h2>
 			<p><?=anchor("admin","Visit the core backend");?></p>
 		</div>
 
+		<hr/>
+		<h1><?=$this->core->website_title;?></h1>
+		<?=langswitch();?>
+		<?=crumbs();?>
 		<?=$this->blocks->block("homepage_tekst",false);?>
+
+		<? foreach($categories as $category):?>
+			<pre><? print_r($category);?></pre>
+		<? endforeach;?>
+
 	</body>
 </html>

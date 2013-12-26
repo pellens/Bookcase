@@ -81,16 +81,14 @@
 		<div class="header">
 			<h1><?=$this->core->website_title;?></h1>
 			<nav>
-			<ul>
-
-				<li <?=($active_link == "website")  ? "class='active'" : "";?>><?=anchor("admin","Website");?></li>
-				<li <?=($active_link == "lib")      ? "class='active'" : "";?>><?=anchor("admin/modules","Modules");?></li>
-				<li <?=($active_link == "settings") ? "class='active'" : "";?>><?=anchor("admin/settings/website_settings","Settings");?></li>
-				
-			</ul>
+                <ul>
+				    <li <?=($active_link == "website")  ? "class='active'" : "";?>><?=anchor("admin","Website");?></li>
+				    <li <?=($active_link == "lib")      ? "class='active'" : "";?>><?=anchor("admin/modules","Modules");?></li>
+				    <li <?=($active_link == "settings") ? "class='active'" : "";?>><?=anchor("admin/settings/website_settings","Settings");?></li>
+                </ul>
 			</nav>
 
-      <?=langswitch();?>
+            <?=langswitch();?>
       
 		</div>
 
@@ -110,21 +108,6 @@
 			<?=$this->load->view($main);?>
 		</div>
 
-	</div>
-
-	<div class="container">
-    		
-
-			
-			<div class="main">
-
-				<h3>Users</h3>
-
-				<?=$this->users->users(true);?>
-
-			</div>
-		
-		</div>
 	</div>
 
 	</body>

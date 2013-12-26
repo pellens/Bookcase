@@ -21,9 +21,13 @@ class Index extends CI_Controller {
         $config["form"]     = "general_contactform";
         $this->contactform->initialize($config);
 
+        // Products on this page
+        $this->load->library("products");
+        $data["categories"] = $this->products->categories_overview();
+
         //echo $this->contactform->generate();
 
-		$this->load->view('index');
+		$this->load->view('index',$data);
 	}
 
     public function about()
