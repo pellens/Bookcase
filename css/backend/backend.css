@@ -332,6 +332,25 @@ body {
   -webkit-border-top-right-radius: 5px;
   border-top-right-radius: 5px;
 }
+.sidebar .box .tree {
+  padding-left: 15px;
+}
+.sidebar .box .tree ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  background-image: url(../../images/core/tree-end.gif);
+  background-repeat: no-repeat;
+  background-position: left 36px;
+}
+.sidebar .box .tree ul li {
+  line-height: 30px;
+  background-image: url(../../images/core/file-icon.gif);
+  background-repeat: no-repeat;
+  background-position: left 6px;
+  display: block;
+  padding-left: 23px;
+}
 .sidebar .box .actions {
   border-top: 1px solid #c8d3e0;
   box-sizing: border-box;

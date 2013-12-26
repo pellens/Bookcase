@@ -62,9 +62,9 @@
 			</select>
 		</p>
 		<p>
-			<label for="main_nav">Place in main navigation?</label>
+			<label for="main_nav">Navigation</label>
 			<select name="main_nav" id="main_nav">
-				<option value="0">No</option>
+				<option value="0">No navigation</option>
 				<option value="1">Yes</option>
 			</select>
 		</p>
@@ -79,7 +79,16 @@
 			<label for="parent">Parent page</label>
 			<select name="parent" id="parent">
 				<option value="0">No parent page</option>
-				<option value="1" data-parent="diensten">Diensten</option>
+				<?
+					foreach($this->core->all_pages() as $page):
+						if($page->id != $item->id):
+							$selected = ($item->parent == $page->page) ? "selected" : "";
+				?>
+				<option data-parent="<?=$page->page;?>" <?=$selected;?> value="<?=$page->url;?>"><?=$page->title." (".$page->page.")";?></option>
+				<?
+						endif;
+					endforeach;
+				?>
 			</select>
 		</p>
 		<p>
@@ -115,7 +124,7 @@ $(document).ready(function(){
 	});
 
 	$("#parent").bind("change",function(){
-		$(".parents").html($("#parent option:selected").attr("data-parent")+"/");
+		$(".parents").html($("#parent option:selected").val()+"/");
 	});
 });
 

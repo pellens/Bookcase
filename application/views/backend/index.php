@@ -28,6 +28,7 @@
 
     	<script type="text/javascript">
     $(function(){
+
       $("#tree").fancytree({
       extensions: ["dnd"],
       dnd: {

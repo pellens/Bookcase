@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="<?=lang();?>">
 	<head>
     	<?=$this->core->metatags();?>
     	<link href="<?=base_url("css/backend/backend.css");?>" rel="stylesheet" media="screen">
