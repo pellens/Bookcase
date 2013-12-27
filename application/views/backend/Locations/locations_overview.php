@@ -10,17 +10,28 @@
 
 		<div class="pane">
 
-			<ul class="list locations">
+			<table class="table table-bordered table-striped locations">
+				<thead>
+				<tr>
+					<th>Map</th>
+					<th>Location</th>
+					<th>Address</th>
+				</tr>
+				</thead>
+				<tbody>
 				<? foreach($list as $loc):?>
-				<li class="item" id="item-<?=$loc->id;?>">
-					<a href="<?=base_url("admin/lib/locations/edit_location/".$loc->id);?>">
-						<img src="http://maps.googleapis.com/maps/api/staticmap?center=<?=urlencode($loc->adres);?>&zoom=10&size=240x100&maptype=roadmap&markers=color:red%7Ccolor:red%7C<?=urlencode($loc->adres);?>&sensor=false"/>
-					</a>
-					<?=anchor("admin/lib/locations/edit_location/".$loc->id,$loc->title);?>
-					<p class="small"><?=$loc->adres;?></p>
-				</li>
+				<tr class="item" id="item-<?=$loc->id;?>">
+					<td width="100">
+						<a href="<?=base_url("admin/lib/locations/edit_location/".$loc->id);?>">
+							<img src="http://maps.googleapis.com/maps/api/staticmap?center=<?=urlencode($loc->adres);?>&zoom=12&size=100x60&maptype=roadmap&sensor=false"/>
+						</a>
+					</td>
+					<td><?=anchor("admin/lib/locations/edit_location/".$loc->id,$loc->title);?></td>
+					<td><p class="small"><?=$loc->adres;?></p></td>
+				</tr>
 				<? endforeach;?>
-			</ul>
+				</tbody>
+			</table>
 		</div>
 
 	</div>
@@ -30,10 +41,10 @@
 
 $(document).ready(function(){
 
-	$("ul.list.locations").sortable({
+	$(".table.locations tbody").sortable({
 			opacity: 0.6,
 			cursor: 'move',
-			connectWith: "ul.list.locations",
+			connectWith: ".table.locations tbody",
 			update: function() {
 			var order = $(this).sortable("serialize"); 
 			$.post("<?=base_url(lang().'/admin/lib/locations/ajax_locations_order');?>", order, function(data){
