@@ -21,7 +21,7 @@
 					$result = $CI->db->where("page",$parent)->get("core_pages")->result();
 					$crumbs[] = array(
 						"title" => $result[0]->title,
-						"url"   => "/".lang()."/".$result[0]->url
+						"url"   => "/".$result[0]->url
 					);
 					if($result[0]->parent != "")
 					{
