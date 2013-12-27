@@ -40,7 +40,7 @@
 		<div class="product-categories">
 			<? foreach($categories as $category):?>
 				<div class="item">
-					<h3><?=anchor("#",$category->title);?></h3>
+					<h3><?=anchor("producten/".$category->url_title,$category->title);?></h3>
 					<p><?=strip_tags($category->description);?></p>
 				</div>
 			<? endforeach;?>

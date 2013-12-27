@@ -142,11 +142,15 @@ if ( ! function_exists('anchor'))
 {
 	function anchor($uri = '', $title = '', $attributes = '')
 	{
+
+		$CI  =& get_instance();
+		$CI->load->helper("translate");
+
 		$title = (string) $title;
 
 		if ( ! is_array($uri))
 		{
-			$site_url = ( ! preg_match('!^\w+://! i', $uri)) ? site_url($uri) : $uri;
+			$site_url = ( ! preg_match('!^\w+://! i', $uri)) ? site_url(lang()."/".$uri) : $uri;
 		}
 		else
 		{
