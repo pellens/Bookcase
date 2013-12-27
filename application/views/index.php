@@ -1,27 +1,52 @@
 <!DOCTYPE html>
+
 <html lang="<?=lang();?>">
+
 	<head>
     	<?=$this->core->metatags();?>
-    	<link href="<?=base_url("css/backend/backend.css");?>" rel="stylesheet" media="screen">
-
 	</head>
-	<body>
-		
+
+	<body>		
+
 		
     	<div class="install-box">
-			<h2>Bookcase freshly installed!</h2>
-			<p><?=anchor("admin","Visit the core backend");?></p>
+			<h3>Bookcase freshly installed!</h3>
+			<p><?=anchor("admin","Visit the backend");?></p>
 		</div>
 
 		<hr/>
-		<h1><?=$this->core->website_title;?></h1>
-		<?=langswitch();?>
-		<?=crumbs();?>
-		<?=$this->blocks->block("homepage_tekst",false);?>
 
-		<? foreach($categories as $category):?>
-			<pre><? print_r($category);?></pre>
-		<? endforeach;?>
+
+		<h1><?=$this->core->website_title;?></h1>
+		
+		
+		<div class="langswitch">
+			<p>Choose a language</p>
+			<?=langswitch();?>
+		</div>
+		
+
+		<div class="crumbs">
+			<span>You are here:</span>
+			<?=crumbs();?>
+		</div>
+		
+		
+		<div class="textblock">
+			<?=$this->blocks->block("homepage_tekst",false);?>
+		</div>
+
+		
+		<div class="product-categories">
+			<? foreach($categories as $category):?>
+				<div class="item">
+					<h3><?=anchor("#",$category->title);?></h3>
+					<p><?=strip_tags($category->description);?></p>
+				</div>
+			<? endforeach;?>
+		</div>
+
 
 	</body>
+
 </html>

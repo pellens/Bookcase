@@ -50,6 +50,21 @@ class Products {
 							"type" => "INT",
 							"default" => 0
 						),
+				"description" => array(
+							"type" => "text"
+						),
+				"index" => array(
+							"type" => "varchar",
+							"constraint" => "30"
+						),
+				"follow" => array(
+							"type" => "varchar",
+							"constraint" => "30"
+						),
+				"revisit" => array(
+							"type" => "varchar",
+							"constraint" => "30"
+						),
 				"meta_description" => array(
 							"type" => "text"
 						),
@@ -96,13 +111,22 @@ class Products {
 							"type" => "varchar",
 							"constraint" => "5"
 						),
+				"index" => array(
+							"type" => "varchar",
+							"constraint" => "30"
+						),
+				"follow" => array(
+							"type" => "varchar",
+							"constraint" => "30"
+						),
+				"revisit" => array(
+							"type" => "varchar",
+							"constraint" => "30"
+						),
 				"meta_description" => array(
 							"type" => "text"
 						),
 				"meta_keywords" => array(
-							"type" => "text"
-						),
-				"files" => array(
 							"type" => "text"
 						)
 			);
@@ -202,7 +226,7 @@ class Products {
 		return $CI->db->where("id",$this->category)->get("products_categories")->result();
 	}
 
-	function add_category($category=null, $view=true)
+	function add_category($category=null)
 	{
 
 		if($category != null) $this->category = $category;
@@ -220,34 +244,6 @@ class Products {
 			$CI->db->insert("products_categories",$fields);
 
 			redirect(current_url(),"refresh");
-		}
-		else
-		{
-			if($view)
-			{
-				if($this->category != "")
-				{
-					$category   = $this->category();
-					$category   = $category[0]->title;
-				}
-				else
-				{
-					$category = $this->categories_overview(null,"select");
-				}
-
-				$form = form_open();
-				$form.= "<input type='hidden' name='type' value='add_category'/>";
-				$form.= "<p><label>Title</label><input type='text' name='title'/></p>";
-				$form.= "<p><label>Subcategory of</label>";
-				$form.= $category;
-				$form.= "</p>";
-				$form.= "<p><label>Description</label><textarea name='meta_description'></textarea></p>";
-				$form.= "<p><label>Keywords</label><input type='text' name='meta_keywords' placeholder='Tags libarary'/></p>";
-				$form.= "<p><input type='submit' value='Add category'/></p>";
-				$form.= form_close();
-
-				return $form;
-			}
 		}
 	}
 	

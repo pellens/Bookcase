@@ -9,12 +9,15 @@
 		<div class="panes">
 			<div class="pane active" data-pane="contacts">
 				<table class="table table-bordered table-striped">
-				<tr>
+					<thead>
+					<tr>
 					<th>Product title</th>
 					<th>Product category</th>
 					<th>Product price</th>
 					<th>&nbsp;</th>
 				</tr>
+				</thead>
+				<tbody>
 				<? foreach($list as $prod):?>
 					<tr>
 						<td><?=$prod->title;?></td>
@@ -24,6 +27,7 @@
 					</tr>
 				<? endforeach;?>
 				</table>
+				</tbody>
 			</div>
 		</div>
 
