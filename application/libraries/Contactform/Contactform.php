@@ -427,6 +427,16 @@ class Contactform {
 			return $fields;
 
 	}
+
+	function contacts_overview($form = false)
+	{
+
+		$CI =& get_instance();
+
+		$result = $CI->db->order_by("name")->get("contactform_contacts")->result();
+		return $result;
+
+	}
 	
 	function _basicForm()
 	{	
@@ -551,7 +561,7 @@ class Contactform {
 		
 		// Potentiele klanten bijhouden?
 		if($this->specific_form[0]->save_contact == 1):
-			$fields["name"]    = $data["name"];
+			$fields["name"]    = ucwords(strtolower($data["name"]));
 			$fields["email"]   = $data["email"];
 			$fields["tel"]     = $data["tel"];
 			$fields["website"] = $data["website"];

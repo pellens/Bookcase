@@ -70,6 +70,10 @@ class Products {
 						),
 				"meta_keywords" => array(
 							"type" => "text"
+						),
+				"lang" => array(
+							"type" => "varchar",
+							"constraint" => "5"
 						)
 			);
 		
@@ -232,7 +236,7 @@ class Products {
 		if($category != null) $this->category = $category;
 		
 		$CI =& get_instance();
-		if(isset($_POST) && $CI->input->post("type") == "add_category")
+		if(isset($_POST))
 		{
 
 			$fields["title"]       		= $CI->input->post("title",true);
@@ -240,18 +244,19 @@ class Products {
 			$fields["meta_description"] = $CI->input->post("meta_description",true);
 			$fields["meta_keywords"] 	= $CI->input->post("meta_keywords",true);
 			$fields["parent"]      		= $CI->input->post("parent",true);
+			$fields["lang"]             = lang();
 
 			$CI->db->insert("products_categories",$fields);
 
-			redirect(current_url(),"refresh");
+			return true;
 		}
 	}
 	
 	
-	public function categories_overview($parent=null,$view=false)
+	public function categories_overview( $parent=null , $lang=true , $view=false )
 	{
 		$CI  =& get_instance();
-		
+
 		// SUBCATEGORY?
 		if($parent != null)
 		{
@@ -262,21 +267,29 @@ class Products {
 				$result = $CI->db->select("id")->where("url_title",$parent)->get("products_categories")->result();
 				$parent = $result[0]->id;
 			}
+
 			$CI->db->where("parent",$parent);
 		}
 		
 		if($CI->db->get("products_categories")->num_rows == 0)
 		{
-			return false;
+			return ($view) ? "<p>No categories available...</p>" : false;
 		}
 		else
 		{
+
+			// TAAL BEPALEN
+			if($lang)
+			{
+				$lang = (!is_string($lang)) ? lang() : $lang;
+				$CI->db->where("lang",$lang);
+			}
 
 			if($view == "select")
 			{
 	
 				$result  = $CI->db->get("products_categories")->result();
-				$options = "<select name='parent'><option value='0'>No subcategory</option>";
+				$options = "<select name='category'>";
 	
 				foreach($result as $c):
 					$options.= "<option value='".$c->id."'>".$c->title."</option>";
@@ -286,6 +299,20 @@ class Products {
 	
 				return $options;
 	
+			}
+
+			if($view == "list")
+			{
+				$result  = $CI->db->get("products_categories")->result();
+				$options = "<ul class='product-categories'>";
+	
+				foreach($result as $c):
+					$options.= "<li>".$c->title."</li>";
+				endforeach;
+
+				$options.="</ul>";
+	
+				return $options;
 			}
 
 			return $CI->db->get("products_categories")->result();
@@ -337,9 +364,22 @@ class Products {
 		endif;
 	}
 
-	public function add_product($view = false)
+	public function add_product($fields)
 	{
+		$CI  =& get_instance();
+		foreach($fields as $key => $val):
+			$data[$key] = $CI->input->post($key,true);
+		endforeach;
 
+		$data["lang"] 		 = lang();
+		$data["category_id"] = $data["category"];
+		
+		unset($data["category"]);
+		unset($data["id"]);
+
+		$CI->db->insert("products_items",$data);
+
+		return true;
 	}
 	
 	public function product_locations( $product=null )
@@ -385,10 +425,22 @@ class Products {
 		else return false;
 	}
 	
-	public function products_overview()
+	public function products_overview($lang=true)
 	{
 		$CI  =& get_instance();
-		return $CI->db->select("p.title, p.id, p.price, p.description, c.title as category_title")->order_by("p.id","DESC")->from("products_items AS p")->join("products_categories as c","c.id = p.category_id","left")->get()->result();
+
+		if($lang)
+		{
+			$lang = (!is_string($lang)) ? lang() : $lang;
+			$CI->db->where("p.lang",$lang);
+		}
+		
+		return 	$CI->db->select("p.title, p.id, p.price, p.description, c.title as category_title")
+				->order_by("p.id","DESC")
+				->from("products_items AS p")
+				->join("products_categories as c","c.id = p.category_id","left")
+				->get()
+				->result();
 	}
 	
 	public function products_string_to_int()

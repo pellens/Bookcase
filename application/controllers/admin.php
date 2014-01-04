@@ -12,7 +12,9 @@ class Admin extends CI_Controller {
 	public function index()
 	{
 		$data["active_link"] = "website";
-		$data["main"] = "backend/Core/pages-overview";
+		$data["pages"] 		 = $this->core->all_pages();
+		$data["main"] 		 = "backend/Core/pages-overview";
+
 		$this->load->view('backend/index',$data);
 	}
 
@@ -46,7 +48,7 @@ class Admin extends CI_Controller {
 	{
 		if(count($_POST)>0)
 		{
-			print_r($_POST);
+			$this->core->edit_page();
 		}
 		else
 		{

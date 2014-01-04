@@ -232,10 +232,10 @@ class Core {
 							"type" => "varchar",
 							"constraint" => "300"
 						),
-				"keywords" => array(
+				"meta_keywords" => array(
 							"type" => "TEXT"
 						),
-				"description" => array(
+				"meta_description" => array(
 							"type" => "text"
 						),
 				"url" => array(
@@ -264,6 +264,9 @@ class Core {
 				"redirect" => array(
 							"type"=>"int"
 						),
+				"visible" => array(
+							"type"=>"int"
+						),
 				"parent" => array(
 							"type" => "varchar",
 							"constraint" => "300"
@@ -271,6 +274,10 @@ class Core {
 				"homepage" => array(
 							"type" => "int",
 							"default" => "0"
+						),
+				"template" => array(
+							"type" => "varchar",
+							"constraint" => "300"
 						)
 			);
 		
@@ -314,10 +321,10 @@ class Core {
 		$this->page_title       = $config[0]->title;
 		
 		// SEO
-		$this->meta_description = $config[0]->description;
+		$this->meta_description = $config[0]->meta_description;
 		$this->url 				= base_url(lang()."/".$config[0]->url);
 		$this->fb_app_id     	= $general[0]->fb_app_id;
-		$this->meta_keywords    = $config[0]->keywords;
+		$this->meta_keywords    = $config[0]->meta_keywords;
 		$this->index            = $config[0]->index;
 		$this->follow           = $config[0]->follow;
 		$this->revisit          = $config[0]->revisit;
@@ -464,6 +471,22 @@ class Core {
 			die("<p>Please configurate the pagename in the <b>Core Library</b> first!</p>");
 		}
 	}
+
+	function edit_page()
+	{
+		$CI =& get_instance();
+		foreach($_POST as $key => $value):
+			$data[$key] = $CI->input->post($key,true);
+		endforeach;
+
+		// Navigation handling
+		unset($data["navigation"]);
+
+		$CI->db->where("id",$data["id"])->update("core_pages",$data);
+
+		redirect("admin");
+
+	}
 	
 	function all_pages($view = false, $admin = false)
 	{
@@ -510,7 +533,15 @@ class Core {
 		}
 		else
 		{
-			return $pages;
+			$i = 0;
+			foreach($pages as $page):
+				$data[$i] = (array)$page;
+				$data[$i]["progress"] = $this->page_progress($page->page);
+				$i++;
+			endforeach;
+
+			
+			return $data;
 		}
 	
 	}
@@ -519,7 +550,7 @@ class Core {
     {
         $CI =& get_instance();
 
-        $supported  = array("title","keywords","description");
+        $supported  = array("title","meta_keywords","meta_description");
         $bar        = 0;
         $total      = 0;
         $progress   = 0;

@@ -3,15 +3,14 @@
 	<div class="left">
 		<div class="tabs">
 			<ul class="links">
-				<li class="active" data-pane="add">Add product</li>
+				<li class="active" data-pane="add">Add category</li>
 				<li data-pane="seo">Searchengines</li>
 			</ul>
 			<div class="panes">
 			<div class="active pane" data-pane="add">
 
 					<p><label for="title">Title</label> <input type="text" name="title" id="title" value="<?=@$item->title;?>"/></p>
-					<p><label for="price">Price</label> <input type="text" name="price" id="price" value="<?=@$item->price;?>"/></p>
-					<p><label for="category">Category</label> <?=$this->products->categories_overview(null,true,"select");?></p>
+					<p><label for="category">Parent category</label> <?=$this->products->categories_overview(null,true,"select");?></p>
 					<p><label for="description">Description</label></p>
 					<input type="hidden" value="<?=@$item->id;?>" name="id"/>
 
@@ -31,7 +30,7 @@
 	
 	<div class="right">
 		<div class="box">
-		<p><input type="submit" value="Save product" class="button green"/></p>
+		<p><input type="submit" value="Save category" class="button green"/></p>
 		</div>
 	</div>
 

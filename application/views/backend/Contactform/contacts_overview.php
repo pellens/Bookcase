@@ -9,9 +9,17 @@
 		<div class="panes">
 			<div class="pane active" data-pane="contacts">
 				<table class="table table-bordered table-striped">
+				<thead>
+				<tr>
+				<th>Contactperson</th>
+				<th>E-mail</th>
+				<th>&nbsp;</th>
+				</thead>
 				<? foreach($list as $mes):?>
 					<tr>
-						<td><? print_r($mes);?></td>
+						<td><?=ucwords(strtolower($mes->name));?></td>
+						<td><?=mailto($mes->email,$mes->email);?></td>
+						<td><?=anchor("lib/contactform/contact/".$mes->id,"View contact");?></td>
 					</tr>
 				<? endforeach;?>
 				</table>

@@ -45,6 +45,7 @@
 				<ul>
 					<li><a href="?page=installation">How to install</a></li>
 					<li><a href="?page=workflow">How it works</a></li>
+					<li><a href="?page=quick">Quick functions</a></li>
 				</ul>
 
 				<h3>Libraries</h3>

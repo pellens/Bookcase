@@ -46,7 +46,7 @@
 			"contacts_overview" => array(
 				"view"      => "backend/Contactform/contacts_overview",
 				"fn" => array(
-					"list" => "_contactform_contacts"
+					"list" => "contacts_overview"
 				)
 			),
 

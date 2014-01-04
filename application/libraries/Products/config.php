@@ -47,6 +47,19 @@
 				"redirect"  => "admin/lib/products/products_overview"
 			),
 
+			"categories_overview" => array(
+				"view"      => "backend/Products/categories_overview",
+				"fn" => array(
+					"list" => "categories_overview"
+				)
+			),
+
+			"add_category" => array(
+				"view" 		=> "backend/Products/add_category",
+				"submit" 	=> "add_category",
+				"redirect"  => "admin/lib/products/categories_overview"
+			),
+
 			"edit_product" => array(
 				"view" 		=> "backend/Products/add_product",
 				"submit" 	=> "edit_product",

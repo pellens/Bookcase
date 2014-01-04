@@ -14,9 +14,15 @@
 			<div class="pane active" data-pane="page">
 
 				<div class="form-inline">
+					<input type="hidden" name="id" value="<?=$item->id;?>"/>
 					<p><label for="title">Page title</label> <input autocomplete="off" type="text" name="title" id="title" value="<?=$item->title;?>"/></p>
-					<p><label>Permalink</label> <?=site_url(lang());?>/<span class="parents"><?=$item->url;?></span><span class="permalink"></span></p>
-					<input type="hidden" name="url" id="url"/>
+					<p>
+						<label>Permalink</label>
+						<?=site_url(lang());?>/<span class="parents"></span><span class="permalink"></span><span class="wildcard"></span>
+						<a href="#" class="wildcard"><span>+</span> Add wildcard</a>
+						<a href="#" class="remove_wildcard"><span>-</span> Remove wildcard</a>
+					</p>
+					<input type="text" name="url" value="" id="url"/>
 				</div>
 
 
@@ -45,6 +51,26 @@
 			</div>
 
 			<div class="pane" data-pane="modules">
+
+				<table class="table table-bordered table-striped">
+					<thead>
+						<tr>
+							<th>&nbsp;</th>
+							<th>Module</th>
+							<th>Description</th>
+						</tr>
+					</thead>
+					<tbody>
+						<? foreach($this->core->libraries(true) as $lib):?>
+						<tr>
+							<td><input type="checkbox"/></td>
+							<td><?=$lib["title"];?></td>
+							<td><?=$lib["description"];?></td>
+						</tr>
+						<? endforeach;?>
+					</tbody>
+				</table>
+
 				<p>Hier moeten we bepaalde libraries kunnen linken om te autoloaden</p>
 				<p>In library database ook autoloaded-flag aan toe voegen</p>
 			</div>
@@ -62,10 +88,9 @@
 			</select>
 		</p>
 		<p>
-			<label for="main_nav">Navigation</label>
-			<select name="main_nav" id="main_nav">
+			<label for="navigation">Navigation</label>
+			<select name="navigation" id="navigation">
 				<option value="0">No navigation</option>
-				<option value="1">Yes</option>
 			</select>
 		</p>
 		<p>
@@ -81,10 +106,10 @@
 				<option value="0">No parent page</option>
 				<?
 					foreach($this->core->all_pages() as $page):
-						if($page->id != $item->id):
-							$selected = ($item->parent == $page->page) ? "selected" : "";
+						if($page["id"] != $item->id):
+							$selected = ($item->parent == $page["page"]) ? "selected" : "";
 				?>
-				<option data-parent="<?=$page->page;?>" <?=$selected;?> value="<?=$page->url;?>"><?=$page->title." (".$page->page.")";?></option>
+				<option data-parent="<?=$page["page"];?>" <?=$selected;?> value="<?=$page["url"];?>"><?=$page["title"]." (".$page["page"].")";?></option>
 				<?
 						endif;
 					endforeach;
@@ -94,7 +119,7 @@
 		<p>
 			<label for="template">Template</label>
 			<select name="template" id="template">
-				<option value="0">Select template</option>
+				<option value="">Select template</option>
 			</select>
 		</p>
 		<p>
@@ -109,23 +134,75 @@
 
 $(document).ready(function(){
 
+
+	fillRoute();
+
 	$("#title").bind("keyup",function(){
 
 		if($("#homepage").val() != 1)
 		{
-			$(".permalink").html($(this).val().toLowerCase().split(' ').join('-'));
-			$("#url").val("<?=site_url(lang());?>/"+$(".permalink").html());
+			$(".permalink").html( $("#title").val().toLowerCase().split(' ').join('-') );
 		}
+		else
+		{
+			$(".permalink").html("");
+			$(".parents").html("");
+		}
+		fillRoute();
 	});
 
-	$("#homepage").bind("change",function(){
-		$(".permalink").html("");
-		$("#url").val("<?=site_url(lang());?>/");
+	$("#homepage, #parent").bind("change",function(){
+		fillRoute();
 	});
 
-	$("#parent").bind("change",function(){
-		$(".parents").html($("#parent option:selected").val()+"/");
+	$("a.wildcard").bind("click",function(){
+		$("span.wildcard").append("<span>(:any)/</span>");
+		fillRoute();
 	});
+	$("a.remove_wildcard").bind("click",function(){
+		$("span.wildcard span:last").remove();
+		fillRoute();
+	});
+
 });
 
+function fillRoute()
+{
+
+	var parents;
+	var route;
+	var title;
+	var wildcard;
+
+	if($("#homepage").val() != 1)
+	{
+		var title = $("#title").val().toLowerCase().split(' ').join('-');
+		$(".permalink").html(title);
+
+		if($("#parent option:selected").val()!=0)
+		{
+			var parents = $("#parent option:selected").val()+"/";
+			$(".parents").html(parents);
+		}
+		else
+		{
+			var parents = "";
+		}
+	
+		var wildcard = "";
+		$("span.wildcard span").each(function(){
+			wildcard+="(:any)/";
+		});
+			
+		var route = parents;
+			route+= title;
+			route+= wildcard;
+	
+	}
+	else
+	{
+		route = "";
+	}
+	$("#url").val(route);
+}
 </script>

@@ -36,6 +36,10 @@
 			<?=$this->blocks->block("homepage_tekst",false);?>
 		</div>
 
+		<pre>
+		<? //print_r($this->products->products_overview());?>
+		<? print_r($this->products->categories_overview());?>
+		</pre>
 		
 		<div class="product-categories">
 			<? foreach($categories as $category):?>
