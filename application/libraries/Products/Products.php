@@ -227,7 +227,8 @@ class Products {
 		$this->category = ($category != null) ? $category : $this->category;
 		$this->products_string_to_int();
 
-		return $CI->db->where("id",$this->category)->get("products_categories")->result();
+		$result = $CI->db->where("id",$this->category)->get("products_categories")->result();
+		return $result[0];
 	}
 
 	function add_category($category=null)
@@ -248,6 +249,22 @@ class Products {
 
 			$CI->db->insert("products_categories",$fields);
 
+			return true;
+		}
+	}
+
+	public function edit_category($fields)
+	{
+		$CI =& get_instance();
+		if(isset($_POST))
+		{
+			foreach($fields as $key => $value):
+
+				$fields[$key] = $CI->input->post($key,true);
+
+			endforeach;
+
+			$CI->db->where("id",$fields["id"])->update("products_categories",$fields);
 			return true;
 		}
 	}

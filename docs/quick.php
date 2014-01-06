@@ -62,7 +62,7 @@ $this->products->categories_overview( $parent , $lang , $view )</pre>
 		<tr>
 			<td><code>$parent</code></td>
 			<td><code>string | int</code></td>
-			<td>Returns all categories with <strong>$parent</strong> as parent category.</td>
+			<td>Returns all categories with <strong>$parent</strong> as parent category (0 = maincategories).</td>
 		</tr>
 		<tr>
 			<td><code>$lang</code></td>

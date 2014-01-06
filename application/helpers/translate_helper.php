@@ -5,7 +5,21 @@
 		function lang()
 		{
 			$CI =& get_instance();
-			return $CI->uri->segment(1);
+
+			if(!isset($_SESSION["lang"]))
+			{
+				$result = $CI->db->where("primary",1)->get("translation_supported_languages")->result();
+				$_SESSION["lang"] = $result[0]->code;
+			}
+			else
+			{
+				if($_SESSION["lang"]!=$CI->uri->segment(1))
+				{
+					$_SESSION["lang"] = $CI->uri->segment(1);
+				}
+			}
+
+			return $_SESSION["lang"];
 		}
 	}
 

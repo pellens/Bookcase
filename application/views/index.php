@@ -38,7 +38,7 @@
 
 		<pre>
 		<? //print_r($this->products->products_overview());?>
-		<? print_r($this->products->categories_overview());?>
+		<? print_r($this->products->categories_overview(0));?>
 		</pre>
 		
 		<div class="product-categories">

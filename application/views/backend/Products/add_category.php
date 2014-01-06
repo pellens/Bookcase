@@ -10,7 +10,6 @@
 			<div class="active pane" data-pane="add">
 
 					<p><label for="title">Title</label> <input type="text" name="title" id="title" value="<?=@$item->title;?>"/></p>
-					<p><label for="category">Parent category</label> <?=$this->products->categories_overview(null,true,"select");?></p>
 					<p><label for="description">Description</label></p>
 					<input type="hidden" value="<?=@$item->id;?>" name="id"/>
 
@@ -29,6 +28,17 @@
 	</div>
 	
 	<div class="right">
+	<div class="box">
+	<p>
+		<label for="category">Parent category</label>
+		<select name="parent" id="category">
+			<option value="0">No parent category</option>
+			<? foreach($this->products->categories_overview() as $cat):?>
+			<option value="<?=$cat->id;?>" <?=(@$item->parent == $cat->id) ? "selected" : "";?>><?=$cat->title;?></option>
+			<? endforeach;?>
+		</select>
+	</p>
+	</div>
 		<div class="box">
 		<p><input type="submit" value="Save category" class="button green"/></p>
 		</div>

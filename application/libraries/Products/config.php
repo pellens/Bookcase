@@ -64,7 +64,14 @@
 				"view" 		=> "backend/Products/add_product",
 				"submit" 	=> "edit_product",
 				"item"      => "product",
-				"redirect"  => "admin/lib/products/products_overview"
+				"redirect"  => "admin/lib/products/categories_overview"
+			),
+
+			"edit_category" => array(
+				"view" 		=> "backend/Products/add_category",
+				"submit" 	=> "edit_category",
+				"item"      => "category",
+				"redirect"  => "admin/lib/products/categories_overview"
 			)
 
 		)

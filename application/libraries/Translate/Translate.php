@@ -92,12 +92,25 @@ class Translate {
 			$CI->db->where("code","en")->update("translation_supported_languages",$primary);
 		}
 
-		if( $CI->uri->segment(1) == "" || strlen($CI->uri->segment(1)) != 2)
-		{
-			$primary = $CI->db->select("code")->where("primary",1)->get("translation_supported_languages")->result();
 
-			$url = $primary[0]->code."/".uri_string()."?".$_SERVER["QUERY_STRING"];
+		if( strlen($CI->uri->segment(1)) != 2)
+		{
+			$query = ($_SERVER["QUERY_STRING"] != "") ? "?".$_SERVER["QUERY_STRING"] : "";
+
+			if(!isset($_SESSION["lang"]))
+			{
+				$primary = $CI->db->select("code")->where("primary",1)->get("translation_supported_languages")->result();
+				$url = $primary[0]->code."/".uri_string().$query;
+				$_SESSION["lang"] = $primary[0]->code;
+			
+			}
+			else
+			{
+				$url = $_SESSION["lang"]."/".uri_string().$query;
+			}
+
 			redirect($url);
+			
 		}
 	}
 
