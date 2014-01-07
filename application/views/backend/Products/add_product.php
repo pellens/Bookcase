@@ -59,6 +59,14 @@
 	
 	<div class="right">
 		<div class="box">
+		<p><label>Linked to location:</label></p>
+		<ul>
+			<li><input type="checkbox" value="" name="location[]"/> Location 1</li>
+			<li><input type="checkbox" value="" name="location[]"/> Location 2</li>
+		</ul>
+		</div>
+
+		<div class="box">
 		<p><input type="submit" value="Save product" class="button green"/></p>
 		</div>
 	</div>
