@@ -20,7 +20,8 @@
     	<script type="text/javascript" src="<?=base_url("js/core")?>/jquery.1.10.2.js"></script>
     	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.js"></script>
     	<!--<script type="text/javascript" src="<?=base_url("js/core")?>/bootstrap.js"></script>-->
-    	<script type="text/javascript" src="<?=base_url("js/backend")?>/custom.js"></script>
+    	<script type="text/javascript" src="<?=base_url("js/core/jquery.uploadify.min.js")?>"></script>
+      <script type="text/javascript" src="<?=base_url("js/backend")?>/custom.js"></script>
         <script type="text/javascript" src="<?=base_url("js/core")?>/jquery.filtertable.min.js"></script>
       <script type="text/javascript" src="<?=base_url("ckeditor/ckeditor.js?rand=".rand()*100000);?>"></script>
     	<!--<script type="text/javascript" src="<?=base_url("js/backend")?>/jquery.fancytree-all.js"></script>

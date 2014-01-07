@@ -54,6 +54,15 @@
 						$this->load->view("backend/snippets/seo_social",$data);
 					?>
 				</div>
+				<!-- ADD VIDEOS -->
+
+				<div class="pane" data-pane="videos">
+					<?
+						$this->products->product(@$item->id);
+						$data["videos"] = $this->products->product_videos();
+						$this->load->view("backend/snippets/videos_add",$data);
+					?>
+				</div>
 			</div>
 		</div>
 

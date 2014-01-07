@@ -71,11 +71,10 @@ class Media {
 			$CI->dbforge->add_key('id', TRUE);
 			$CI->dbforge->create_table('media_uploads',TRUE);	
 		}
-		
-		// SLIDESHOWS
-		if (!$CI->db->table_exists('media_slideshows'))
-		{
 
+		// FILE DATABASE AANMAKEN
+    	if (!$CI->db->table_exists('media_videos'))
+		{
 			$CI->load->dbforge();
 			
 			$fields = array(
@@ -83,23 +82,42 @@ class Media {
 							"type"           => "INT",
                             'auto_increment' => TRUE
 						),
-				"title" => array(
+				"source" => array(
 							"type" => "varchar",
 							"constraint" => "300",
 						),
-				"width" => array(
+				"video_id" => array(
+							"type" => "varchar",
+							"constraint" => "50",
+						),
+				"image_default" => array(
+							"type" => "varchar",
+							"constraint" => "500",
+						),
+				"image_hq" => array(
+							"type" => "varchar",
+							"constraint" => "500",
+						),
+				"title" => array(
+							"type" => "varchar",
+							"default" => "300"
+						),
+				"date" => array(
 							"type" => "INT",
 							"default" => 0
 						),
-				"height" => array(
-							"type" => "INT",
-							"default" => 0
+				"description" => array(
+							"type" => "text"
+						),
+				"url" => array(
+							"type" => "varchar",
+							"constraint" => "300"
 						)
 			);
 		
 			$CI->dbforge->add_field($fields);
 			$CI->dbforge->add_key('id', TRUE);
-			$CI->dbforge->create_table('media_slideshows',TRUE);	
+			$CI->dbforge->create_table('media_videos',TRUE);	
 		}
 		
 		// SLIDESHOWS
@@ -168,14 +186,11 @@ class Media {
 		
 		$rand = rand(0,10)*1000;
 		
-		return '<form>
+		return '
 					<div id="queue"></div>
 					<input id="file_upload" name="file_upload" type="file" multiple="true">
-					<form class="media uploadify" method="post">
 						<div class="media uploadify edit"></div>
-						<p><input type="submit" value="Save settings"/></p>
-					</form>
-				</form>
+
 		
 				<script type="text/javascript">
 					$(function() {
@@ -196,11 +211,11 @@ class Media {
 								{
 									var fill = $(".edit.uploadify").html();
 									
-									var row = "<div class=\"row\">";
-										row+= "<img src=\"'.base_url().'uploads/"+data+"\" height=\"200\"/>";
+									var row = "<div class=\"item\">";
+										row+= "<figure><img src=\"'.base_url().'uploads/"+data+"\"/></figure>";
 										row+= "<p><label for=\"title\">Title</label><input type=\"text\" name=\"title[]\" id=\"title\"/></p>";
 										row+= "<p><label for=\"alt\">Alternative</label><input type=\"text\" name=\"alt[]\" id=\"alt\"/></p>";
-										row+= "<textarea name=\"description[]\"></textarea>";
+										row+= "<p><label>Description</label><textarea name=\"description[]\"></textarea></p>";
 										row+= "</div>";
             						
             						$(".edit.uploadify").html(row + fill);
@@ -241,6 +256,57 @@ class Media {
 		$CI  =& get_instance();
 		
 		return $CI->db->get("media_uploads")->result();
+	}
+
+	public function add_video($item)
+	{
+		$CI  =& get_instance();
+
+		// VIDEOS
+		foreach($item["video_id"] as $key => $v):
+			$videos[$key] = array(
+				"video_id" 		=> $item["video_id"][$key],
+				"image_default" => $item["video_image_default"][$key],
+				"image_hq" 		=> $item["video_image_hq"][$key],
+				"date" 			=> time(),
+				"source" 		=> $item["video_source"][$key],
+				"title" 		=> $item["video_title"][$key],
+				"description" 	=> $item["video_desc"][$key]
+			);
+		endforeach;
+		unset($item["video_id"]);
+		unset($item["video_image_default"]);
+		unset($item["video_image_hq"]);
+		unset($item["video_source"]);
+		unset($item["video_title"]);
+		unset($item["video_desc"]);
+
+		$array = array();
+		foreach($videos as $video):
+		
+			switch($video["source"])
+			{
+				case "youtube" : $video["url"] = "http://www.youtube.com/watch?v=".$video["video_id"]; break;
+			}
+
+			$aantal = $CI->db->where("source",$video["source"])->where("video_id",$video["video_id"])->count_all_results("media_videos");
+
+			if($aantal == 0)
+			{
+				$CI->db->insert("media_videos",$video);
+				$array[] = $CI->db->insert_id();
+			}
+			else
+			{
+				$result = $CI->db->select("id")->where("source",$video["source"])->where("video_id",$video["video_id"])->get("media_videos")->result();
+				$array[] = $result[0]->id;
+			}
+
+		endforeach;
+
+		$item["videos"] = $array;
+
+		return $item;
 	}
 	
 	public function file_data($files,$view=false)

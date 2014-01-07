@@ -23,7 +23,10 @@
 						<td><?=$prod->title;?></td>
 						<td><?=$prod->category_title;?></td>
 						<td><?=$prod->price;?> &euro;</td>
-						<td><?=anchor("admin/lib/products/edit_product/".$prod->id,"Edit");?></td>
+						<td>
+							<?=anchor("admin/lib/products/edit_product/".$prod->id,"Edit");?>
+							<?=anchor("admin/lib/products/del_product/".$prod->id,"Delete","class='del' data-alert='Are you sure you want to delete this product?'");?>
+						</td>
 					</tr>
 				<? endforeach;?>
 				</table>

@@ -2,7 +2,7 @@
 	
 	// Define a destination
 
-	$targetFolder = "/Huissamen/uploads/"; // Relative to the root
+	$targetFolder = "/Bookcase/uploads/"; // Relative to the root
 	$thumbQuality = 80;
 	$verifyToken  = md5('unique_salt' . $_POST['timestamp']);
 
@@ -19,13 +19,15 @@
 		
 		if (in_array($fileParts['extension'],$fileTypes))
 		{
-			
+		
 			$ext  = $fileParts['extension'];
 			$time = time();
 			
 			$imageFileClean = preg_replace("/[ !#$%^&*()+=]/", "", $fileParts["filename"]);  
 			
 			move_uploaded_file($tempFile,rtrim($targetPath,'/') . '/' . $imageFileClean."_".$time.".".$fileParts['extension']);
+
+
 			echo $imageFileClean."_".$time.".".$fileParts['extension'];
 			
 			

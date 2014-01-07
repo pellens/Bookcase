@@ -21,7 +21,10 @@
 					<tr>
 						<td><?=$cat->title;?></td>
 						<td>x</td>
-						<td><?=anchor("admin/lib/products/edit_category/".$cat->id,"Edit");?></td>
+						<td>
+							<?=anchor("admin/lib/products/edit_category/".$cat->id,"Edit");?>
+							<?=anchor("admin/lib/products/del_category/".$cat->id,"Delete","class='del' data-alert='Are you sure you want to delete this category?'");?>
+						</td>
 					</tr>
 				<? endforeach;?>
 				</table>

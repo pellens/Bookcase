@@ -37,6 +37,20 @@
 		</div>
 
 		<pre>
+		
+		-- PRODUCT --
+
+		<? print_r($this->products->product(1));?>
+
+		-- VIDEOS --
+
+		<? print_r($this->products->product_videos());?>
+
+		-- LOCATIONS --
+
+		<? print_r($this->products->product_locations());?>
+
+		-- CATEGORIEËN --
 		<? //print_r($this->products->products_overview());?>
 		<? print_r($this->products->categories_overview(0));?>
 		</pre>

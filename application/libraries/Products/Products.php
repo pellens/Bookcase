@@ -187,6 +187,29 @@ class Products {
 			$CI->dbforge->create_table('products_item_location',TRUE);	
 		}
 
+		if (!$CI->db->table_exists('products_item_video'))
+		{
+
+			$CI->load->dbforge();
+			
+			$fields = array(
+				"id" => array(
+							"type"           => "INT",
+                            'auto_increment' => TRUE
+						),
+				"video_id" => array(
+							"type" => "INT"
+						),
+				"product_id" => array(
+							"type" => "INT"
+						)
+			);
+		
+			$CI->dbforge->add_field($fields);
+			$CI->dbforge->add_key('id', TRUE);
+			$CI->dbforge->create_table('products_item_video',TRUE);	
+		}
+
 	}
 	
 	
@@ -269,6 +292,26 @@ class Products {
 		}
 	}
 	
+	public function del_category($id)
+	{
+		$CI =& get_instance();
+		$CI->db->where("id",$id)->delete("products_categories");
+		return true;
+	}
+
+	public function del_product($id)
+	{
+		$CI =& get_instance();
+
+		// VIDEOS DELETEN
+		$CI->db->where("product_id",$id)->delete("products_item_video");
+
+		// LOCATIONS DELETEN
+		$CI->db->where("product_id",$id)->delete("products_item_location");
+
+		$CI->db->where("id",$id)->delete("products_items");
+		return true;
+	}
 	
 	public function categories_overview( $parent=null , $lang=true , $view=false )
 	{
@@ -384,6 +427,16 @@ class Products {
 	public function add_product($fields)
 	{
 		$CI  =& get_instance();
+
+		// IS THERE A VIDEO ADDED?
+		if(isset($fields["video_id"])) $fields = $CI->media->add_video($fields);
+		if(isset($fields["videos"]))
+		{
+			$videos = $fields["videos"];
+			unset($fields["videos"]);
+		}
+
+		// CLEAN POST
 		foreach($fields as $key => $val):
 			$data[$key] = $CI->input->post($key,true);
 		endforeach;
@@ -395,15 +448,40 @@ class Products {
 		unset($data["id"]);
 
 		$CI->db->insert("products_items",$data);
+		$product_id = $CI->db->insert_id();
+
+		// LINK VIDEO TO PRODUCT ITEM
+		if(isset($videos)):
+			foreach($videos as $video):
+				$v["video_id"] = $video;
+				$v["product_id"] = $product_id;
+				$CI->db->insert("products_item_video",$v);
+				unset($v);
+			endforeach;
+			unset($videos);
+		endif;
 
 		return true;
 	}
 	
+	public function product_videos( $product=null )
+	{
+		$CI  =& get_instance();
+		$this->product = ($product != null) ? $product : $this->product;
+		$this->products_string_to_int();
+
+		$result = $CI->db->where("pv.product_id",$this->product)->from("products_item_video AS pv")->join("media_videos AS mv","mv.id = pv.video_id","left")->get()->result();
+		return $result;
+	}
+
 	public function product_locations( $product=null )
 	{
 		$CI  =& get_instance();
 		$this->product = ($product != null) ? $product : $this->product;
 		$this->products_string_to_int();
+
+		$result = $CI->db->where("pl.product_id",$this->product)->from("products_item_location AS pl")->join("locations_items AS l","l.id = pl.location_id","left")->get()->result();
+		return $result;
 	}
 	
 	public function product_has_location( $location=null , $product=null )
@@ -507,13 +585,37 @@ class Products {
 
 	public function edit_product($item)
 	{
+
 		$CI  =& get_instance();
+
+		// DELETE CURRENT VIDEOS
+		$CI->db->where("product_id",$CI->input->post("id",true))->delete("products_item_video");
+
+		// IS THERE A VIDEO ADDED?
+		if(isset($item["video_id"])) $item = $CI->media->add_video($item);
+
+		// LINK VIDEO TO PRODUCT ITEM
+		if(isset($item["videos"])):
+			foreach($item["videos"] as $video):
+				$v["video_id"] = $video;
+				$v["product_id"] = $CI->input->post("id",true);
+				$CI->db->insert("products_item_video",$v);
+				unset($v);
+			endforeach;
+			unset($item["videos"]);
+		endif;
+
+		// CLEAN POST
 		foreach($item as $key => $field):
-
 			$fields[$key] = $CI->input->post($key,true);
-
 		endforeach;
 
+		// RESET CATEGORY
+		// SHOULD BE FIXED...
+		$fields["category_id"] = $fields["category"];
+		unset($fields["category"]);
+
+		// UPDATE THE PRODUCT ITEM
 		$CI->db->where("id",$fields["id"])->update("products_items",$fields);
 
 		return true;

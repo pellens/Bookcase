@@ -735,3 +735,88 @@ body {
   padding: 0;
   font-size: 11px;
 }
+.media.uploadify .item {
+  width: 100%;
+  height: 132px;
+  background-color: #FFF;
+  border: 1px solid #CCC;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  *behavior: url(/boxsizing.htc);
+  margin-bottom: 5px;
+}
+.media.uploadify .item figure {
+  width: 120px;
+  height: 120px;
+  overflow: hidden;
+  float: left;
+  padding: 0;
+  -moz-border-radius-topright: 3px;
+  -webkit-border-top-right-radius: 3px;
+  border-top-right-radius: 3px;
+  -moz-border-radius-topleft: 3px;
+  -webkit-border-top-left-radius: 3px;
+  border-top-left-radius: 3px;
+  -moz-border-radius-bottomright: 3px;
+  -webkit-border-bottom-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+  -moz-border-radius-bottomleft: 3px;
+  -webkit-border-bottom-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+  margin: 5px 15px 5px 5px;
+}
+.media.uploadify .item p {
+  margin: 5px 0 -10px 0;
+}
+.media.uploadify .item p label {
+  float: left;
+  line-height: 30px;
+  width: 100px;
+}
+.video {
+  border: 1px solid #CCC;
+  margin-bottom: 5px;
+  height: 76px;
+  position: relative;
+}
+.video figure {
+  float: left;
+  width: 120px;
+  overflow: hidden;
+  margin: 3px;
+  background: #222;
+  height: 70px;
+  position: relative;
+  margin-right: 10px;
+}
+.video figure img {
+  width: 120px;
+  height: 90px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin-top: -10px;
+}
+.video h2 {
+  margin: 0;
+  padding: 10px 0 4px 0;
+  font-size: 12px;
+  line-height: 12px;
+}
+.video p {
+  font-size: 11px;
+  line-height: 15px;
+  color: #777;
+}
+.video .del {
+  position: absolute;
+  right: 0;
+  top: 0;
+  font-size: 16px;
+  font-weight: bold;
+  color: #777;
+  width: 30px;
+  line-height: 30px;
+  text-align: center;
+}
