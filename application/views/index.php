@@ -38,17 +38,15 @@
 
 		<pre>
 		
-		-- PRODUCT --
+		<? //print_r($this->products->product(4));?>
+		<? //print_r($this->products->product_videos());?>
+		<? //print_r($this->products->product_locations());?>
 
-		<? print_r($this->products->product(1));?>
+		<? print_r($this->products->category(10));?>
+		<? print_r($this->products->category_products());?>
+		<? print_r($this->products->category_videos());?>
+		<? print_r($this->products->category_locations());?>
 
-		-- VIDEOS --
-
-		<? print_r($this->products->product_videos());?>
-
-		-- LOCATIONS --
-
-		<? print_r($this->products->product_locations());?>
 
 		-- CATEGORIEËN --
 		<? //print_r($this->products->products_overview());?>

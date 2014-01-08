@@ -3,8 +3,8 @@
 	<div class="left">
 		<div class="tabs">
 			<ul class="links">
-				<li class="active" data-pane="add">Add product</li>
-				<li data-pane="photos">Photos</li>
+				<li data-pane="add">Add product</li>
+				<li class="active" data-pane="photos">Photos</li>
 				<li data-pane="videos">Videos</li>
 				<li data-pane="seo">Searchengines</li>
 			</ul>
@@ -12,8 +12,8 @@
 
 				<!-- ADD PRODUCT -->
 
-				<div class="active pane" data-pane="add">
-	
+				<div class=" pane" data-pane="add">
+
 					<p><label for="title">Title</label> <input type="text" name="title" id="title" value="<?=@$item->title;?>"/></p>
 					<p><label for="price">Price</label> <input type="text" name="price" id="price" value="<?=@$item->price;?>"/></p>
 					<p><label for="category">Category</label> <?=$this->products->categories_overview(null,true,"select");?></p>
@@ -35,20 +35,23 @@
 
 				<!-- ADD PHOTOS -->
 
-				<div class="pane" data-pane="photos">
+				<div class="active pane" data-pane="photos">
+
+					<? $this->media->make_image_square("/Applications/MAMP/htdocs/Bookcase/uploads/images/1389136660_img_1776.jpg",200);?>
 					<?
 						$data["item"] = @$item;
 						$this->load->view("backend/snippets/photos_upload",$data);
+						unset($data);
 					?>
 				</div>
 
 				<!-- ADD VIDEOS -->
-
 				<div class="pane" data-pane="videos">
 					<?
 						$this->products->product(@$item->id);
 						$data["videos"] = $this->products->product_videos();
 						$this->load->view("backend/snippets/videos_add",$data);
+						unset($data);
 					?>
 				</div>
 
@@ -61,8 +64,17 @@
 		<div class="box">
 		<p><label>Linked to location:</label></p>
 		<ul>
-			<li><input type="checkbox" value="" name="location[]"/> Location 1</li>
-			<li><input type="checkbox" value="" name="location[]"/> Location 2</li>
+			<?
+				$locations = array();
+				foreach($this->products->product_locations() as $loc):
+					array_push($locations,$loc->id);
+				endforeach;
+			?>
+			<? foreach($this->locations->locations_overview() as $loc):
+				$checked = (is_int(array_search($loc->id,$locations))) ? "checked='checked'" : "";
+			?>
+			<li><label><input type="checkbox" value="<?=$loc->id;?>" <?=$checked;?> name="location[]"/> <?=$loc->title;?></label></li>
+			<? endforeach;?>
 		</ul>
 		</div>
 

@@ -28,186 +28,148 @@ class Products {
 		
 		$CI->core->type = "product";
 		
+		/**
+			
+			PRODUCT CATEGORIES
+
+		**/
 		if (!$CI->db->table_exists('products_categories'))
 		{
-
 			$CI->load->dbforge();
-			
 			$fields = array(
-				"id" => array(
-							"type"           => "INT",
-                            'auto_increment' => TRUE
-						),
-				"title" => array(
-							"type" => "varchar",
-							"constraint" => "300",
-						),
-				"url_title" => array(
-							"type" => "varchar",
-							"constraint" => "300"
-						),
-				"parent" => array(
-							"type" => "INT",
-							"default" => 0
-						),
-				"description" => array(
-							"type" => "text"
-						),
-				"index" => array(
-							"type" => "varchar",
-							"constraint" => "30"
-						),
-				"follow" => array(
-							"type" => "varchar",
-							"constraint" => "30"
-						),
-				"revisit" => array(
-							"type" => "varchar",
-							"constraint" => "30"
-						),
-				"meta_description" => array(
-							"type" => "text"
-						),
-				"meta_keywords" => array(
-							"type" => "text"
-						),
-				"lang" => array(
-							"type" => "varchar",
-							"constraint" => "5"
-						)
+				"id" 				=> array( "type" => "INT", 		'auto_increment' => TRUE ),
+				"title" 			=> array( "type" => "varchar", 	"constraint" 	 => "300" ),
+				"url_title" 		=> array( "type" => "varchar", 	"constraint" 	 => "300" ),
+				"parent" 			=> array( "type" => "INT", 		"default" 		 => 0 ),
+				"description" 		=> array( "type" => "text" ),
+				"index" 			=> array( "type" => "varchar", 	"constraint" 	 => "30" ),
+				"follow" 			=> array( "type" => "varchar", 	"constraint" 	 => "30" ),
+				"revisit" 			=> array( "type" => "varchar", 	"constraint" 	 => "30" ),
+				"meta_description" 	=> array( "type" => "text" ),
+				"meta_keywords" 	=> array( "type" => "text" ),
+				"lang" 				=> array( "type" => "varchar", 	"constraint" 	 => "5" )
 			);
-		
 			$CI->dbforge->add_field($fields);
 			$CI->dbforge->add_key('id', TRUE);
 			$CI->dbforge->create_table('products_categories',TRUE);	
 		}
-		
+
+		/**
+			
+			PRODUCT ITEMS
+
+		**/
 		if (!$CI->db->table_exists('products_items'))
 		{
-			
 			// Basis contactformulier opbouwen
 			$CI->load->dbforge();
-			
 			$fields = array(
-				"id" => array(
-							"type"           => "INT",
-                            'auto_increment' => TRUE
-						),
-				"title" => array(
-							"type" => "varchar",
-							"constraint" => "300"
-						),
-				"url_title" => array(
-							"type" => "varchar",
-							"constraint" => "300"
-						),
-				"price" => array(
-							"type" => "varchar",
-							"constraint" => "300"
-						),
-				"description" => array(
-							"type" => "text"
-						),
-				"category_id" => array(
-							"type" => "INT"
-						),
-				"lang" => array(
-							"type" => "varchar",
-							"constraint" => "5"
-						),
-				"index" => array(
-							"type" => "varchar",
-							"constraint" => "30"
-						),
-				"follow" => array(
-							"type" => "varchar",
-							"constraint" => "30"
-						),
-				"revisit" => array(
-							"type" => "varchar",
-							"constraint" => "30"
-						),
-				"meta_description" => array(
-							"type" => "text"
-						),
-				"meta_keywords" => array(
-							"type" => "text"
-						)
+				"id" 				=> array( "type" => "INT", 'auto_increment' => TRUE ),
+				"title" 			=> array( "type" => "varchar", "constraint" => "300" ),
+				"url_title" 		=> array( "type" => "varchar", "constraint" => "300" ),
+				"price" 			=> array( "type" => "varchar", "constraint" => "300" ),
+				"description" 		=> array( "type" => "text" ),
+				"category_id" 		=> array( "type" => "INT" ),
+				"lang" 				=> array( "type" => "varchar", "constraint" => "5" ),
+				"index" 			=> array( "type" => "varchar", "constraint" => "30" ),
+				"follow" 			=> array( "type" => "varchar", "constraint" => "30" ),
+				"revisit" 			=> array( "type" => "varchar", "constraint" => "30" ),
+				"meta_description" 	=> array( "type" => "text" ),
+				"meta_keywords" 	=> array( "type" => "text" )
 			);
-		
 			$CI->dbforge->add_field($fields);
 			$CI->dbforge->add_key('id', TRUE);
 			$CI->dbforge->create_table('products_items',TRUE);	
 		}
-		
+
+		/**
+			
+			LINK LOCATIONS WITH A FORM
+
+		**/		
 		if (!$CI->db->table_exists('products_item_form'))
 		{
-			
-			// Basis contactformulier opbouwen
 			$CI->load->dbforge();
-			
 			$fields = array(
-				"id" => array(
-							"type"           => "INT",
-                            'auto_increment' => TRUE
-						),
-				"form_id" => array(
-							"type" => "INT"
-						),
-				"product_id" => array(
-							"type" => "INT"
-						)
+				"id" 			=> array( "type" => "INT" , 'auto_increment' => TRUE ),
+				"form_id" 		=> array( "type" => "INT" ),
+				"product_id" 	=> array( "type" => "INT" )
 			);
-		
 			$CI->dbforge->add_field($fields);
 			$CI->dbforge->add_key('id', TRUE);
 			$CI->dbforge->create_table('products_item_form',TRUE);	
 		}
 		
+		/**
+			
+			LINK LOCATIONS WITH PRODUCT ITEM
+
+		**/
 		if (!$CI->db->table_exists('products_item_location'))
 		{
-
 			$CI->load->dbforge();
-			
 			$fields = array(
-				"id" => array(
-							"type"           => "INT",
-                            'auto_increment' => TRUE
-						),
-				"location_id" => array(
-							"type" => "INT"
-						),
-				"product_id" => array(
-							"type" => "INT"
-						)
+				"id" 			=> array( "type" => "INT", 'auto_increment' => TRUE ),
+				"location_id" 	=> array( "type" => "INT"),
+				"product_id" 	=> array( "type" => "INT")
 			);
-		
 			$CI->dbforge->add_field($fields);
 			$CI->dbforge->add_key('id', TRUE);
 			$CI->dbforge->create_table('products_item_location',TRUE);	
 		}
 
+		/**
+			
+			LINK VIDEOS WITH PRODUCT ITEM
+
+		**/
 		if (!$CI->db->table_exists('products_item_video'))
 		{
-
 			$CI->load->dbforge();
-			
 			$fields = array(
-				"id" => array(
-							"type"           => "INT",
-                            'auto_increment' => TRUE
-						),
-				"video_id" => array(
-							"type" => "INT"
-						),
-				"product_id" => array(
-							"type" => "INT"
-						)
+				"id" 			=> array( "type" => "INT", 'auto_increment' => TRUE ),
+				"video_id" 		=> array( "type" => "INT" ),
+				"product_id" 	=> array( "type" => "INT" )
 			);
-		
 			$CI->dbforge->add_field($fields);
 			$CI->dbforge->add_key('id', TRUE);
 			$CI->dbforge->create_table('products_item_video',TRUE);	
+		}
+
+		/**
+			
+			LINK LOCATIONS WITH CATEGORY ITEM
+
+		**/
+		if (!$CI->db->table_exists('products_category_location'))
+		{
+			$CI->load->dbforge();
+			$fields = array(
+				"id" 			=> array( "type" => "INT", 'auto_increment' => TRUE ),
+				"location_id" 	=> array( "type" => "INT"),
+				"category_id" 	=> array( "type" => "INT")
+			);
+			$CI->dbforge->add_field($fields);
+			$CI->dbforge->add_key('id', TRUE);
+			$CI->dbforge->create_table('products_category_location',TRUE);	
+		}
+
+		/**
+			
+			LINK VIDEOS WITH CATEGORY ITEM
+
+		**/
+		if (!$CI->db->table_exists('products_category_video'))
+		{
+			$CI->load->dbforge();
+			$fields = array(
+				"id" 			=> array( "type" => "INT", 'auto_increment' => TRUE ),
+				"video_id" 		=> array( "type" => "INT" ),
+				"category_id" 	=> array( "type" => "INT" )
+			);
+			$CI->dbforge->add_field($fields);
+			$CI->dbforge->add_key('id', TRUE);
+			$CI->dbforge->create_table('products_category_video',TRUE);	
 		}
 
 	}
@@ -254,64 +216,6 @@ class Products {
 		return $result[0];
 	}
 
-	function add_category($category=null)
-	{
-
-		if($category != null) $this->category = $category;
-		
-		$CI =& get_instance();
-		if(isset($_POST))
-		{
-
-			$fields["title"]       		= $CI->input->post("title",true);
-			$fields["url_title"]        = url_title($fields["title"],"-",true);
-			$fields["meta_description"] = $CI->input->post("meta_description",true);
-			$fields["meta_keywords"] 	= $CI->input->post("meta_keywords",true);
-			$fields["parent"]      		= $CI->input->post("parent",true);
-			$fields["lang"]             = lang();
-
-			$CI->db->insert("products_categories",$fields);
-
-			return true;
-		}
-	}
-
-	public function edit_category($fields)
-	{
-		$CI =& get_instance();
-		if(isset($_POST))
-		{
-			foreach($fields as $key => $value):
-
-				$fields[$key] = $CI->input->post($key,true);
-
-			endforeach;
-
-			$CI->db->where("id",$fields["id"])->update("products_categories",$fields);
-			return true;
-		}
-	}
-	
-	public function del_category($id)
-	{
-		$CI =& get_instance();
-		$CI->db->where("id",$id)->delete("products_categories");
-		return true;
-	}
-
-	public function del_product($id)
-	{
-		$CI =& get_instance();
-
-		// VIDEOS DELETEN
-		$CI->db->where("product_id",$id)->delete("products_item_video");
-
-		// LOCATIONS DELETEN
-		$CI->db->where("product_id",$id)->delete("products_item_location");
-
-		$CI->db->where("id",$id)->delete("products_items");
-		return true;
-	}
 	
 	public function categories_overview( $parent=null , $lang=true , $view=false )
 	{
@@ -424,55 +328,27 @@ class Products {
 		endif;
 	}
 
-	public function add_product($fields)
-	{
-		$CI  =& get_instance();
 
-		// IS THERE A VIDEO ADDED?
-		if(isset($fields["video_id"])) $fields = $CI->media->add_video($fields);
-		if(isset($fields["videos"]))
-		{
-			$videos = $fields["videos"];
-			unset($fields["videos"]);
-		}
-
-		// CLEAN POST
-		foreach($fields as $key => $val):
-			$data[$key] = $CI->input->post($key,true);
-		endforeach;
-
-		$data["lang"] 		 = lang();
-		$data["category_id"] = $data["category"];
+	/**
 		
-		unset($data["category"]);
-		unset($data["id"]);
+		VIDEOS LINKED TO A PRODUCT
 
-		$CI->db->insert("products_items",$data);
-		$product_id = $CI->db->insert_id();
-
-		// LINK VIDEO TO PRODUCT ITEM
-		if(isset($videos)):
-			foreach($videos as $video):
-				$v["video_id"] = $video;
-				$v["product_id"] = $product_id;
-				$CI->db->insert("products_item_video",$v);
-				unset($v);
-			endforeach;
-			unset($videos);
-		endif;
-
-		return true;
-	}
+	**/
 	
 	public function product_videos( $product=null )
 	{
 		$CI  =& get_instance();
 		$this->product = ($product != null) ? $product : $this->product;
-		$this->products_string_to_int();
 
-		$result = $CI->db->where("pv.product_id",$this->product)->from("products_item_video AS pv")->join("media_videos AS mv","mv.id = pv.video_id","left")->get()->result();
+		$result = $CI->db->where("cv.product_id",$this->product)->from("products_item_video AS cv")->join("media_videos AS mv","mv.id = cv.video_id","left")->get()->result();
 		return $result;
 	}
+
+	/**
+		
+		LOCATIONS LINKED TO A PRODUCT
+
+	**/
 
 	public function product_locations( $product=null )
 	{
@@ -483,7 +359,45 @@ class Products {
 		$result = $CI->db->where("pl.product_id",$this->product)->from("products_item_location AS pl")->join("locations_items AS l","l.id = pl.location_id","left")->get()->result();
 		return $result;
 	}
+
+	/**
+		
+		VIDEOS LINKED TO A CATEGORY
+
+	**/
+
+	public function category_videos( $category=null )
+	{
+		$CI  =& get_instance();
+		$this->category = ($category != null) ? $category : $this->category;
+		$this->products_string_to_int();
+
+		$result = $CI->db->where("pv.category_id",$this->category)->from("products_category_video AS pv")->join("media_videos AS mv","mv.id = pv.video_id","left")->get()->result();
+		return $result;
+	}
+
+	/**
+		
+		LOCATIONS LINKED TO A CATEGORY
+
+	**/
+
+	public function category_locations( $category=null )
+	{
+		$CI  =& get_instance();
+		$this->category = ($category != null) ? $category : $this->category;
+		$this->products_string_to_int();
+
+		$result = $CI->db->where("pl.category_id",$this->category)->from("products_category_location AS pl")->join("locations_items AS mv","mv.id = pl.location_id","left")->get()->result();
+		return $result;
+	}
 	
+
+
+
+
+
+
 	public function product_has_location( $location=null , $product=null )
 	{
 		$CI  =& get_instance();
@@ -583,19 +497,112 @@ class Products {
 		return $result[0]->category_id;
 	}
 
+	/**
+
+		ADD A PRODUCT
+
+	**/
+
+	public function add_product($fields)
+	{
+		$CI  =& get_instance();
+
+		// IS THERE A VIDEO ADDED?
+		if(isset($fields["video_id"])) $fields = $CI->media->add_video($fields);
+		if(isset($fields["videos"]))
+		{
+			$videos = $fields["videos"];
+			unset($fields["videos"]);
+		}
+
+		// IS THERE A LOCATION ADDED?
+		if(isset($fields["location"]))
+		{
+			$locations = $fields["location"];
+			unset($fields["location"]);
+		}
+
+		// CLEAN POST
+		foreach($fields as $key => $val):
+			$data[$key] = $CI->input->post($key,true);
+		endforeach;
+
+		$data["lang"] 		 = lang();
+		$data["category_id"] = $data["category"];
+		
+		unset($data["category"]);
+		unset($data["id"]);
+
+		$CI->db->insert("products_items",$data);
+		$product_id = $CI->db->insert_id();
+
+		// LINK VIDEO TO PRODUCT ITEM
+		if(isset($videos)):
+			foreach($videos as $video):
+				$v["video_id"] = $video;
+				$v["product_id"] = $product_id;
+				$CI->db->insert("products_item_video",$v);
+				unset($v);
+			endforeach;
+			unset($videos);
+		endif;
+
+		// LINK LOCATION TO PRODUCT ITEM
+		if(isset($locations)):
+			foreach($locations as $location):
+				$l["location_id"] = $location;
+				$l["product_id"] = $product_id;
+				$CI->db->insert("products_item_location",$l);
+				unset($v);
+			endforeach;
+			unset($locations);
+		endif;
+
+		return true;
+	}
+
+	/**
+
+		EDIT A PRODUCT
+
+	**/
+
 	public function edit_product($item)
 	{
 
 		$CI  =& get_instance();
 
-		// DELETE CURRENT VIDEOS
+		// DELETE CURRENT VIDEOS & LOCATIONS
 		$CI->db->where("product_id",$CI->input->post("id",true))->delete("products_item_video");
+		$CI->db->where("product_id",$CI->input->post("id",true))->delete("products_item_location");
+
+		// IS THERE A LOCATION ADDED?
+		if(isset($item["location"])):
+			foreach($item["location"] as $loc):
+				$l["location_id"] = $loc;
+				$l["product_id"]  = $CI->input->post("id",true);
+				$CI->db->insert("products_item_location",$l);
+				unset($l);
+			endforeach;
+		endif;
+		unset($item["location"]);
 
 		// IS THERE A VIDEO ADDED?
 		if(isset($item["video_id"])) $item = $CI->media->add_video($item);
 
 		// LINK VIDEO TO PRODUCT ITEM
 		if(isset($item["videos"])):
+			foreach($item["videos"] as $video):
+				$v["video_id"]   = $video;
+				$v["product_id"] = $CI->input->post("id",true);
+				$CI->db->insert("products_item_video",$v);
+				unset($v);
+			endforeach;
+			unset($item["videos"]);
+		endif;
+
+		// LINK LOCATIONS TO PRODUCT ITEM
+		if(isset($item["locations"])):
 			foreach($item["videos"] as $video):
 				$v["video_id"] = $video;
 				$v["product_id"] = $CI->input->post("id",true);
@@ -620,6 +627,166 @@ class Products {
 
 		return true;
 	}
+
+	/**
+
+		DELETE A PRODUCT
+
+	**/
+
+	public function del_product($id)
+	{
+		$CI =& get_instance();
+
+		// VIDEOS & LOCATIONS DELETEN
+		$CI->db->where("product_id",$id)->delete("products_item_video");
+		$CI->db->where("product_id",$id)->delete("products_item_location");
+
+		// PRODUCT DELETEN
+		$CI->db->where("id",$id)->delete("products_items");
+		
+		return true;
+	}
+
+	/**
+
+		ADD A CATEGORY
+
+	**/
+
+	function add_category($fields=null)
+	{
+
+		$CI =& get_instance();
+
+		// IS THERE A VIDEO ADDED?
+		if(isset($fields["video_id"])) $fields = $CI->media->add_video($fields);
+		if(isset($fields["videos"]))
+		{
+			$videos = $fields["videos"];
+			unset($fields["videos"]);
+		}
+
+		// IS THERE A LOCATION ADDED?
+		if(isset($fields["location"]))
+		{
+			$locations = $fields["location"];
+			unset($fields["location"]);
+		}
+
+		if(isset($_POST))
+		{
+			$fields["title"]       		= $CI->input->post("title",true);
+			$fields["url_title"]        = url_title($fields["title"],"-",true);
+			$fields["meta_description"] = $CI->input->post("meta_description",true);
+			$fields["meta_keywords"] 	= $CI->input->post("meta_keywords",true);
+			$fields["parent"]      		= $CI->input->post("parent",true);
+			$fields["lang"]             = lang();
+
+			$CI->db->insert("products_categories",$fields);
+			$category_id = $CI->db->insert_id();
+
+			// LINK VIDEO TO CATEGORY ITEM
+			if(isset($videos)):
+				foreach($videos as $video):
+					$v["video_id"] = $video;
+					$v["category_id"] = $category_id;
+					$CI->db->insert("products_category_video",$v);
+					unset($v);
+				endforeach;
+				unset($videos);
+			endif;
+	
+			// LINK LOCATION TO CATEGORY ITEM
+			if(isset($locations)):
+				foreach($locations as $location):
+					$l["location_id"] = $location;
+					$l["category_id"] = $category_id;
+					$CI->db->insert("products_category_location",$l);
+					unset($v);
+				endforeach;
+				unset($locations);
+			endif;
+
+			return true;
+
+		}
+
+
+	}
+
+	/**
+		
+		EDIT A CATEGORY
+
+	**/
+
+	public function edit_category($item)
+	{
+		$CI =& get_instance();
+
+		// DELETE CURRENT VIDEOS & LOCATIONS
+		$CI->db->where("category_id",$CI->input->post("id",true))->delete("products_category_video");
+		$CI->db->where("category_id",$CI->input->post("id",true))->delete("products_category_location");
+
+		// IS THERE A LOCATION ADDED?
+		if(isset($item["location"])):
+			foreach($item["location"] as $loc):
+				$l["location_id"] = $loc;
+				$l["category_id"]  = $CI->input->post("id",true);
+				$CI->db->insert("products_category_location",$l);
+				unset($l);
+			endforeach;
+		endif;
+		unset($item["location"]);
+
+		// IS THERE A VIDEO ADDED?
+		if(isset($item["video_id"])) $item = $CI->media->add_video($item);
+
+		// LINK VIDEO TO PRODUCT ITEM
+		if(isset($item["videos"])):
+			foreach($item["videos"] as $video):
+				$v["video_id"]   = $video;
+				$v["category_id"] = $CI->input->post("id",true);
+				$CI->db->insert("products_category_video",$v);
+				unset($v);
+			endforeach;
+			unset($item["videos"]);
+		endif;
+
+		if(isset($_POST))
+		{
+			foreach($item as $key => $value):
+
+				$fields[$key] = $CI->input->post($key,true);
+
+			endforeach;
+
+			$CI->db->where("id",$fields["id"])->update("products_categories",$fields);
+			return true;
+		}
+	}
+
+	/**
+
+		DELETE A CATEGORY
+
+	**/
+	
+	public function del_category($id)
+	{
+		$CI =& get_instance();
+
+		// VIDEOS & LOCATIONS DELETEN
+		$CI->db->where("category_id",$id)->delete("products_category_video");
+		$CI->db->where("category_id",$id)->delete("products_category_location");
+
+		// CATEGORY DELETEN
+		$CI->db->where("id",$id)->delete("products_categories");
+
+		return true;
+	}
+
 	
 	public function form()
 	{

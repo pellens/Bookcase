@@ -9,10 +9,20 @@
 
 <h2>Products</h2>
 
-<pre class="prettyprint linenums"># Products overview
+<pre class="prettyprint linenums">// OVERVIEWS
 $this->products->products_overview( $lang )
-# Categories overview
-$this->products->categories_overview( $parent , $lang , $view )</pre>
+$this->products->categories_overview( $parent , $lang , $view )
+
+// GET PRODUCT AND LINKED VIDEOS & LOCATIONS
+$this->products->product($product);
+$this->products->product_videos();
+$this->products->product_locations();
+
+// GET CATEGORY AND LINKED PRODUCTS & VIDEOS & LOCATIONS
+$this->products->category($category);
+$this->products->category_products();
+$this->products->category_videos();
+$this->products->category_locations();</pre>
 
 <pre class="prettyprint linenums">$this->products->products_overview( $lang )</pre>
 

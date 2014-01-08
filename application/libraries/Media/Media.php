@@ -20,51 +20,27 @@ class Media {
     	    $thumbs_folder = mkdir($upload_path . '/thumbs', 0777);
     	}
     	
-    	// FILE DATABASE AANMAKEN
+    	/**
+
+    		FILE DATABASE AANMAKEN
+
+    	**/
+
     	if (!$CI->db->table_exists('media_uploads'))
 		{
 			$CI->load->dbforge();
 			
 			$fields = array(
-				"id" => array(
-							"type"           => "INT",
-                            'auto_increment' => TRUE
-						),
-				"original_title" => array(
-							"type" => "varchar",
-							"constraint" => "300",
-						),
-				"new_title" => array(
-							"type" => "INT",
-							"default" => 0
-						),
-				"date" => array(
-							"type" => "INT",
-							"default" => 0
-						),
-				"file_type" => array(
-							"type" => "varchar",
-							"constraint" => "300",
-						),
-				"file_size" => array(
-							"type" => "varchar",
-							"constraint" => "300",
-						),
-				"alt" => array(
-							"type" => "varchar",
-							"constraint" => "300",
-						),
-				"title" => array(
-							"type" => "varchar",
-							"constraint" => "300",
-						),
-				"description" => array(
-							"type" => "text"
-						),
-				"path" => array(
-							"type" => "varchar",
-							"constraint" => "300"
-						)
+				"id" 				=> array( "type" => "INT", 		'auto_increment' => TRUE ),
+				"original_title" 	=> array( "type" => "varchar", 	"constraint" => "300" ),
+				"new_title" 		=> array( "type" => "INT", 		"default" => 0 ),
+				"date" 				=> array( "type" => "INT", 		"default" => 0 ),
+				"file_type" 		=> array( "type" => "varchar", 	"constraint" => "300" ),
+				"file_size" 		=> array( "type" => "varchar", 	"constraint" => "300" ),
+				"alt" 				=> array( "type" => "varchar", 	"constraint" => "300" ),
+				"title" 			=> array( "type" => "varchar", 	"constraint" => "300" ),
+				"description" 		=> array( "type" => "text" ),
+				"path" 				=> array( "type" => "varchar", 	"constraint" => "300" )
 			);
 		
 			$CI->dbforge->add_field($fields);
@@ -72,47 +48,26 @@ class Media {
 			$CI->dbforge->create_table('media_uploads',TRUE);	
 		}
 
-		// FILE DATABASE AANMAKEN
+		/**
+
+			VIDEO DATABASE AANMAKEN
+
+		**/
+
     	if (!$CI->db->table_exists('media_videos'))
 		{
 			$CI->load->dbforge();
 			
 			$fields = array(
-				"id" => array(
-							"type"           => "INT",
-                            'auto_increment' => TRUE
-						),
-				"source" => array(
-							"type" => "varchar",
-							"constraint" => "300",
-						),
-				"video_id" => array(
-							"type" => "varchar",
-							"constraint" => "50",
-						),
-				"image_default" => array(
-							"type" => "varchar",
-							"constraint" => "500",
-						),
-				"image_hq" => array(
-							"type" => "varchar",
-							"constraint" => "500",
-						),
-				"title" => array(
-							"type" => "varchar",
-							"default" => "300"
-						),
-				"date" => array(
-							"type" => "INT",
-							"default" => 0
-						),
-				"description" => array(
-							"type" => "text"
-						),
-				"url" => array(
-							"type" => "varchar",
-							"constraint" => "300"
-						)
+				"id" 			=> array( "type" => "INT", 'auto_increment' => TRUE ),
+				"source" 		=> array( "type" => "varchar", "constraint" => "300" ),
+				"video_id" 		=> array( "type" => "varchar", "constraint" => "50" ),
+				"image_default" => array( "type" => "varchar", "constraint" => "500" ),
+				"image_hq" 		=> array( "type" => "varchar", "constraint" => "500" ),
+				"title" 		=> array( "type" => "varchar", "default" => "300" ),
+				"date" 			=> array( "type" => "INT", "default" => 0 ),
+				"description" 	=> array( "type" => "text" ),
+				"url" 			=> array( "type" => "varchar", "constraint" => "300" )
 			);
 		
 			$CI->dbforge->add_field($fields);
@@ -186,11 +141,9 @@ class Media {
 		
 		$rand = rand(0,10)*1000;
 		
-		return '
-					<div id="queue"></div>
-					<input id="file_upload" name="file_upload" type="file" multiple="true">
-						<div class="media uploadify edit"></div>
-
+		return '<div id="queue"></div>
+				<input id="file_upload" name="file_upload" type="file" multiple="true">
+				<div class="media uploadify edit"></div>
 		
 				<script type="text/javascript">
 					$(function() {
@@ -200,7 +153,8 @@ class Media {
 								"token"     : "'.md5("unique_salt" . time()).'"
 							},
 							"swf"      : "'.base_url().'js/core/uploadify.swf",
-							"uploader" : "'.base_url().'js/core/uploadify.php",
+							// "uploader" : "'.base_url().'js/core/uploadify.php",
+							"uploader" : "'.base_url(lang()."/admin/upload_file").'",
 							"onUploadSuccess" : function(file, data, response)
 							{
 								if(data == "Filetype")
@@ -216,6 +170,7 @@ class Media {
 										row+= "<p><label for=\"title\">Title</label><input type=\"text\" name=\"title[]\" id=\"title\"/></p>";
 										row+= "<p><label for=\"alt\">Alternative</label><input type=\"text\" name=\"alt[]\" id=\"alt\"/></p>";
 										row+= "<p><label>Description</label><textarea name=\"description[]\"></textarea></p>";
+										row+= "<span class=\"crop\"><a href=\"'.base_url("admin/crop").'?image="+data+"\" onclick=\"return triggerPopup(\'"+data+"\');\" data-crop=\""+data+"\" class=\"crop\"><img src=\"'.base_url("images/crop.png").'\" class=\"icon\"/> Crop this image</a></span>";
 										row+= "</div>";
             						
             						$(".edit.uploadify").html(row + fill);
@@ -224,6 +179,60 @@ class Media {
 						});
 					});
 				</script>';
+	}
+
+	public function make_image_square($image,$thumbWidth=300)
+	{
+
+		$CI  =& get_instance();
+		$CI->load->library('image_lib');
+
+		$s      = getimagesize($image);
+		$info   = pathinfo($image);
+		
+		$width  = $s[0];
+		$height = $s[1];
+		
+		if ($height > $width)
+		{
+		    $divisor = $width / $thumbWidth;
+		}
+		else
+		{
+		    $divisor = $height / $thumbWidth;
+		}
+		
+		$resizedWidth   = ceil($width / $divisor);
+		$resizedHeight  = ceil($height / $divisor);
+		
+		/* work out center point */
+		$thumbx = floor(($resizedWidth  - $thumbWidth) / 2);
+		$thumby = floor(($resizedHeight - $thumbWidth) / 2);
+
+		$filename   = $info["filename"].".".$info["extension"];
+		$new_image  = $_SERVER['DOCUMENT_ROOT'] ."/Bookcase/uploads/images/";
+		$size 		= getimagesize($image);
+
+		// X - Y AXE CROP
+		
+		//$config['image_library']  = 'GD2';
+		//$config['source_image']	  = $image;
+		//$config['new_image']      = $new_image;
+		//$config['maintain_ratio'] = TRUE;
+        ////$config['create_thumb']   = TRUE;
+		////$config['width']	      = $resizedWidth;
+		////$config['height']	      = $resizedHeight;
+		//$config["x_axis"]         = $thumbx*100;
+		//$config["y_axis"]         = $thumby*100;
+
+		$configs[] = array('source_image' => $filename, 'new_image' => "x_".$filename, 'width' => 160, 'height' => 90);
+        $configs[] = array('source_image' => $filename, 'new_image' => "x_".$filename, 'width' => 240, 'height' => 240);
+        $configs[] = array('source_image' => $filename, 'new_image' => "x_".$filename, 'width' => 800, 'height' => 800);
+
+		foreach ($configs as $config) {
+            $CI->image_lib->thumb($config, FCPATH . 'uploads/images/');
+        }
+
 	}
 	
 	public function albums()

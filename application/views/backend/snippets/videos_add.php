@@ -1,4 +1,4 @@
-<p><label>YouTube or Vimeo URL</label> <input type="text" id="video"/> <input type="button" id="add_video" value="Add video"/></p>
+<p><label>YouTube or Vimeo URL</label> <input type="text" id="video"/> <input type="button" class=" button blue" id="add_video" value="Add video"/></p>
 
 <div class="videos">
 	

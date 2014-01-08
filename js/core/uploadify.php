@@ -13,7 +13,7 @@
 		$targetPath = $_SERVER['DOCUMENT_ROOT'] . $targetFolder;
 	
 		// Validate the file type
-		$fileTypes = array('jpg','jpeg','gif','png','JPG','mp4','pdf','zip','doc','xls','xlsx','docx'); // File extensions
+		$fileTypes = array('jpg','jpeg','gif','png','JPEG','JPG','mp4','pdf','zip','doc','xls','xlsx','docx'); // File extensions
 		
 		$fileParts = pathinfo($_FILES['Filedata']['name']);
 		
@@ -21,14 +21,21 @@
 		{
 		
 			$ext  = $fileParts['extension'];
+
 			$time = time();
 			
 			$imageFileClean = preg_replace("/[ !#$%^&*()+=]/", "", $fileParts["filename"]);  
-			
-			move_uploaded_file($tempFile,rtrim($targetPath,'/') . '/' . $imageFileClean."_".$time.".".$fileParts['extension']);
+			$targetFile = rtrim($targetPath,'/') . '/' . $time."_".$imageFileClean.".".$fileParts['extension'];
+			move_uploaded_file($tempFile,$targetFile);
 
+			// IMAGE RESIZEN
 
-			echo $imageFileClean."_".$time.".".$fileParts['extension'];
+			if($ext == "JPG" || $ext == "JPEG" || $ext == "jpg" || $ext == "jpeg")
+			{
+				
+			}
+
+			echo $time."_".$imageFileClean.".".$fileParts['extension'];
 			
 			
 		} else {

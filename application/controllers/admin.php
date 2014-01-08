@@ -59,6 +59,63 @@ class Admin extends CI_Controller {
 		}
 	}
 
+	public function upload_file()
+	{
+
+		// Define a destination
+
+		$targetFolder     = "/Bookcase/uploads/"; // Relative to the root
+		$thumbQuality     = 80;
+		$verifyToken      = md5('unique_salt' . $_POST['timestamp']);
+
+		if (!empty($_FILES) && $_POST['token'] == $verifyToken)
+		{
+		
+			$tempFile   = $_FILES['Filedata']['tmp_name'];
+			$targetPath = $_SERVER['DOCUMENT_ROOT'] . $targetFolder;
+		
+			// Validate the file type
+			$fileTypes = array('jpg','jpeg','gif','png','JPEG','JPG','mp4','pdf','zip','doc','xls','xlsx','docx');
+			$fileParts = pathinfo($_FILES['Filedata']['name']);
+			
+			if (in_array($fileParts['extension'],$fileTypes))
+			{
+			
+				$ext  = $fileParts['extension'];
+				$time = time();
+				
+				// CLEAN THE FILE NAME
+				$imageFileClean = strtolower(preg_replace("/[ !#$%^&*()+=]/", "", $fileParts["filename"]));  
+				$filename       = $time."_".$imageFileClean.".".$fileParts['extension'];
+
+				// IMAGE RESIZEN
+	
+				if($ext == "JPG" || $ext == "JPEG" || $ext == "jpg" || $ext == "jpeg")
+				{
+
+					$targetFile = rtrim($targetPath,'/') . '/images/' . $filename;
+					move_uploaded_file($tempFile,$targetFile);
+
+					$this->media->make_image_square($targetFile,"100");
+					$this->media->make_image_square($targetFile,"300");
+					$this->media->make_image_square($targetFile,"600");
+					//$this->media->resize_default_image($targetFile);
+
+					echo "images/".$filename;
+				}
+				
+				
+			} else {
+				echo 'Filetype';
+			}
+		}
+	}
+
+	public function crop()
+	{
+		$this->load->view("backend/snippets/crop");
+	}
+
 	public function lib($lib,$fn=false,$id=false)
 	{
 

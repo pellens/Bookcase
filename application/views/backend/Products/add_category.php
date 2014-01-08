@@ -4,6 +4,7 @@
 		<div class="tabs">
 			<ul class="links">
 				<li class="active" data-pane="add">Add category</li>
+				<li data-pane="videos">Videos</li>
 				<li data-pane="seo">Searchengines</li>
 			</ul>
 			<div class="panes">
@@ -22,6 +23,15 @@
 					$this->load->view("backend/snippets/seo_social",$data);
 				?>
 			</div>
+
+			<!-- ADD VIDEOS -->
+				<div class="pane" data-pane="videos">
+					<?
+						$this->products->product(@$item->id);
+						$data["videos"] = $this->products->category_videos();
+						$this->load->view("backend/snippets/videos_add",$data);
+					?>
+				</div>
 			</div>
 
 		</div>
@@ -39,6 +49,22 @@
 		</select>
 	</p>
 	</div>
+	<div class="box">
+		<p><label>Linked to location:</label></p>
+		<ul>
+			<?
+				$locations = array();
+				foreach($this->products->category_locations() as $loc):
+					array_push($locations,$loc->id);
+				endforeach;
+			?>
+			<? foreach($this->locations->locations_overview() as $loc):
+				$checked = (is_int(array_search($loc->id,$locations))) ? "checked='checked'" : "";
+			?>
+			<li><label><input type="checkbox" value="<?=$loc->id;?>" <?=$checked;?> name="location[]"/> <?=$loc->title;?></label></li>
+			<? endforeach;?>
+		</ul>
+		</div>
 		<div class="box">
 		<p><input type="submit" value="Save category" class="button green"/></p>
 		</div>
