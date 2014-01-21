@@ -16,7 +16,8 @@
 
 	$nav = array(
 
-		"title" => "Blocks",
+		"title" => "Textblocks",
+		"icon"  => "fa-pencil-square",
 		"nav" => array(
 			"General" => array(
 				"All content"		=> "admin/lib/blocks/blocks_overview"

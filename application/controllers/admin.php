@@ -65,7 +65,7 @@ class Admin extends CI_Controller {
 		// Define a destination
 
 		$targetFolder     = "/Bookcase/uploads/"; // Relative to the root
-		$thumbQuality     = 80;
+		$thumbQuality     = 90;
 		$verifyToken      = md5('unique_salt' . $_POST['timestamp']);
 
 		if (!empty($_FILES) && $_POST['token'] == $verifyToken)
@@ -96,9 +96,9 @@ class Admin extends CI_Controller {
 					$targetFile = rtrim($targetPath,'/') . '/images/' . $filename;
 					move_uploaded_file($tempFile,$targetFile);
 
-					$this->media->make_image_square($targetFile,"100");
-					$this->media->make_image_square($targetFile,"300");
-					$this->media->make_image_square($targetFile,"600");
+					//$this->media->make_image_square($targetFile,"100");
+					//$this->media->make_image_square($targetFile,"300");
+					//$this->media->make_image_square($targetFile,"600");
 					//$this->media->resize_default_image($targetFile);
 
 					echo "images/".$filename;

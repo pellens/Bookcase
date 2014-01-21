@@ -15,6 +15,9 @@
 
 class Locations {
 
+	var $location;
+	var $location_type;
+
 	public function __construct($params = array())
 	{
 	
@@ -28,105 +31,31 @@ class Locations {
 			$CI->load->dbforge();
 			
 			$fields = array(
-				"id" => array(
-							"type"           => "INT",
-                            'auto_increment' => TRUE
-						),
-				"title" => array(
-							"type" => "varchar",
-							"constraint" => "300",
-						),
-
-				"url_title" => array(
-							"type" => "varchar",
-							"constraint" => "300"
-						),
-				"adres" => array(
-							"type" => "varchar",
-							"constraint" => "500",
-						),
-				"street" => array(
-							"type" => "varchar",
-							"constraint" => "300"
-						),
-				"number" => array(
-							"type" => "varchar",
-							"constraint" => "5"
-						),
-				"city" => array(
-							"type" => "varchar",
-							"constraint" => "300"
-						),
-				"tel" => array(
-							"type" => "varchar",
-							"constraint" => "300"
-						),
-				"fax" => array(
-							"type" => "varchar",
-							"constraint" => "300"
-						),
-				"lat" => array(
-							"type" => "varchar",
-							"constraint" => "300"
-						),
-				"lng" => array(
-							"type" => "varchar",
-							"constraint" => "300"
-						),
-				"area_level_1" => array(
-							"type" => "varchar",
-							"constraint" => "300"
-						),
-				"area_level_2" => array(
-							"type" => "varchar",
-							"constraint" => "300"
-						),
-				"email" => array(
-							"type" => "varchar",
-							"constraint" => "300"
-						),
-				"website" => array(
-							"type" => "varchar",
-							"constraint" => "300"
-						),
-				"btw" => array(
-							"type" => "varchar",
-							"constraint" => "300"
-						),
-				"country" => array(
-							"type" => "varchar",
-							"constraint" => "300"
-						),
-				"index" => array(
-							"type" => "varchar",
-							"constraint" => "30"
-						),
-				"follow" => array(
-							"type" => "varchar",
-							"constraint" => "30"
-						),
-				"revisit" => array(
-							"type" => "varchar",
-							"constraint" => "30"
-						),
-				"meta_description" => array(
-							"type" => "text"
-						),
-				"meta_keywords" => array(
-							"type" => "text"
-						),
-				"type" => array(
-							"type" => "INT",
-							"constraint" => "1"
-						),
-				"parent" => array(
-							"type" => "INT",
-							"constraint" => "1"
-						),
-				"position" => array(
-							"type" => "INT",
-							"constraint" => "1"
-						)
+				"id" 				=> array( "type" => "INT", 		'auto_increment' => TRUE ),
+				"title" 			=> array( "type" => "varchar", 	"constraint" => "300" ),
+				"url_title" 		=> array( "type" => "varchar", 	"constraint" => "300" ),
+				"adres" 			=> array( "type" => "varchar", 	"constraint" => "500" ),
+				"street" 			=> array( "type" => "varchar", 	"constraint" => "300" ),
+				"number" 			=> array( "type" => "varchar", 	"constraint" => "5" ),
+				"city" 				=> array( "type" => "varchar", 	"constraint" => "300" ),
+				"tel" 				=> array( "type" => "varchar", 	"constraint" => "300" ),
+				"fax" 				=> array( "type" => "varchar", 	"constraint" => "300" ),
+				"lat" 				=> array( "type" => "varchar", 	"constraint" => "300" ),
+				"lng" 				=> array( "type" => "varchar", 	"constraint" => "300" ),
+				"area_level_1" 		=> array( "type" => "varchar", 	"constraint" => "300" ),
+				"area_level_2" 		=> array( "type" => "varchar", 	"constraint" => "300" ),
+				"email" 			=> array( "type" => "varchar", 	"constraint" => "300" ),
+				"website" 			=> array( "type" => "varchar", 	"constraint" => "300" ),
+				"btw" 				=> array( "type" => "varchar", 	"constraint" => "300" ),
+				"country" 			=> array( "type" => "varchar", 	"constraint" => "300" ),
+				"index" 			=> array( "type" => "varchar", 	"constraint" => "30" ),
+				"follow" 			=> array( "type" => "varchar", 	"constraint" => "30" ),
+				"revisit" 			=> array( "type" => "varchar", 	"constraint" => "30" ),
+				"meta_description" 	=> array( "type" => "text" ),
+				"meta_keywords" 	=> array( "type" => "text" ),
+				"type" 				=> array( "type" => "INT", 		"constraint" => "1" ),
+				"parent" 			=> array( "type" => "INT", 		"constraint" => "1" ),
+				"position" 			=> array( "type" => "INT", 		"constraint" => "1" )
 			);
 		
 			$CI->dbforge->add_field($fields);
@@ -140,40 +69,28 @@ class Locations {
 			$CI->load->dbforge();
 			
 			$fields = array(
-				"id" => array(
-							"type"           => "INT",
+				"id" => array( "type"           => "INT",
                             'auto_increment' => TRUE
 						),
-				"title" => array(
-							"type" => "varchar",
+				"title" => array( "type" => "varchar",
 							"constraint" => "300",
 						),
-				"url_title" => array(
-							"type" => "varchar",
+				"url_title" => array( "type" => "varchar",
 							"constraint" => "300"
 						),
-				"index" => array(
-							"type" => "varchar",
+				"index" => array( "type" => "varchar",
 							"constraint" => "30"
 						),
-				"follow" => array(
-							"type" => "varchar",
+				"follow" => array( "type" => "varchar",
 							"constraint" => "30"
 						),
-				"revisit" => array(
-							"type" => "varchar",
+				"revisit" => array( "type" => "varchar",
 							"constraint" => "30"
 						),
-				"meta_description" => array(
-							"type" => "text"
+				"meta_description" => array( "type" => "text"
 						),
-				"meta_keywords" => array(
-							"type" => "text"
-						),
-				"parent" => array(
-							"type" => "INT",
-							"constraint" => "3"
-						)
+				"meta_keywords" => array( "type" => "text" ),
+				"parent" => array( "type" => "INT", "constraint" => "3" )
 			);
 		
 			$CI->dbforge->add_field($fields);
@@ -203,9 +120,10 @@ class Locations {
 		return $CI->db->order_by("position","ASC")->get("locations_items")->result();
 	}
 
-	public function types_overview()
+	public function types_overview($parent = null)
 	{
 		$CI =& get_instance();
+		if($parent != null) $CI->db->where("parent",$parent);
 		return $CI->db->order_by("title")->get("locations_types")->result();
 	}
 
@@ -236,6 +154,7 @@ class Locations {
 		$fields["revisit"]	        = $CI->input->post("revisit",true);
 		$fields["index"]	        = $CI->input->post("index",true);
 		$fields["follow"]	        = $CI->input->post("follow",true);
+		$fields["parent"]	        = $CI->input->post("parent",true);
 
 		$CI->db->where("id",$CI->input->post("id",true))->update("locations_types",$fields);
 
@@ -283,6 +202,8 @@ class Locations {
 	public function item($id)
 	{
 		$CI =& get_instance();
+
+		$this->location = $id;
 
 		$result = $CI->db->where("id",$id)->get("locations_items")->result();
 		return $result[0];

@@ -16,7 +16,8 @@
 
 	$nav = array(
 
-		"title" => "Contactforms",
+		"title" => "Messages",
+		"icon"  => "fa-inbox",
 		"nav" => array(
 			"General" => array(
 				"Inbox" 		=> "admin/lib/contactform/messages_overview",

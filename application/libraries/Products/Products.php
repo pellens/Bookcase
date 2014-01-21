@@ -601,17 +601,6 @@ class Products {
 			unset($item["videos"]);
 		endif;
 
-		// LINK LOCATIONS TO PRODUCT ITEM
-		if(isset($item["locations"])):
-			foreach($item["videos"] as $video):
-				$v["video_id"] = $video;
-				$v["product_id"] = $CI->input->post("id",true);
-				$CI->db->insert("products_item_video",$v);
-				unset($v);
-			endforeach;
-			unset($item["videos"]);
-		endif;
-
 		// CLEAN POST
 		foreach($item as $key => $field):
 			$fields[$key] = $CI->input->post($key,true);

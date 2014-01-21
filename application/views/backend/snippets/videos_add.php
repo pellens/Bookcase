@@ -9,8 +9,8 @@
     		<input type='hidden' name='video_title[]' value='<?=$video->title;?>'/>
     		<input type='hidden' name='video_source[]' value='<?=$video->source;?>'/>
     		<input type='hidden' name='video_desc[]' value='<?=$video->description;?>'/>
-    		<input type='hidden' name='video_image_hq[]' value='http://img.youtube.com/vi/"+video_id+"/hqdefault.jpg'/>
-    		<input type='hidden' name='video_image_default[]' value='http://img.youtube.com/vi/"+video_id+"/default.jpg'/>
+    		<input type='hidden' name='video_image_hq[]' value='http://img.youtube.com/vi/<?=$video->id;?>/hqdefault.jpg'/>
+    		<input type='hidden' name='video_image_default[]' value='http://img.youtube.com/vi/<?=$video->id;?>/default.jpg'/>
 		
     		<figure><img src='http://img.youtube.com/vi/<?=$video->video_id;?>/default.jpg'/></figure>
     		<h2><?=$video->title;?></h2>

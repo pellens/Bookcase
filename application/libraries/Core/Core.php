@@ -330,6 +330,35 @@ class Core {
 		$this->revisit          = $config[0]->revisit;
 	}
 	
+	function get_website_permissions($view = false)
+	{
+
+		$data["uploads"] 		= FCPATH."/uploads";
+		$data["uploads/images"] = FCPATH."/uploads/images";
+		$data["upload/files"] 	= FCPATH."/uploads/documents";
+		$data["css/frontend"] 	= FCPATH."/css/frontend";
+
+		$per = array();
+
+		foreach($data as $key => $perms):
+
+			$per[$key] = (is_writable($perms)) ? "Writable" : "Make this folder writable!";
+
+		endforeach;
+		
+		if($view):
+			$row = "<table>";
+			foreach($per as $key => $val):
+			$row.= "<tr><td><code>".$key."</code></td><td>".$val."</td></tr>";
+			endforeach;
+			$row.= "</table>";
+			return $row;
+		else:
+			return $per;
+		endif;
+
+	}
+
 	function save_page($params)
 	{
 

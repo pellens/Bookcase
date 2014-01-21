@@ -17,6 +17,7 @@
 	$nav = array(
 
 		"title" => "Products",
+		"icon"  => "fa-shopping-cart",
 		"nav" => array(
 			"General" => array(
 				"All products" 	 => "admin/lib/products/products_overview",

@@ -39,12 +39,9 @@ CKEDITOR.editorConfig = function( config )
 	[
 		
 		{ name: 'editing', items : [ 'Find','Replace','-','SelectAll','-' ] },
-		//{ name: 'insert', items : [ 'Table','SpecialChar','PageBreak','Iframe' ] },
-		//{ name: 'styles', items : [ 'Styles','Format' ] },
-		{ name: 'basicstyles', items : [ 'Bold','Italic','Strike','-','RemoveFormat' ] },
-		{ name: 'paragraph', items : [ 'NumberedList','BulletedList','-','Outdent','Indent','-','Blockquote' ] },
-		{ name: 'links', items : [ 'Link','Unlink','Table' ] },
-		{ name: 'clipboard', items : [ 'PasteText','PasteFromWord','-','Undo','Redo' ] },
-		{ name: 'tools', items : [ 'Maximize','Source' ] }
+		{ name: 'basicstyles', items : [ 'Bold','Italic','RemoveFormat','-','NumberedList','BulletedList','-','Blockquote','Link','Unlink','Table','-','PasteFromWord' ] },
+		{ name: 'links', items : [  ] },
+		{ name: 'clipboard', items : [ ,'-','Undo','Redo' ] },
+		{ name: 'tools', items : [ 'Source','Maximize' ] }
 	];
 };

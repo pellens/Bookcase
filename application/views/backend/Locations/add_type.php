@@ -33,10 +33,10 @@
 	<div class="box">
 		<p>
 			<label for="type">Parent locationtype</label>
-			<select name="locationtype">
+			<select name="parent">
 				<option value="0">No parent locationtype</option>
 				<? foreach($this->locations->types_overview() as $type):?>
-				<option value="<?=$type->id;?>" <?=( isset($item->type) && $item->type == $type->id) ? "selected='selected'" : "";?>>
+				<option value="<?=$type->id;?>" <?=( $item->parent == $type->id) ? "selected='selected'" : "";?>>
 					<?=$type->title;?>
 				</option>
 				<? endforeach;?>

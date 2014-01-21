@@ -1,12 +1,17 @@
 $(document).ready(function(){
 
-	equalHeights();
+	//equalHeights();
+
+	$(".sidebar .box h2").bind("click",function(){
+		$(".sidebar .box ul").hide();
+		$(this).parent(".box").children(".nav").show();
+	});
 
 	// TABS
 
 	$(".tabs .links li").bind("click",function(){
 
-		equalHeights();
+		//equalHeights();
 
 		$(".tabs .links li").removeClass("active");
 		$(this).addClass("active");

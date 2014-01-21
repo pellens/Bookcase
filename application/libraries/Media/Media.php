@@ -4,6 +4,35 @@ class Media {
 
 	var $path   = "";
 	var $target = "";
+
+
+
+	var $image        = "";
+	var $small_image  = "";
+	var $name         = "";
+	var $type         = "";
+	var $thumb        = "";
+	var $square       = "";
+	var $resized      = "";
+	var $thumbPath    = 'uploads/images/';
+	var $squarePath   = 'uploads/images/';
+	var $resizedPath  = 'uploads/images/';
+	var $targetFolder = 'uploads/images/';
+	var $generalFolder = 'uploads/images/';
+	var $width        = "";
+	var $height       = "";
+	var $thumbQuality = 90;
+	var $thumbSize    = "150";
+	var $squareSize   = "300";
+	var $full         = "";
+	var $rotation     = null;
+	var $max_height   = '900';
+	var $max_width    = '1200';
+	var $fixedResize  = true;
+	var $thumbed      = true;
+	var $squared      = true;
+
+
 	
 	public function __construct($params = array())
 	{	
@@ -181,59 +210,287 @@ class Media {
 				</script>';
 	}
 
-	public function make_image_square($image,$thumbWidth=300)
+
+
+	/**
+
+	**/
+
+
+
+	public function image_data($image)
 	{
+	
+		$camera = "";
+		$model  = "";
 
-		$CI  =& get_instance();
-		$CI->load->library('image_lib');
+		$targetPath = FCPATH . $this->targetFolder;
 
-		$s      = getimagesize($image);
-		$info   = pathinfo($image);
+		// Validate the file type
+		$fileTypes = array('jpg','jpeg','gif','png','JPG'); // File extensions
+		$fileParts = pathinfo($targetPath.$image);
+
+		if (in_array($fileParts['extension'],$fileTypes)) {
+
+			$this->image  = rtrim($targetPath,'/') . '/' . $image;
+			$image_info = getimagesize($this->image);
+				
+			// Png's mogen niet ingelezen worden
+			if($fileParts['extension'] != "png")
+			{
+				// METADATA VAN FOTO INLADEN
+        		$exif   = exif_read_data($this->image,"IFD0");
+				$camera = (@$exif["Make"] != null) ? $exif["Make"] : false;
+				$model  = (@$exif["Model"] != null) ? $exif["Model"] : false;
+					
+				if($exif["DateTime"])
+				{
+					// DATUM OMZETTEN NAAR MKTIME
+					$bom  = explode(" ",$exif["DateTime"]);
+					$f    = explode(":",$bom[0]);
+					$l    = explode(":",$bom[1]);
+					$date = mktime($l[0],$l[1],$l[2],$f[1],$f[2],$f[0]);
+				}
+					
+				$flip = false;
+					
+				switch(@$exif['Orientation'])
+				{
+					case 1 : $this->rotation = false; break;
+					case 3 : $this->rotation = 180; break;
+					case 6 : $this->rotation = -90; $flip = true; break;
+					case 8 : $this->rotation = 90; $flip = true; break;
+					default : $this->rotation = false; break;
+				}
+			}
+				
+			if(@$flip)
+			{
+				$this->width  = $image_info[1];
+				$this->height = $image_info[0];	
+			}		
+			else
+			{
+				$this->width  = $image_info[0];
+				$this->height = $image_info[1];
+			}
+			$this->type   = $image_info[2];
+
+			
+			$this->thumb   = "thumb_".$fileParts["filename"].".".$fileParts['extension'];
+			$this->square  = "square_".$fileParts["filename"].".".$fileParts['extension'];
+			$this->resized = "resized_".$fileParts["filename"].".".$fileParts['extension'];
+				
+			if($this->type == IMAGETYPE_JPEG)
+  			{
+  				$this->full = imagecreatefromjpeg($this->image);
+  			}
+  			elseif($this->type == IMAGETYPE_PNG)
+  			{
+  			    $this->full = imagecreatefrompng($this->image);
+  			}
+  			if($this->rotation != null) $this->full = imagerotate($this->full,$this->rotation,0);
+  					
+  				
+				$date = (@$date) ? $date : time();
+
+				$thumb   = $this->createSquare();				
+				$resized = $this->resizeImage();
+				$square  = $this->createBigSquare();
+				
+				$fields["file_name"]   = ($this->fixedResize) ? "photos/".$this->resized : $this->small_image;
+				$fields["thumb"]       = ($this->thumbed) ? "thumbs/".$this->thumb : $this->small_image;
+				$fields["square"]      = ($this->squared) ? "big_square/".$this->square : $this->small_image;
+				$fields["user_id"]     = $_POST["user_id"];
+				$fields["camera"]      = @$camera;
+				$fields["model"]       = @$model;
+				$fields["date"]        = $date;
+				$fields["date_posted"] = time();
+				$fields["journey"]     = $_POST["journey"];
+				$fields["status"]      = 10;
+				
+				$this->db->insert("v2_act_photos",$fields);
+				$id = $this->db->insert_id();
+				
+				$string = "<div class='row'>";
+					$string.= "<div class='img'>";
+						$string.= "<img src='".base_url().$thumb."'/>";
+					$string.= "</div>";
+				
+					$string.= "<div class='info'>";
+
+				$string.= "<p><label>Comment</label> <textarea name='description[]'></textarea></p>";
+				$string.= "<p><label>Location</label> ".$this->travel_model->visited_places($_POST["user_id"],$fields["journey"],null,"select",false,true)."</p>";
+				
+				$string.= '
+					<input type="hidden" name="data_ori[]" value="'.$date.'"/>
+					<input type="hidden" name="id[]" value="'.$id.'"/>
+					<input type="hidden" name="journey[]" value="'.$_POST["journey"].'"/>';
+				
+				$string.= "</div>";
+				$string.= "</div>";
+				
+				unlink($this->image);
+
+				
+			} else {
+				
+				$string = 'Filetype';
+			}
+
 		
-		$width  = $s[0];
-		$height = $s[1];
+		echo $string;
 		
-		if ($height > $width)
+	}
+	
+	function rotateImage()
+	{
+		$photo = $this->db->where("id",$this->input->post("id",true))->where("user_id",$this->input->post("user",true))->get("v2_act_photos")->result();
+		
+		if(count($photo) != 0)
 		{
-		    $divisor = $width / $thumbWidth;
+
+			$photo = $photo[0];
+			
+			$config['image_library'] = 'gd';
+			$config['rotation_angle'] = '90';
+			
+			$this->load->library('image_lib');
+			
+			$config['source_image']	= "./uploads/".$photo->file_name;
+			$this->image_lib->initialize($config);
+			$this->image_lib->rotate();
+			
+			$config['source_image']	= "./uploads/".$photo->thumb;
+			$this->image_lib->initialize($config);
+			$this->image_lib->rotate();
+			
+			if($photo->square != "")
+			{
+				$config['source_image']	= "./uploads/".$photo->square;
+				$this->image_lib->initialize($config);
+				$this->image_lib->rotate();
+			}
+
+			echo $this->photo_model->big_url($photo->file_name);
+		}
+	}
+	
+	function resizeImage($image)
+	{
+		
+		$this->image_data($image);
+
+		$fullPath = 'uploads/';
+		$max_height = '900';
+		$max_width = '1200';
+		
+		if($this->width > $max_width || $this->height > $max_height)
+		{
+		
+			// Liggende foto
+			if($this->width > $this->height)
+			{
+				$divisor = $this->width / $max_width;
+			}
+			
+			// Staande foto
+			else
+			{
+				$divisor = $this->height / $max_height;
+			}
+  			
+  			$resizedWidth   = ceil($this->width / $divisor);
+			$resizedHeight  = ceil($this->height / $divisor);
+  			$resized        = imagecreatetruecolor($resizedWidth, $resizedHeight);
+  			
+			imagecopyresized($resized, $this->full, 0, 0, 0, 0, $resizedWidth, $resizedHeight, $this->width, $this->height);
+			
+			if($this->type == IMAGETYPE_JPEG)
+			{
+			  imagejpeg($resized, $this->resizedPath.$this->resized, $this->thumbQuality);
+			}
+			elseif($this->type == IMAGETYPE_PNG)
+			{
+			  imagePNG($resized,$this->resizedPath.$this->resized, $this->thumbQuality);
+			}
+			
 		}
 		else
 		{
-		    $divisor = $height / $thumbWidth;
+			$this->fixedResize = false;
 		}
 		
-		$resizedWidth   = ceil($width / $divisor);
-		$resizedHeight  = ceil($height / $divisor);
 		
-		/* work out center point */
-		$thumbx = floor(($resizedWidth  - $thumbWidth) / 2);
-		$thumby = floor(($resizedHeight - $thumbWidth) / 2);
-
-		$filename   = $info["filename"].".".$info["extension"];
-		$new_image  = $_SERVER['DOCUMENT_ROOT'] ."/Bookcase/uploads/images/";
-		$size 		= getimagesize($image);
-
-		// X - Y AXE CROP
 		
-		//$config['image_library']  = 'GD2';
-		//$config['source_image']	  = $image;
-		//$config['new_image']      = $new_image;
-		//$config['maintain_ratio'] = TRUE;
-        ////$config['create_thumb']   = TRUE;
-		////$config['width']	      = $resizedWidth;
-		////$config['height']	      = $resizedHeight;
-		//$config["x_axis"]         = $thumbx*100;
-		//$config["y_axis"]         = $thumby*100;
-
-		$configs[] = array('source_image' => $filename, 'new_image' => "x_".$filename, 'width' => 160, 'height' => 90);
-        $configs[] = array('source_image' => $filename, 'new_image' => "x_".$filename, 'width' => 240, 'height' => 240);
-        $configs[] = array('source_image' => $filename, 'new_image' => "x_".$filename, 'width' => 800, 'height' => 800);
-
-		foreach ($configs as $config) {
-            $CI->image_lib->thumb($config, FCPATH . 'uploads/images/');
-        }
-
 	}
+	
+	function createSquare()
+	{
+
+  		$fullPath     = 'uploads/';
+  		$thumbSize    = 150;
+		
+		if($this->width > $thumbSize || $this->height > $thumbSize)
+		{
+  			
+  			/* work out the smaller version, setting the shortest side to the size of the thumb, constraining height/wight */
+  			if ($this->height > $this->width)
+  			{
+  				$divisor = $this->width / $thumbSize;
+  			}
+  			else
+  			{
+  			    $divisor = $this->height / $thumbSize;
+  			}
+  			
+			$resizedWidth   = ceil($this->width / $divisor);
+			$resizedHeight  = ceil($this->height / $divisor);
+			
+			/* work out center point */
+			$thumbx = floor(($resizedWidth  - $thumbSize) / 2);
+			$thumby = floor(($resizedHeight - $thumbSize) / 2);
+			
+			/* create the small smaller version, then crop it centrally to create the thumbnail */
+			$resized  = imagecreatetruecolor($resizedWidth, $resizedHeight);
+			imagecopyresized($resized, $this->full, 0, 0, 0, 0, $resizedWidth, $resizedHeight, $this->width, $this->height);
+			
+			
+			$thumb    = imagecreatetruecolor($thumbSize, $thumbSize);
+			imagecopyresized($thumb, $resized, 0, 0, $thumbx, $thumby, $thumbSize, $thumbSize, $thumbSize, $thumbSize);
+				
+			
+			if($this->type == IMAGETYPE_JPEG)
+			{
+			  imagejpeg($thumb, $this->thumbPath.$this->thumb, $this->thumbQuality);
+			}
+			elseif($this->type == IMAGETYPE_PNG)
+			{
+			  imagePNG($thumb,$this->thumbPath.$this->thumb, $this->thumbQuality);
+			}
+			
+			return "$this->thumbPath$this->thumb";
+		}
+		
+		else
+		{
+			$this->thumbed = false;
+			return $this->generalFolder.$this->small_image;
+			
+		}
+  
+	}
+	
+
+
+
+	/**
+
+	**/
+
+
+
+
 	
 	public function albums()
 	{

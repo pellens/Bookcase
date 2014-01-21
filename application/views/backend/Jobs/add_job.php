@@ -3,8 +3,7 @@
 	<div class="left">
 		<div class="tabs">
 			<ul class="links">
-				<li data-pane="add">Add product</li>
-				<li class="active" data-pane="photos">Photos</li>
+				<li class="active" data-pane="add">Add job</li>
 				<li data-pane="videos">Videos</li>
 				<li data-pane="seo">Searchengines</li>
 			</ul>
@@ -12,15 +11,20 @@
 
 				<!-- ADD PRODUCT -->
 
-				<div class=" pane" data-pane="add">
+				<div class="active pane" data-pane="add">
+
+					<input type="hidden" value="<?=@$item->id;?>" name="id"/>
 
 					<p><label for="title">Title</label> <input type="text" name="title" id="title" value="<?=@$item->title;?>"/></p>
-					<p><label for="price">Price</label> <input type="text" name="price" id="price" value="<?=@$item->price;?>"/></p>
-					<p><label for="category">Category</label> <?=$this->products->categories_overview(null,true,"select");?></p>
+
 					<p><label for="description">Description</label></p>
-					<input type="hidden" value="<?=@$item->id;?>" name="id"/>
-	
 					<p><textarea name="description" id="ckeditor"><?=@$item->description;?></textarea></p>
+
+					<p><label for="requirments">Requirments</label></p>
+					<p><textarea name="requirments" id="requirments"><?=@$item->requirments;?></textarea></p>
+
+					<p><label for="offer">Offer</label></p>
+					<p><textarea name="offer" id="offer"><?=@$item->offer;?></textarea></p>
 
 				</div>
 	
@@ -33,24 +37,11 @@
 					?>
 				</div>
 
-				<!-- ADD PHOTOS -->
-
-				<div class="active pane" data-pane="photos">
-
-					<? 
-						$this->media->resizeImage("seventies.png");
-
-						$data["item"] = @$item;
-						$this->load->view("backend/snippets/photos_upload",$data);
-						unset($data);
-					?>
-				</div>
-
 				<!-- ADD VIDEOS -->
 				<div class="pane" data-pane="videos">
 					<?
-						$this->products->product(@$item->id);
-						$data["videos"] = $this->products->product_videos();
+						$this->jobs->job(@$item->id);
+						$data["videos"] = $this->jobs->job_videos();
 						$this->load->view("backend/snippets/videos_add",$data);
 						unset($data);
 					?>
@@ -67,7 +58,8 @@
 		<ul>
 			<?
 				$locations = array();
-				foreach($this->products->product_locations() as $loc):
+				$this->jobs->job(@$item->id);
+				foreach($this->jobs->job_locations() as $loc):
 					array_push($locations,$loc->id);
 				endforeach;
 			?>
@@ -88,6 +80,12 @@
 
 <script>
 CKEDITOR.replace( 'ckeditor', {
+	toolbar : "Bookcase"
+});
+CKEDITOR.replace( 'requirments', {
+	toolbar : "Bookcase"
+});
+CKEDITOR.replace( 'offer', {
 	toolbar : "Bookcase"
 });
 </script>

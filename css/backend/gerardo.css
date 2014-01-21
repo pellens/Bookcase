@@ -1,0 +1,120 @@
+body {
+  background-color: #D2DAE4;
+}
+.sidebar {
+  background-color: #1B1E24;
+  padding: 15px 0 15px 0;
+  height: 100%;
+}
+.sidebar .box {
+  background: none;
+  border: none;
+  box-shadow: none;
+  margin: 0;
+  padding: 0;
+}
+.sidebar .box h2 {
+  color: #FFF;
+  background: none;
+  font-size: 14px;
+  text-shadow: none;
+  border: none;
+  padding: 5px 20px;
+  cursor: pointer;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: normal;
+}
+.sidebar .box h2 i {
+  margin-right: 15px;
+  font-size: 18px;
+  display: inline-block;
+  width: 16px;
+  text-align: center;
+}
+.sidebar .box ul.nav {
+  display: none;
+  background: #22262E;
+  padding: 10px 10px 10px 30px;
+}
+.sidebar .box ul.nav li a {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 300;
+  color: #E1EAF1;
+  line-height: 35px;
+}
+.main {
+  padding: 10px 20px;
+  margin: 0;
+}
+.main .full {
+  padding: 0;
+  background: none;
+  border: none;
+}
+.main .full h2 {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 24px;
+  font-weight: 300;
+  margin: 0 0 10px 0;
+  padding: 20px 10px;
+}
+.main .full .block {
+  background: #FFF;
+  margin-bottom: 20px;
+  padding: 20px;
+}
+.main .full .block .table {
+  font-family: 'Open Sans', sans-serif;
+  margin: 0;
+}
+.main .full .block .table.table-rounded {
+  -moz-border-radius-topright: 0;
+  -webkit-border-top-right-radius: 0;
+  border-top-right-radius: 0;
+  -moz-border-radius-topleft: 0;
+  -webkit-border-top-left-radius: 0;
+  border-top-left-radius: 0;
+  -moz-border-radius-bottomright: 0;
+  -webkit-border-bottom-right-radius: 0;
+  border-bottom-right-radius: 0;
+  -moz-border-radius-bottomleft: 0;
+  -webkit-border-bottom-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.main .full .block .table.table-bordered tbody th,
+.main .full .block .table.table-bordered tbody td {
+  border-bottom: 1px solid #ECEDEE;
+}
+.main .full .block .table.table-bordered tbody tr:last-child td {
+  border-bottom: none;
+}
+.main .full .block .table.table-bordered thead {
+  background-color: none;
+}
+.main .full .block .table.table-bordered thead td,
+.main .full .block .table.table-bordered thead th {
+  border-left: none;
+  border-bottom: 1px solid #ECEDEE;
+}
+.main .full .block .table td.actions {
+  text-align: right;
+}
+.main .full .block .table td.actions a {
+  color: #CCC;
+  text-decoration: none;
+  -webkit-transition: all 0.2s ease-out;
+  -moz-transition: all 0.2s ease-out;
+  -ms-transition: all 0.2s ease-out;
+  -o-transition: all 0.2s ease-out;
+  transition: all 0.2s ease-out;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+.main .full .block .table td.actions a i {
+  font-weight: 300;
+  font-size: 15px;
+}
+.main .full .block .table td.actions a.del:hover {
+  color: red;
+  text-decoration: none;
+}

@@ -13,7 +13,7 @@
 ?>
 
 <div class="box">
-	<h2><?=$array["title"];?></h2>
+	<h2><i class="fa <?=$array["icon"];?>"></i> <?=$array["title"];?></h2>
 
 	<ul class="nav">
 		<? foreach($array["nav"]["General"] as $title => $link):?>

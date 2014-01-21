@@ -17,6 +17,7 @@
 	$nav = array(
 
 		"title" => "Locations",
+		"icon"  => "fa-map-marker",
 		"nav" => array(
 			"General" => array(
 				"All locations"		=> "admin/lib/locations/locations_overview",

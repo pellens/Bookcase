@@ -2,6 +2,7 @@
     require "less/lessc.inc.php";
     $less = new lessc;
     $less->checkedCompile("less/backend.less", "css/backend/backend.css");
+    $less->checkedCompile("less/gerardo.less", "css/backend/gerardo.css");
 ?>
 <!DOCTYPE html>
 <html>
@@ -15,7 +16,8 @@
     	<link rel="stylesheet" type="text/css" href="<?=base_url("css/backend")?>/bootstrap.css"/>
     	<link rel="stylesheet" type="text/css" href="<?=base_url("css/backend")?>/ui.fancytree.css"/>
     	<link rel="stylesheet" type="text/css" href="<?=base_url("css/backend")?>/backend.css"/>
-    	<link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+      <link rel="stylesheet" type="text/css" href="<?=base_url("css/backend")?>/gerardo.css"/>
+    	<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
 
     	<script type="text/javascript" src="<?=base_url("js/core")?>/jquery.1.10.2.js"></script>
     	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.js"></script>

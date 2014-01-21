@@ -17,6 +17,7 @@
 	$nav = array(
 
 		"title" => "Translate",
+		"icon"  => "fa-globe",
 		"nav" => array(
 			"General" => array(
 				"Translation overiew" => "admin/lib/translate/translation_overview"
