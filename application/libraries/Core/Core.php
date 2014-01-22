@@ -56,6 +56,10 @@ class Core {
 							"type" => "varchar",
 							"constraint" => "300",
 						),
+				"slogan" => array(
+							"type" => "varchar",
+							"constraint" => "300",
+						),
 				"fb_app_id" => array(
 							"type" => "varchar",
 							"constraint" => "300"
@@ -328,6 +332,25 @@ class Core {
 		$this->index            = $config[0]->index;
 		$this->follow           = $config[0]->follow;
 		$this->revisit          = $config[0]->revisit;
+	}
+
+	function general_settings()
+	{
+		$CI =& get_instance();
+
+		$result = $CI->db->get("core_settings")->result();
+		return $result[0];
+	}
+
+	function update_general_settings($fields)
+	{
+		$CI =& get_instance();
+		foreach($_POST as $key => $value):
+			$fields[$key] = $CI->input->post($key,true);
+		endforeach;
+
+		$CI->db->update("core_settings",$fields);
+		return true;
 	}
 	
 	function get_website_permissions($view = false)

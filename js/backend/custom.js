@@ -1,5 +1,12 @@
 $(document).ready(function(){
 
+
+	$('.table').filterTable({
+        minRows:1,
+        placeholder:'Search list',
+        label: ''
+    });
+
 	//equalHeights();
 
 	$(".sidebar .box h2").bind("click",function(){

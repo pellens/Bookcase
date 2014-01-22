@@ -30,12 +30,12 @@
 
 	</div>
 
-	<div class="block">
+	<div class="block stats">
 
-		<div class="stats">
+		<div>
 			<ul>
-				<li><?=count($list);?> products</li>
-				<li><?=count($this->products->categories_overview());?> products</li>
+				<li><i class="fa fa-shopping-cart"></i> <?=count($list);?> products</li>
+				<li><i class="fa fa-th-list"></i> <?=count($this->products->categories_overview());?> categories</li>
 			</ul>
 		</div>
 

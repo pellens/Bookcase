@@ -33,10 +33,7 @@
     	<script type="text/javascript">
     $(function(){
 
-        $('.table').filterTable({
-            minRows:1,
-            placeholder:'Search list'
-        });
+        
 
       /*$("#tree").fancytree({
       extensions: ["dnd"],
@@ -72,22 +69,22 @@
 			<nav>
                 <ul>
 				    <li <?=($active_link == "website")  ? "class='active'" : "";?>><?=anchor("admin","Website");?></li>
-				    <li <?=($active_link == "lib")      ? "class='active'" : "";?>><?=anchor("admin/modules","Modules");?></li>
-				    <li <?=($active_link == "settings") ? "class='active'" : "";?>><?=anchor("admin/settings/website_settings","Settings");?></li>
+				    <li <?=($active_link == "lib")      ? "class='active'" : "";?>><?=anchor("admin/lib/blocks/blocks_overview","Modules");?></li>
+				    <li <?=($active_link == "settings") ? "class='active'" : "";?>><?=anchor("admin/lib/core/website-settings","Settings");?></li>
                 </ul>
 			</nav>
 
-            <?=langswitch();?>
+      <?=langswitch();?>
       
 		</div>
 
 		<div class="sidebar">
 			<?
-				switch($this->uri->segment(3))
+				switch($this->uri->segment(4))
 				{
 					case "" 		:
 					case "page"		: $this->load->view("backend/sidebar-website"); break;
-					case "settings" : $this->load->view("backend/sidebar-settings"); break;
+					case "core"     : $this->load->view("backend/sidebar-settings"); break;
 					default 		: $this->load->view("backend/sidebar-modules"); break;
 				}
 			?>

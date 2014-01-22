@@ -31,14 +31,10 @@
 
 	</div>
 
-	<div class="block">
-
-		<div class="stats">
-			<ul>
-				<li><?=count($list);?> jobs</li>
-			</ul>
-		</div>
-
+	<div class="block stats">
+		<ul>
+			<li><i class="fa fa-bullhorn"></i> <?=count($list);?> jobs</li>
+		</ul>
 	</div>
 
 </div>

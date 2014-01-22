@@ -26,13 +26,41 @@ class Admin extends CI_Controller {
 		$this->load->view('backend/index',$data);
 	}
 
-	public function settings($param = false)
-	{
-		$data["active_link"] = "settings";
-		$data["main"] = "backend/Core/settings";
+	//public function settings($library,$page,$option=null)
+	//{
+	//	$data["active_link"] = "settings";
+	//	$data["main"] = "backend/Core/".$page;
+//
+	//	$this->load->view("backend/index",$data);
+	//}
 
-		$this->load->view("backend/index",$data);
-	}
+	//public function settings($page)
+	//{
+//
+	//	switch($page)
+	//	{
+	//		case "website-settings" :
+//
+	//			// UPDATE CORE SETTINGS
+	//			if(isset($_POST) && count($_POST) > 0)
+	//			{
+	//				$this->db->update("core_settings",$_POST);
+	//			}
+//
+	//			$data["settings"] = $this->core->general_settings();
+	//			break;
+//
+	//		case "image-styles" :
+//
+	//			break;
+//
+	//	}
+//
+	//	$data["active_link"] = "settings";
+	//	$data["main"] = "backend/Core/".$page;
+//
+	//	$this->load->view("backend/index",$data);
+	//}
 
 	public function modules()
 	{

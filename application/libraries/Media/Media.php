@@ -103,7 +103,30 @@ class Media {
 			$CI->dbforge->add_key('id', TRUE);
 			$CI->dbforge->create_table('media_videos',TRUE);	
 		}
+
+		/**
+
+			IMAGE STYLES AANMAKEN
+
+		**/
+
+    	if (!$CI->db->table_exists('media_image_styles'))
+		{
+			$CI->load->dbforge();
+			
+			$fields = array(
+				"id" 	 => array( "type" => "INT", 'auto_increment' => TRUE ),
+				"title"  => array( "type" => "varchar", "constraint" => "300" ),
+				"width"  => array( "type" => "INT" ),
+				"height" => array( "type" => "INT" )
+			);
 		
+			$CI->dbforge->add_field($fields);
+			$CI->dbforge->add_key('id', TRUE);
+			$CI->dbforge->create_table('media_image_styles',TRUE);	
+		}
+		
+
 		// SLIDESHOWS
 		if (!$CI->db->table_exists('media_slideshows'))
 		{
@@ -111,22 +134,10 @@ class Media {
 			$CI->load->dbforge();
 			
 			$fields = array(
-				"id" => array(
-							"type"           => "INT",
-                            'auto_increment' => TRUE
-						),
-				"title" => array(
-							"type" => "varchar",
-							"constraint" => "300",
-						),
-				"width" => array(
-							"type" => "INT",
-							"default" => 0
-						),
-				"height" => array(
-							"type" => "INT",
-							"default" => 0
-						)
+				"id" 	  => array( "type" => "INT", 'auto_increment' => TRUE ),
+				"title"   => array( "type" => "varchar", "constraint" => "300" ),
+				"width"   => array( "type" => "INT", "default" => 0 ),
+				"height"  => array( "type" => "INT", "default" => 0 )
 			);
 		
 			$CI->dbforge->add_field($fields);
@@ -573,6 +584,12 @@ class Media {
 		$item["videos"] = $array;
 
 		return $item;
+	}
+
+	public function image_styles()
+	{
+		$CI  =& get_instance();
+		return $CI->db->get("media_image_styles")->result();
 	}
 	
 	public function file_data($files,$view=false)

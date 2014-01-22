@@ -1,4 +1,8 @@
 <h1>Social (media)</h1>
+
+	<ul>
+	<li>Why do we need a Facebook app id and secret?</li>
+	</ul>
 		
 	<p>The Social library let's you:
 		<ul>

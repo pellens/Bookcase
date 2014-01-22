@@ -16,16 +16,30 @@
 
 	$nav = array(
 
-		"title" => "Core settings",
+		"title" => "General settings",
+		"icon" => "fa-gear",
 		"nav" => array(
+			"General" => array(),
 			"Settings" => array(
-				"Website settings" => "admin/settings/website_settings",
-				"Modules"        => "admin/settings/libraries"
-			),
-			"Administrators" => array(
-				"New user" => "admin/settings/add_user",
-				"Permissions" => "admin/settings/permissions"
+				"Website settings" => "admin/lib/core/website-settings"
 			)
+		)
+
+	);
+
+	$admin = array(
+
+		"fn" => array(
+
+			"website-settings" => array(
+				"view"      => "backend/Core/website-settings",
+				"submit"    => "update_general_settings",
+				"redirect"  => "admin/lib/core/website-settings",
+				"fn" => array(
+					"settings" => "general_settings"
+				)
+			)
+
 		)
 
 	);
