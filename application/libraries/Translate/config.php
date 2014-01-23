@@ -35,7 +35,7 @@
 		"fn" => array(
 
 			"translation_overview" => array(
-				"desc" => "Translation overview",
+				"desc" => "Get a list of all translations.",
 				"view" => "backend/Translate/translation_overview",
 				"fn" => array(
 					"list" => "translation"
@@ -43,13 +43,13 @@
 			),
 
 			"languages_overview" => array(
-				"desc" => "Supported languages overview",
+				"desc" => "Get a list of all supported languages.",
 				"view" => "backend/Translate/languages_overview"
 			),
 
 			"deactivate_language" => array(
 				"view" => "",
-				"desc" => "Deactive a supported language",
+				"desc" => "Deactive a supported language.",
 				"redirect" => "admin/lib/translate/languages_overview",
 				"fn" => array(
 					"update" => "deactivate_language"
@@ -58,7 +58,7 @@
 
 			"make_primary" => array(
 				"view" => "",
-				"desc" => "Make a language primary",
+				"desc" => "Make a language primary.",
 				"redirect" => "admin/lib/translate/languages_overview",
 				"fn" => array(
 					"update" => "make_primary"

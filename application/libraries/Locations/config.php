@@ -36,6 +36,7 @@
 		"fn" => array(
 
 			"locations_overview" => array(
+				"desc"      => "Get a list of all locations.",
 				"view"      => "backend/Locations/locations_overview",
 				"fn" => array(
 					"list" => "locations_overview"
@@ -52,12 +53,14 @@
 			),
 
 			"add_location" => array(
+				"desc"      => "Add a new location.",
 				"view" 		=> "backend/Locations/add_location",
 				"submit" 	=> "add_location",
 				"redirect"  => "admin/lib/locations/locations_overview"
 			),
 
 			"edit_location" => array(
+				"desc"      => "Edit a location.",
 				"view" 		=> "backend/Locations/add_location",
 				"submit" 	=> "edit_location",
 				"item"      => "item",
@@ -65,6 +68,7 @@
 			),
 
 			"del_location" => array(
+				"desc"      => "Delete a location.",
 				"view" => "",
 				"redirect" => "admin/lib/locations/locations_overview",
 				"fn" => array(
@@ -73,12 +77,14 @@
 			),
 
 			"add_type" => array(
+				"desc"      => "Add a location type.",
 				"view" 		=> "backend/Locations/add_type",
 				"submit" 	=> "add_type",
 				"redirect" 	=> "admin/lib/locations/types_overview"
 			),
 
 			"edit_type" => array(
+				"desc"      => "Edit a location type.",
 				"view" => "backend/Locations/add_type",
 				"submit" => "edit_type",
 				"item" => "type",
@@ -86,6 +92,7 @@
 			),
 
 			"del_type" => array(
+				"desc"      => "Delete a location type.",
 				"view" => "",
 				"redirect" => "admin/lib/locations/types_overview",
 				"fn" => array(
@@ -94,6 +101,7 @@
 			),
 
 			"types_overview" => array(
+				"desc"      => "Get a list of all location types.",
 				"view" 		=> "backend/Locations/types_overview",
 				"fn" => array(
 					"list" => "types_overview"

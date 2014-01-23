@@ -32,6 +32,7 @@
 		"fn" => array(
 
 			"blocks_overview" => array(
+				"desc"      => "Get a list of all textblocks.",
 				"view"      => "backend/Blocks/blocks_overview",
 				"fn" => array(
 					"list" => "blocks_overview"
@@ -39,6 +40,7 @@
 			),
 
 			"edit_block" => array(
+				"desc"      => "Edit a textblock.",
 				"view" 		=> "backend/Blocks/edit_block",
 				"submit" 	=> "edit_block",
 				"item"      => "item",

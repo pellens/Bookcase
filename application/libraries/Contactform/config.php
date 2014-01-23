@@ -37,6 +37,7 @@
 		"fn" => array(
 
 			"messages_overview" => array(
+				"desc"      => "Get a list of all submitted messages.",
 				"view"      => "backend/Contactform/messages_overview",
 				"fn" => array(
 					"list" => "submitted_forms",
@@ -45,6 +46,7 @@
 			),
 
 			"contacts_overview" => array(
+				"desc"      => "Get a list of all submitters (contacts).",
 				"view"      => "backend/Contactform/contacts_overview",
 				"fn" => array(
 					"list" => "contacts_overview"
@@ -52,6 +54,7 @@
 			),
 
 			"forms_overview" => array(
+				"desc"      => "Get a list of all forms.",
 				"view" => "backend/Contactform/forms_overview",
 				"fn" => array(
 					"list" => "all_forms"
@@ -59,6 +62,7 @@
 			),
 
 			"edit_form" => array(
+				"desc"      => "Edit a contactform.",
 				"view" 		=> "backend/Contactform/edit_form",
 				"submit" 	=> "edit_form",
 				"item"      => "item",
@@ -66,6 +70,7 @@
 			),
 
 			"delete_form" => array(
+				"desc"      => "Delete a contactform.",
 				"view" => "",
 				"redirect" => "admin/lib/contactform/forms_overview",
 				"fn" => array(

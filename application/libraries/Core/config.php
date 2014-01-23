@@ -32,6 +32,7 @@
 		"fn" => array(
 
 			"website-settings" => array(
+				"desc"      => "Change the global website settings.",
 				"view"      => "backend/Core/website_settings",
 				"submit"    => "update_general_settings",
 				"redirect"  => "admin/lib/core/website-settings",

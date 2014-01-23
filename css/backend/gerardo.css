@@ -98,7 +98,8 @@ body {
   display: block;
   color: #CCC;
 }
-.main .full form input[type=text] {
+.main .full form input[type=text],
+.main .full form input[type=email] {
   border: 1px solid #DDD;
   width: 50%;
 }

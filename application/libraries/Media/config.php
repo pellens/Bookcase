@@ -36,6 +36,7 @@
 		"fn" => array(
 
 			"photos_overview" => array(
+				"desc"      => "Get a list of all photos.",
 				"view"      => "backend/Media/photos_overview",
 				"fn" => array(
 					"list" => "photos_overview"
@@ -44,6 +45,7 @@
 			),
 
 			"image_styles" => array(
+				"desc"      => "Get a list of all image styles.",
 				"view"      => "backend/Media/image_styles",
 				"fn" => array(
 					"list" => "image_styles"
@@ -52,6 +54,7 @@
 			),
 
 			"add_style" => array(
+				"desc"      => "Add a new image style.",
 				"view" 		=> "backend/Media/add_style",
 				"submit" 	=> "add_style",
 				"redirect"  => "admin/lib/media/image_styles",
@@ -59,6 +62,7 @@
 			),
 
 			"del_style" => array(
+				"desc"      => "Delete an image style.",
 				"view" => "",
 				"redirect" => "admin/lib/media/image_styles",
 				"fn" => array(
@@ -68,6 +72,7 @@
 			),
 
 			"edit_style" => array(
+				"desc"      => "Edit an image style.",
 				"view" 		=> "backend/Media/add_style",
 				"submit" 	=> "edit_style",
 				"item"      => "image_style",

@@ -48,6 +48,9 @@ class Users {
 			$CI->dbforge->create_table('users_roles',TRUE);
 			
 			unset($fields);
+
+			$fields["title"] = "Superadmin";
+			$CI->db->insert("users_roles",$fields);
 		}
 
 		if (!$CI->db->table_exists('users'))
@@ -55,47 +58,17 @@ class Users {
 			$CI->load->dbforge();
 			
 			$fields = array(
-				"id" => array(
-							"type"           => "INT",
-                            'auto_increment' => TRUE
-						),
-				"username" => array(
-							"type" => "varchar",
-							"constraint" => "300",
-						),
-				"name" => array(
-							"type" => "varchar",
-							"constraint" => "300",
-						),
-				"first_name" => array(
-							"type" => "varchar",
-							"constraint" => "300"
-						),
-				"email" => array(
-							"type" => "varchar",
-							"constraint" => "300"
-						),
-				"password" => array(
-							"type" => "varchar",
-							"constraint" => "300"
-						),
-				"account_created"  => array(
-							"type" => "int"
-						),
-				"last_login" => array(
-							"type" => "int"
-						),
-				"facebook_id" => array(
-							"type" => "varchar",
-							"constraint" => "300"
-						),
-				"google_id" => array(
-							"type" => "varchar",
-							"constraint" => "300"
-						),
-				"role_id" => array(
-							"type" => "int"
-						)
+				"id" 				=> array( "type" => "INT", 'auto_increment' => TRUE ),
+				"username" 			=> array( "type" => "varchar", "constraint" => "300" ),
+				"name" 				=> array( "type" => "varchar", "constraint" => "300" ),
+				"first_name" 		=> array( "type" => "varchar", "constraint" => "300" ),
+				"email"			 	=> array( "type" => "varchar", "constraint" => "300" ),
+				"password" 			=> array( "type" => "varchar", "constraint" => "300" ),
+				"account_created" 	=> array( "type" => "int" ),
+				"last_login" 		=> array( "type" => "int" ),
+				"facebook_id" 		=> array( "type" => "varchar", "constraint" => "300" ),
+				"google_id" 		=> array( "type" => "varchar", "constraint" => "300" ),
+				"role_id" 			=> array( "type" => "int" )
 			);
 		
 			$CI->dbforge->add_field($fields);
@@ -105,21 +78,160 @@ class Users {
 			unset($fields);
 		}
 
+		if (!$CI->db->table_exists('users_roles_permissions'))
+		{
+			$CI->load->dbforge();
+
+			$fields = array(
+				"id" 				=> array( "type" => "INT", 'auto_increment' => TRUE ),
+				"role_id" 			=> array( "type" => "int" ),
+				"function" 			=> array( "type" => "varchar", "constraint" => "300" )
+			);
+
+			$CI->dbforge->add_field($fields);
+			$CI->dbforge->add_key('id', TRUE);
+			$CI->dbforge->create_table('users_roles_permissions',TRUE);
+
+			unset($fields);
+		}
+
 	}
 
-	public function user_info($user_id)
+	public function user($user_id)
 	{
 		$CI =& get_instance();
-		$result = $CI->db->where("users.id",$user_id)->from("users")->join("users_roles","users_roles.id = users.role_id","left")->get()->result();
+
+		$CI->db->where("users.id",$user_id);
+		$CI->db->select("
+			users.id AS id,
+			users.name AS name,
+			users.email AS email,
+			users.facebook_id,
+			users.google_id,
+			users.first_name AS first_name,
+			users.username AS username,
+			users_roles.title AS role,
+			users_roles.id AS role_id
+		");
+		$result = $CI->db->from("users")->join("users_roles","users_roles.id = users.role_id","left")->get()->result();
 		return $result[0];
 	}
+
+	/**
+
+		ADD A USER
+
+	**/
 
 	public function add_user($fields)
 	{
 		$CI =& get_instance();
 
+		foreach($_POST as $key => $value):
+			$user[$key] = $CI->input->post($key,true);
+		endforeach;
+		$user["password"] = md5($user["password"]);
+
+		$CI->db->insert("users",$user);
+		return true;
 		
 	}
+
+	/**
+
+		EDIT A USER
+
+	**/
+
+	public function edit_user($fields)
+	{
+
+		$CI =& get_instance();
+		foreach($_POST as $key => $value):
+			$user[$key] = $CI->input->post($key,true);
+		endforeach;
+
+		if($user["password"] == "")
+		{
+			unset($user["password"]);
+		}
+		else
+		{
+			$user["password"] = md5($user["password"]);
+		}
+
+		$CI->db->where("id",$fields["id"])->update("users",$user);
+		return true;
+	}
+
+	/**
+
+		DELETE A USER
+
+	**/
+
+	public function del_user($id)
+	{
+		$CI =& get_instance();
+		$CI->db->where("id",$id)->delete("users");
+		return true;
+	}
+
+	/**
+
+		ROLES OVERVIEW
+
+	**/
+
+	public function roles_overview()
+	{
+		$CI =& get_instance();
+
+		return $CI->db->get("users_roles")->result();
+	}
+
+	/**
+
+		GET ALL PERMISSIONS
+
+	**/
+
+	public function permissions()
+	{
+		$CI =& get_instance();
+		foreach($CI->db->get("users_roles_permissions")->result() as $item):
+			$fields[$item->role_id][$item->function] = true;
+		endforeach;
+
+		return $fields;
+	}
+
+	/**
+
+		EDIT PERMISSIONS
+
+	**/
+
+	public function edit_permissions()
+	{
+		$CI =& get_instance();
+		$CI->db->empty_table("users_roles_permissions");
+		foreach($_POST["func"] as $function => $value):
+
+			foreach($value as $role => $on):
+
+				$fields["function"] = $function;
+				$fields["role_id"] = $role;
+				$CI->db->insert("users_roles_permissions",$fields);
+				unset($fields);
+
+			endforeach;
+		endforeach;
+
+		return true;
+	}
+
+
 
 	public function login_form($view = true, $redirect = false)
 	{
@@ -209,6 +321,14 @@ class Users {
 
 		$CI =& get_instance();
 
+		$CI->db->select("
+			users.id AS id,
+			users.name AS name,
+			users.first_name AS first_name,
+			users.username AS username,
+			users_roles.title AS role_title,
+			users_roles.id AS role_id
+		");
 		$result = $CI->db->from("users")->join("users_roles","users.role_id = users_roles.id","left")->get()->result();
 
 		if($view)

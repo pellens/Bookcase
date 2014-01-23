@@ -34,6 +34,7 @@
 		"fn" => array(
 
 			"jobs_overview" => array(
+				"desc"      => "Get a list of all jobs.",
 				"view"      => "backend/Jobs/jobs_overview",
 				"fn" => array(
 					"list" => "jobs_overview"
@@ -41,12 +42,14 @@
 			),
 
 			"add_job" => array(
+				"desc"      => "Add a new job opening.",
 				"view" 		=> "backend/Jobs/add_job",
 				"submit" 	=> "add_job",
 				"redirect"  => "admin/lib/jobs/jobs_overview"
 			),
 
 			"del_job" => array(
+				"desc"      => "Delete a job.",
 				"view" => "",
 				"redirect" => "admin/lib/jobs/jobs_overview",
 				"fn" => array(
@@ -55,6 +58,7 @@
 			),
 
 			"edit_job" => array(
+				"desc"      => "Edit a job.",
 				"view" 		=> "backend/Jobs/add_job",
 				"submit" 	=> "edit_job",
 				"item"      => "job",
