@@ -80,11 +80,11 @@
 
 		<div class="sidebar">
 			<?
-				switch($this->uri->segment(4))
+				switch($active_link)
 				{
 					case "" 		:
-					case "page"		: $this->load->view("backend/sidebar-website"); break;
-					case "core"     : $this->load->view("backend/sidebar-settings"); break;
+					case "website"	: $this->load->view("backend/sidebar-website"); break;
+					case "settings" : $this->load->view("backend/sidebar-settings"); break;
 					default 		: $this->load->view("backend/sidebar-modules"); break;
 				}
 			?>

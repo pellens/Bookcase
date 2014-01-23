@@ -21,11 +21,27 @@
 		"nav" => array(
 			"General" => array(),
 			"Settings" => array(
-				"Add user" => "admin/settings/add_user",
-				"Users overview" => "admin/settings/users",
-				"User roles" => "admin/settings/user_roles",
-				"Permissions" => "admin/settings/permissions"
+				"Add user" => "admin/lib/users/add_user",
+				"Users overview" => "admin/lib/users/users_overview",
+				"User roles" => "admin/lib/users/user_roles",
+				"Permissions" => "admin/lib/users/permissions"
 			)
+		)
+
+	);
+
+	$admin = array(
+
+		"fn" => array(
+
+			"users_overview" => array(
+				"view"      => "backend/Users/users_overview",
+				"fn" => array(
+					"list" => "users_overview"
+				),
+				"active_link" => "settings"
+			)
+
 		)
 
 	);

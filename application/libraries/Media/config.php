@@ -39,20 +39,23 @@
 				"view"      => "backend/Media/photos_overview",
 				"fn" => array(
 					"list" => "photos_overview"
-				)
+				),
+				"active_link" => "settings"
 			),
 
 			"image_styles" => array(
 				"view"      => "backend/Media/image_styles",
 				"fn" => array(
 					"list" => "image_styles"
-				)
+				),
+				"active_link" => "settings"
 			),
 
 			"add_style" => array(
 				"view" 		=> "backend/Media/add_style",
 				"submit" 	=> "add_style",
-				"redirect"  => "admin/lib/media/image_styles"
+				"redirect"  => "admin/lib/media/image_styles",
+				"active_link" => "settings"
 			),
 
 			"del_style" => array(
@@ -60,14 +63,16 @@
 				"redirect" => "admin/lib/media/image_styles",
 				"fn" => array(
 					"delete" => "del_style"
-				)
+				),
+				"active_link" => "settings"
 			),
 
 			"edit_style" => array(
 				"view" 		=> "backend/Media/add_style",
 				"submit" 	=> "edit_style",
 				"item"      => "image_style",
-				"redirect"  => "admin/lib/media/image_styles"
+				"redirect"  => "admin/lib/media/image_styles",
+				"active_link" => "settings"
 			)
 
 

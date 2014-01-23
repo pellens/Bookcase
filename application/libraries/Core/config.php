@@ -37,7 +37,8 @@
 				"redirect"  => "admin/lib/core/website-settings",
 				"fn" => array(
 					"settings" => "general_settings"
-				)
+				),
+				"active_link" => "settings"
 			)
 
 		)

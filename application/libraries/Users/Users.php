@@ -59,11 +59,11 @@ class Users {
 							"type"           => "INT",
                             'auto_increment' => TRUE
 						),
-				"name" => array(
+				"username" => array(
 							"type" => "varchar",
 							"constraint" => "300",
 						),
-				"username" => array(
+				"name" => array(
 							"type" => "varchar",
 							"constraint" => "300",
 						),
@@ -86,6 +86,10 @@ class Users {
 							"type" => "int"
 						),
 				"facebook_id" => array(
+							"type" => "varchar",
+							"constraint" => "300"
+						),
+				"google_id" => array(
 							"type" => "varchar",
 							"constraint" => "300"
 						),
@@ -200,7 +204,7 @@ class Users {
 		}
 	}
 
-	public function users($view = false)
+	public function users_overview($view = false)
 	{
 
 		$CI =& get_instance();

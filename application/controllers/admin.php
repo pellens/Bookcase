@@ -191,7 +191,7 @@ class Admin extends CI_Controller {
 			endif;
 		}
 
-		$data["active_link"] = "lib";
+		$data["active_link"] = $admin["fn"][$fn]["active_link"];
 		$this->load->view("backend/index",$data);
 
 	}
