@@ -586,12 +586,110 @@ class Media {
 		return $item;
 	}
 
+	/**
+
+		OVERVIEW OF THE IMAGE STYLES
+
+	**/
+
 	public function image_styles()
 	{
 		$CI  =& get_instance();
 		return $CI->db->get("media_image_styles")->result();
 	}
+
+	/**
+
+		ADD A NEW IMAGE STYLE
+
+	**/
+
+	public function add_style($fields)
+	{
+		$CI  =& get_instance();
+		foreach($_POST as $key => $value):
+			$style[$key] = $CI->input->post($key,true);
+		endforeach;
+
+		// CHECK IF SIZE ALREADY EXISTS
+		$aantal = $CI->db->where("width",$style["width"])->where("height",$style["height"])->count_all_results("media_image_styles");
+
+		// INSERT INTO DATABASE
+		if($aantal == 0)
+		{
+			$CI->db->insert("media_image_styles",$style);
+			
+			// CREATE FOLDER
+			$folder = $style["width"]."_".$style["height"];
+			if (!file_exists(FCPATH.'uploads/images/'.$folder))
+			{
+		    	mkdir(FCPATH.'uploads/images/'.$folder, 0777, true);
+			}
+
+			unset($style);
+		}
+
+		return true;
+	}
+
+	/**
+
+		DELETE AN IMAGE STYLE
+
+	**/
+
+	public function del_style($style)
+	{
+		$CI  =& get_instance();
+		$CI->db->where("id",$style)->delete("media_image_styles");
+		return true;
+	}
+
+	/**
+
+		EDIT AN IMAGE STYLE
+
+	**/
+
+	public function edit_style($style)
+	{
+		$CI  =& get_instance();
+
+		foreach($_POST as $key => $value)
+		{
+			$fields[$key] = $CI->input->post($key,true);
+		}
+
+		// CREATE FOLDER
+		$folder = $fields["width"]."_".$fields["height"];
+		if (!file_exists(FCPATH.'uploads/images/'.$folder))
+		{
+			mkdir(FCPATH.'uploads/images/'.$folder, 0777, true);
+		}
+
+		$CI->db->where("id",$fields["id"])->update("media_image_styles",$fields);
+		return true;
+	}
+
+	/**
+
+		GET A SPECIFIC IMAGE STYLE
+
+	**/
 	
+	public function image_style($style)
+	{
+		$CI  =& get_instance();
+		$result = $CI->db->where("id",$style)->get("media_image_styles")->result();
+		return $result[0];
+	}
+
+
+
+
+
+
+
 	public function file_data($files,$view=false)
 	{
 		$CI  =& get_instance();

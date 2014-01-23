@@ -32,7 +32,7 @@
 		"fn" => array(
 
 			"website-settings" => array(
-				"view"      => "backend/Core/website-settings",
+				"view"      => "backend/Core/website_settings",
 				"submit"    => "update_general_settings",
 				"redirect"  => "admin/lib/core/website-settings",
 				"fn" => array(

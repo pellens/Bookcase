@@ -56,6 +56,13 @@
 				)
 			),
 
+			"edit_product" => array(
+				"view" 		=> "backend/Products/add_product",
+				"submit" 	=> "edit_product",
+				"item"      => "product",
+				"redirect"  => "admin/lib/products/products_overview"
+			),
+
 			"categories_overview" => array(
 				"view"      => "backend/Products/categories_overview",
 				"fn" => array(
@@ -75,13 +82,6 @@
 				"fn" => array(
 					"delete" => "del_category"
 				)
-			),
-
-			"edit_product" => array(
-				"view" 		=> "backend/Products/add_product",
-				"submit" 	=> "edit_product",
-				"item"      => "product",
-				"redirect"  => "admin/lib/products/products_overview"
 			),
 
 			"edit_category" => array(

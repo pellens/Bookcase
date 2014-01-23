@@ -1,6 +1,7 @@
 <?
 	$data["nav"]     = array();
 	$data["modules"] = $this->core->libraries(true);
+
 	foreach($data["modules"] as $module):
 		include(APPPATH."/libraries/".ucwords($module["title"])."/config.php");
 		if(isset($nav)) $data["nav"][$module["title"]] = $nav;
@@ -8,7 +9,7 @@
 
 	foreach($data["nav"] as $lib => $array):
 
-		if(isset($array["nav"]["General"])):
+		if(isset($array["nav"]["General"]) && count($array["nav"]["General"]) > 0):
 
 ?>
 

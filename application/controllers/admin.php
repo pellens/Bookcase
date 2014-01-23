@@ -141,7 +141,8 @@ class Admin extends CI_Controller {
 
 	public function crop()
 	{
-		$this->load->view("backend/snippets/crop");
+		$data["image_styles"] = $this->media->image_styles();
+		$this->load->view("backend/snippets/crop",$data);
 	}
 
 	public function lib($lib,$fn=false,$id=false)

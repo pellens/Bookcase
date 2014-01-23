@@ -24,7 +24,8 @@
 			),
 			"Administrators" => array(),
 			"Settings" => array(
-				"Image styles" => "admin/lib/media/image_styles"
+				"Image styles"    => "admin/lib/media/image_styles",
+				"Add image style" => "admin/lib/media/add_style"
 			)
 		)
 
@@ -46,6 +47,27 @@
 				"fn" => array(
 					"list" => "image_styles"
 				)
+			),
+
+			"add_style" => array(
+				"view" 		=> "backend/Media/add_style",
+				"submit" 	=> "add_style",
+				"redirect"  => "admin/lib/media/image_styles"
+			),
+
+			"del_style" => array(
+				"view" => "",
+				"redirect" => "admin/lib/media/image_styles",
+				"fn" => array(
+					"delete" => "del_style"
+				)
+			),
+
+			"edit_style" => array(
+				"view" 		=> "backend/Media/add_style",
+				"submit" 	=> "edit_style",
+				"item"      => "image_style",
+				"redirect"  => "admin/lib/media/image_styles"
 			)
 
 

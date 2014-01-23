@@ -50,11 +50,24 @@ body {
 }
 .main .filter-table {
   text-align: right;
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin-top: -55px;
 }
 .main .filter-table input[type=search] {
   font-size: 12px !important;
   height: 20px;
-  border: 1Px solid #DDD;
+  border: 1Px solid #CCC;
+  background-image: url(../../images/core/search.png) !important;
+  padding-left: 30px;
+  background-repeat: no-repeat;
+  background-position: 5px center;
+  -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=50);
+  filter: alpha(opacity = 50);
+  -moz-opacity: 0.5;
+  -khtml-opacity: 0.5;
+  opacity: 0.5;
 }
 .main .full {
   padding: 0;
@@ -113,6 +126,7 @@ body {
   background: #FFF;
   margin-bottom: 20px;
   padding: 20px;
+  position: relative;
 }
 .main .full .block .table {
   font-family: 'Open Sans', sans-serif;

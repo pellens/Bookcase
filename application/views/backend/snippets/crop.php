@@ -20,8 +20,12 @@
 	.image {
 		float:left;
 		background-color: #EEE;
-		width:590px;
-		height:260px;
+		width:600px;
+		height:300px;
+	}
+
+	.cropbox {
+
 	}
 
 	.image .error {
@@ -112,9 +116,10 @@
 	<title>Welcome to CodeIgniter</title>
 
 	<?
-		$array[] = array("name" => "Slideshow", "b"=>400, "h"=>300);
-		$array[] = array("name" => "Thumbnail", "b"=>150, "h"=>150);
-		$array[] = array("name" => "Full",      "b"=>900, "h"=>600);
+		foreach($image_styles as $style)
+		{
+			$array[] = array("name" => $style->title, "b"=>$style->width, "h"=>$style->height);
+		}
 	?>
 
 </head>
