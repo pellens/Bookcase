@@ -36,7 +36,8 @@
 				"view"      => "backend/Blocks/blocks_overview",
 				"fn" => array(
 					"list" => "blocks_overview"
-				)
+				),
+				"active_link" => "modules"
 			),
 
 			"edit_block" => array(
@@ -44,7 +45,8 @@
 				"view" 		=> "backend/Blocks/edit_block",
 				"submit" 	=> "edit_block",
 				"item"      => "item",
-				"redirect"  => "admin/lib/blocks/blocks_overview"
+				"redirect"  => "admin/lib/blocks/blocks_overview",
+				"active_link" => "modules"
 			)
 
 		)

@@ -1,6 +1,6 @@
 <div class="full">
 
-	<h2>Users</h2>
+	<h2>Users <?=anchor("admin/lib/users/add_user","New user","class='button light'");?></h2>
 
 		<div class="block">
 		

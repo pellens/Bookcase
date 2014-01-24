@@ -17,7 +17,7 @@
 
 	<h2><i class="fa <?=$array["icon"];?>"></i> <?=$array["title"];?></h2>
 
-	<ul class="nav">
+	<ul class="nav <?=($this->uri->segment(4) == strtolower($lib)) ? "active":"";?>">
 		<? foreach($array["nav"]["Settings"] as $title => $link):?>
 		<li <?=($link==uri_string())?"class='active'":"";?>><?=anchor($link,$title);?></li>
 		<? endforeach;?>

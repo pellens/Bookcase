@@ -2,7 +2,7 @@
 
 	<form method="post">
 
-	<h2>Image style</h2>
+	<h2>New image style</h2>
 
 		<div class="block">
 		

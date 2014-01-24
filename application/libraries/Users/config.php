@@ -69,7 +69,18 @@
 				"desc"      => "Add a new user.",
 				"view" 		  => "backend/Users/add_user",
 				"submit" 	  => "add_user",
+				"fn" => array(
+					"roles" => "roles_overview"
+				),
 				"redirect"    => "admin/lib/users/users_overview",
+				"active_link" => "settings"
+			),
+
+			"add_role" => array(
+				"desc"      => "Add a new user role.",
+				"view" 		  => "backend/Users/add_role",
+				"submit" 	  => "add_role",
+				"redirect"    => "admin/lib/users/permissions",
 				"active_link" => "settings"
 			),
 
@@ -87,6 +98,9 @@
 				"desc"      => "Edit a user.",
 				"view" 		=> "backend/Users/add_user",
 				"submit" 	=> "edit_user",
+				"fn" => array(
+					"roles" => "roles_overview"
+				),
 				"item"      => "user",
 				"redirect"  => "admin/lib/users/users_overview",
 				"active_link" => "settings"

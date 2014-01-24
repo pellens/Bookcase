@@ -16,16 +16,16 @@
 
 	$nav = array(
 
-		"title" => "Messages",
+		"title" => "Inbox &amp; Contacts",
 		"icon"  => "fa-inbox",
 		"nav" => array(
 			"General" => array(
 				"Inbox" 		=> "admin/lib/contactform/messages_overview",
-				"Contacts"		=> "admin/lib/contactform/contacts_overview",
-				"Forms"         => "admin/lib/contactform/forms_overview"
+				"Contacts"		=> "admin/lib/contactform/contacts_overview"
 				
 			),
-			"Administrators" => array(
+			"Settings" => array(
+				"Forms"         => "admin/lib/contactform/forms_overview",
 				"Add form" 	=> "admin/lib/contactform/add_form"
 			)
 		)
@@ -42,7 +42,8 @@
 				"fn" => array(
 					"list" => "submitted_forms",
 					"stats" => "submission_stats"
-				)
+				),
+				"active_link" => "modules"
 			),
 
 			"contacts_overview" => array(
@@ -50,7 +51,8 @@
 				"view"      => "backend/Contactform/contacts_overview",
 				"fn" => array(
 					"list" => "contacts_overview"
-				)
+				),
+				"active_link" => "modules"
 			),
 
 			"forms_overview" => array(
@@ -58,7 +60,8 @@
 				"view" => "backend/Contactform/forms_overview",
 				"fn" => array(
 					"list" => "all_forms"
-				)
+				),
+				"active_link" => "settings"
 			),
 
 			"edit_form" => array(
@@ -66,7 +69,8 @@
 				"view" 		=> "backend/Contactform/edit_form",
 				"submit" 	=> "edit_form",
 				"item"      => "item",
-				"redirect"  => "admin/lib/contactform/forms_overview"
+				"redirect"  => "admin/lib/contactform/forms_overview",
+				"active_link" => "settings"
 			),
 
 			"delete_form" => array(
@@ -75,7 +79,8 @@
 				"redirect" => "admin/lib/contactform/forms_overview",
 				"fn" => array(
 					"delete" => "delete_form"
-				)
+				),
+				"active_link" => "settings"
 			),
 
 			"ajax_delete_field" => array(

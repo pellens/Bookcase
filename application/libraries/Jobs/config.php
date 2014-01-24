@@ -23,8 +23,7 @@
 				"All jobs" 	 => "admin/lib/jobs/jobs_overview",
 				"Add job" => "admin/lib/jobs/add_job"
 				
-			),
-			"Administrators" => array()
+			)
 		)
 
 	);
@@ -38,14 +37,16 @@
 				"view"      => "backend/Jobs/jobs_overview",
 				"fn" => array(
 					"list" => "jobs_overview"
-				)
+				),
+				"active_link" => "modules"
 			),
 
 			"add_job" => array(
 				"desc"      => "Add a new job opening.",
 				"view" 		=> "backend/Jobs/add_job",
 				"submit" 	=> "add_job",
-				"redirect"  => "admin/lib/jobs/jobs_overview"
+				"redirect"  => "admin/lib/jobs/jobs_overview",
+				"active_link" => "modules"
 			),
 
 			"del_job" => array(
@@ -54,7 +55,8 @@
 				"redirect" => "admin/lib/jobs/jobs_overview",
 				"fn" => array(
 					"delete" => "del_job"
-				)
+				),
+				"active_link" => "modules"
 			),
 
 			"edit_job" => array(
@@ -62,7 +64,8 @@
 				"view" 		=> "backend/Jobs/add_job",
 				"submit" 	=> "edit_job",
 				"item"      => "job",
-				"redirect"  => "admin/lib/jobs/jobs_overview"
+				"redirect"  => "admin/lib/jobs/jobs_overview",
+				"active_link" => "modules"
 			)
 
 		)

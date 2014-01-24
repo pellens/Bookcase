@@ -1,7 +1,40 @@
 body {
-  background-color: #D2DAE4;
+  background-color: #E7EBF1;
   min-width: 960px;
   height: 100%;
+}
+.container {
+  background-color: #D2DAE4;
+  min-height: 100%;
+}
+a {
+  color: #1586DF;
+}
+.button {
+  display: inline-block;
+}
+.button.green {
+  background-color: #27ae60;
+  border: none;
+  -moz-border-radius-topright: 2px;
+  -webkit-border-top-right-radius: 2px;
+  border-top-right-radius: 2px;
+  -moz-border-radius-topleft: 2px;
+  -webkit-border-top-left-radius: 2px;
+  border-top-left-radius: 2px;
+  -moz-border-radius-bottomright: 2px;
+  -webkit-border-bottom-right-radius: 2px;
+  border-bottom-right-radius: 2px;
+  -moz-border-radius-bottomleft: 2px;
+  -webkit-border-bottom-left-radius: 2px;
+  border-bottom-left-radius: 2px;
+  color: #FFF;
+  line-height: 35px;
+  padding: 0 15px;
+}
+.button.light {
+  background: #E5EBF1;
+  color: #8CA0BB;
 }
 .sidebar {
   background-color: #1B1E24;
@@ -38,11 +71,15 @@ body {
   background: #22262E;
   padding: 10px 10px 10px 30px;
 }
+.sidebar .box ul.nav.active {
+  display: block;
+}
 .sidebar .box ul.nav li a {
   font-family: 'Open Sans', sans-serif;
   font-weight: 300;
   color: #E1EAF1;
   line-height: 35px;
+  text-decoration: none;
 }
 .main {
   padding: 10px 20px;
@@ -80,6 +117,15 @@ body {
   font-weight: 300;
   margin: 0 0 10px 0;
   padding: 20px 10px;
+  vertical-align: middle;
+}
+.main .full h2 .button {
+  margin-left: 15px;
+  line-height: 30px;
+  box-shadow: 0 1px 1px #CCC;
+}
+.main .full h2 .button:active {
+  box-shadow: 0 1px 1px #CCC inset;
 }
 .main .full h3 {
   background-color: #E8F0F5;
@@ -96,12 +142,19 @@ body {
 .main .full form span.help-text {
   font-size: 11px;
   display: block;
-  color: #CCC;
+  color: #888;
 }
 .main .full form input[type=text],
-.main .full form input[type=email] {
+.main .full form input[type=email],
+.main .full form input[type=password],
+.main .full form select {
   border: 1px solid #DDD;
   width: 50%;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  *behavior: url(/boxsizing.htc);
+  height: 30px;
 }
 .main .full form .actions input[type=submit] {
   display: inline-block;
@@ -128,6 +181,10 @@ body {
   margin-bottom: 20px;
   padding: 20px;
   position: relative;
+}
+.main .full .block.map #map {
+  width: 100%;
+  height: 200px;
 }
 .main .full .block .table {
   font-family: 'Open Sans', sans-serif;

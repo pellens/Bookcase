@@ -36,21 +36,6 @@
   color: #FFF;
   text-shadow: 0 1px 1px #082867;
 }
-.button.green {
-  background-color: #1c9a0b;
-  background-image: -moz-linear-gradient(top,#2bbe04,#1c9a0b);
-  background-image: -ms-linear-gradient(top,#2bbe04,#1c9a0b);
-  background-image: -webkit-gradient(linear,0 0,0 100%,from(#2bbe04),to(#1c9a0b));
-  background-image: -webkit-linear-gradient(top,#2bbe04,#1c9a0b);
-  background-image: -o-linear-gradient(top,#2bbe04,#1c9a0b);
-  background-image: linear-gradient(top,#2bbe04,#1c9a0b);
-  background-repeat: repeat-x;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='@start',endColorstr='@stop',GradientType=0);
-  filter: progid:dximagetransform.microsoft.gradient(enabled=false);
-  border: 1px solid #225301;
-  color: #FFF;
-  text-shadow: 0 1px 1px #225301;
-}
 .progress {
   width: 100%;
   float: right;
@@ -247,13 +232,6 @@ body {
 .header nav ul li a:hover {
   text-decoration: none;
 }
-.header nav ul li.active {
-  background-color: rgba(255,255,255,0.1);
-  box-shadow: 0 1px 1px #114285;
-}
-.header nav ul li.active a {
-  color: #FFF;
-}
 .header .languages {
   float: right;
   list-style: none;
@@ -388,26 +366,6 @@ body {
   line-height: 27px;
   float: left;
   margin-right: 10px;
-}
-.sidebar .box ul.nav li a:hover {
-  background-color: #0854c5;
-  background-image: -moz-linear-gradient(top,#0073cc,#0854c5);
-  background-image: -ms-linear-gradient(top,#0073cc,#0854c5);
-  background-image: -webkit-gradient(linear,0 0,0 100%,from(#0073cc),to(#0854c5));
-  background-image: -webkit-linear-gradient(top,#0073cc,#0854c5);
-  background-image: -o-linear-gradient(top,#0073cc,#0854c5);
-  background-image: linear-gradient(top,#0073cc,#0854c5);
-  background-repeat: repeat-x;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='@start',endColorstr='@stop',GradientType=0);
-  filter: progid:dximagetransform.microsoft.gradient(enabled=false);
-  color: #FFF;
-  font-weight: bold;
-}
-.sidebar .box ul.nav li.active {
-  font-weight: bold;
-}
-.sidebar .box ul.nav li.active a {
-  color: #003366;
 }
 .main {
   float: left;

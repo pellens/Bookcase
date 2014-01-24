@@ -60,16 +60,16 @@
   </script>
 
 	</head>
-	<body>
+	<body class="row">
 
-	<div class="container">
+	<div class="container eq-height">
 
 		<div class="header">
 			<h1><?=$this->core->website_title;?></h1>
 			<nav>
                 <ul>
 				    <li <?=($active_link == "website")  ? "class='active'" : "";?>><?=anchor("admin","Website");?></li>
-				    <li <?=($active_link == "lib")      ? "class='active'" : "";?>><?=anchor("admin/lib/blocks/blocks_overview","Modules");?></li>
+				    <li <?=($active_link == "modules")      ? "class='active'" : "";?>><?=anchor("admin/lib/blocks/blocks_overview","Modules");?></li>
 				    <li <?=($active_link == "settings") ? "class='active'" : "";?>><?=anchor("admin/lib/core/website-settings","Settings");?></li>
                 </ul>
 			</nav>
@@ -78,7 +78,7 @@
       
 		</div>
 
-		<div class="sidebar">
+		<div class="sidebar eq-height">
 			<?
 				switch($active_link)
 				{
@@ -90,7 +90,7 @@
 			?>
 		</div>
 
-		<div class="main">
+		<div class="main eq-height">
 			<?=$this->load->view($main);?>
 		</div>
 

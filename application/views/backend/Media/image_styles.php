@@ -1,6 +1,6 @@
 <div class="full">
 
-	<h2>Image styles</h2>
+	<h2>Image styles <?=anchor("admin/lib/media/add_style","New image style","class='button light'");?></h2>
 
 		<div class="block">
 		

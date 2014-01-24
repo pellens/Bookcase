@@ -25,8 +25,7 @@
 				"All categories" => "admin/lib/products/categories_overview",
 				"Add category" => "admin/lib/products/add_category"
 				
-			),
-			"Administrators" => array()
+			)
 		)
 
 	);
@@ -40,14 +39,16 @@
 				"view"      => "backend/Products/products_overview",
 				"fn" => array(
 					"list" => "products_overview"
-				)
+				),
+				"active_link" => "modules"
 			),
 
 			"add_product" => array(
 				"desc"      => "Add a new product.",
 				"view" 		=> "backend/Products/add_product",
 				"submit" 	=> "add_product",
-				"redirect"  => "admin/lib/products/products_overview"
+				"redirect"  => "admin/lib/products/products_overview",
+				"active_link" => "modules"
 			),
 
 			"del_product" => array(
@@ -56,7 +57,8 @@
 				"redirect" => "admin/lib/products/products_overview",
 				"fn" => array(
 					"delete" => "del_product"
-				)
+				),
+				"active_link" => "modules"
 			),
 
 			"edit_product" => array(
@@ -64,7 +66,8 @@
 				"view" 		=> "backend/Products/add_product",
 				"submit" 	=> "edit_product",
 				"item"      => "product",
-				"redirect"  => "admin/lib/products/products_overview"
+				"redirect"  => "admin/lib/products/products_overview",
+				"active_link" => "modules"
 			),
 
 			"categories_overview" => array(
@@ -72,14 +75,16 @@
 				"view"      => "backend/Products/categories_overview",
 				"fn" => array(
 					"list" => "categories_overview"
-				)
+				),
+				"active_link" => "modules"
 			),
 
 			"add_category" => array(
 				"desc"      => "Add a new product category.",
 				"view" 		=> "backend/Products/add_category",
 				"submit" 	=> "add_category",
-				"redirect"  => "admin/lib/products/categories_overview"
+				"redirect"  => "admin/lib/products/categories_overview",
+				"active_link" => "modules"
 			),
 
 			"del_category" => array(
@@ -88,7 +93,8 @@
 				"redirect" => "admin/lib/products/categories_overview",
 				"fn" => array(
 					"delete" => "del_category"
-				)
+				),
+				"active_link" => "modules"
 			),
 
 			"edit_category" => array(
@@ -96,7 +102,8 @@
 				"view" 		=> "backend/Products/add_category",
 				"submit" 	=> "edit_category",
 				"item"      => "category",
-				"redirect"  => "admin/lib/products/categories_overview"
+				"redirect"  => "admin/lib/products/categories_overview",
+				"active_link" => "modules"
 			)
 
 		)

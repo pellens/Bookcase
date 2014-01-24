@@ -28,6 +28,16 @@
 			<input type="email" name="email" value="<?=@$item->email;?>"/>
 		</p>
 
+		<p>
+			<label>User role</label>
+			<span class="help-text">Choose here what role this user will have. Each role is linked to permissions.</span>
+			<select name="role_id">
+				<? foreach($roles as $role):?>
+				<option value="<?=$role->id;?>" <?=($role->id == @$item->role_id) ? "selected" : "";?>><?=$role->title;?></option>
+				<? endforeach;?>
+			</select>
+		</p>
+
 	</div>
 
 	<h3>User social media</h3>
@@ -35,7 +45,7 @@
 	<div class="block">
 		<p>
 			<label>Facebook ID</label>
-			<span class="help-text">Used to link content to a user and provide avatars with Facebook. Use <a href="http://findmyfacebookid.com/">this tool</a>.</span>
+			<span class="help-text">Used to link content to a user and provide avatars with Facebook.<br/>Use <a href="http://findmyfacebookid.com/">this tool</a>.</span>
 			<input type="text" name="facebook_id" value="<?=@$item->facebook_id;?>"/>
 		</p>
 		<p>
@@ -54,7 +64,6 @@
 		</p>
 		<p>
 			<label>Retype password</label>
-			<span class="help-text">Used to link content to a user with Google (for SEO). Example: https://plus.google.com/<u>101887151227437834262</u></span>
 			<input type="password" name="password" id="password_2" value=""/>
 		</p>
 	</div>

@@ -21,9 +21,7 @@
 		"nav" => array(
 			"General" => array(
 				"All locations"		=> "admin/lib/locations/locations_overview",
-				"Add location" 		=> "admin/lib/locations/add_location"
-			),
-			"Administrators" => array(
+				"Add location" 		=> "admin/lib/locations/add_location",
 				"Locationtypes" 	=> "admin/lib/locations/types_overview",
 				"Add locationtype"  => "admin/lib/locations/add_type"
 			)
@@ -40,7 +38,8 @@
 				"view"      => "backend/Locations/locations_overview",
 				"fn" => array(
 					"list" => "locations_overview"
-				)
+				),
+				"active_link" => "modules"
 			),
 
 			"ajax_locations_order" => array(
@@ -56,7 +55,8 @@
 				"desc"      => "Add a new location.",
 				"view" 		=> "backend/Locations/add_location",
 				"submit" 	=> "add_location",
-				"redirect"  => "admin/lib/locations/locations_overview"
+				"redirect"  => "admin/lib/locations/locations_overview",
+				"active_link" => "modules"
 			),
 
 			"edit_location" => array(
@@ -64,7 +64,8 @@
 				"view" 		=> "backend/Locations/add_location",
 				"submit" 	=> "edit_location",
 				"item"      => "item",
-				"redirect"  => "admin/lib/locations/locations_overview"
+				"redirect"  => "admin/lib/locations/locations_overview",
+				"active_link" => "modules"
 			),
 
 			"del_location" => array(
@@ -73,14 +74,16 @@
 				"redirect" => "admin/lib/locations/locations_overview",
 				"fn" => array(
 					"delete" => "del_location"
-				)
+				),
+				"active_link" => "modules"
 			),
 
 			"add_type" => array(
 				"desc"      => "Add a location type.",
 				"view" 		=> "backend/Locations/add_type",
 				"submit" 	=> "add_type",
-				"redirect" 	=> "admin/lib/locations/types_overview"
+				"redirect" 	=> "admin/lib/locations/types_overview",
+				"active_link" => "modules"
 			),
 
 			"edit_type" => array(
@@ -88,7 +91,8 @@
 				"view" => "backend/Locations/add_type",
 				"submit" => "edit_type",
 				"item" => "type",
-				"redirect" => "admin/lib/locations/types_overview"
+				"redirect" => "admin/lib/locations/types_overview",
+				"active_link" => "modules"
 			),
 
 			"del_type" => array(
@@ -97,7 +101,8 @@
 				"redirect" => "admin/lib/locations/types_overview",
 				"fn" => array(
 					"delete" => "del_type"
-				)
+				),
+				"active_link" => "modules"
 			),
 
 			"types_overview" => array(
@@ -105,7 +110,8 @@
 				"view" 		=> "backend/Locations/types_overview",
 				"fn" => array(
 					"list" => "types_overview"
-				)
+				),
+				"active_link" => "modules"
 			)
 
 		)

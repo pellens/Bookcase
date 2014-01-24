@@ -192,6 +192,24 @@ class Users {
 
 	/**
 
+		ADD A USER ROLE
+
+	**/
+
+	public function add_role()
+	{
+		$CI =& get_instance();
+	
+		foreach($_POST as $key => $value):
+			$fields[$key] = $CI->input->post($key,true);
+		endforeach;
+
+		$CI->db->insert("users_roles",$fields);
+		return true;
+	}
+
+	/**
+
 		GET ALL PERMISSIONS
 
 	**/

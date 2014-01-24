@@ -1,6 +1,6 @@
 <div class="full">
 
-	<h2>Jobs</h2>
+	<h2>Jobs <?=anchor("admin/lib/jobs/add_job","New job","class='button light'");?></h2>
 
 	<div class="block">
 		

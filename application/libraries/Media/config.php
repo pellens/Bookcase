@@ -22,7 +22,6 @@
 			"General" => array(
 				"Photos"		=> "admin/lib/media/photos_overview"
 			),
-			"Administrators" => array(),
 			"Settings" => array(
 				"Image styles"    => "admin/lib/media/image_styles",
 				"Add image style" => "admin/lib/media/add_style"
