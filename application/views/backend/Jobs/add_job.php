@@ -1,6 +1,29 @@
-<?=form_open();?>
+<div class="full">
 
-	<div class="left">
+	<?=form_open();?>
+
+	<h2>Add a job</h2>
+
+	<h3>Job description</h3>
+	<div class="block">
+
+		<input type="hidden" value="<?=@$item->id;?>" name="id"/>
+
+		<p><label for="title">Title</label> <input type="text" name="title" id="title" value="<?=@$item->title;?>"/></p>
+
+		<p><label for="description">Description</label></p>
+		<p><textarea name="description" id="ckeditor"><?=@$item->description;?></textarea></p>
+
+	</div>
+
+	<h3>Requirements &amp; offer</h3>
+	<div class="block">
+		<p><label for="requirments">Requirments</label></p>
+		<p><textarea name="requirments" id="requirments"><?=@$item->requirments;?></textarea></p>
+		<p><label for="offer">Offer</label></p>
+		<p><textarea name="offer" id="offer"><?=@$item->offer;?></textarea></p>
+	</div>
+
 		<div class="tabs">
 			<ul class="links">
 				<li class="active" data-pane="add">Add job</li>
@@ -13,18 +36,11 @@
 
 				<div class="active pane" data-pane="add">
 
-					<input type="hidden" value="<?=@$item->id;?>" name="id"/>
+					
 
-					<p><label for="title">Title</label> <input type="text" name="title" id="title" value="<?=@$item->title;?>"/></p>
+					
 
-					<p><label for="description">Description</label></p>
-					<p><textarea name="description" id="ckeditor"><?=@$item->description;?></textarea></p>
-
-					<p><label for="requirments">Requirments</label></p>
-					<p><textarea name="requirments" id="requirments"><?=@$item->requirments;?></textarea></p>
-
-					<p><label for="offer">Offer</label></p>
-					<p><textarea name="offer" id="offer"><?=@$item->offer;?></textarea></p>
+					
 
 				</div>
 	
@@ -79,13 +95,13 @@
 <?=form_close();?>
 
 <script>
-CKEDITOR.replace( 'ckeditor', {
-	toolbar : "Bookcase"
-});
-CKEDITOR.replace( 'requirments', {
-	toolbar : "Bookcase"
-});
-CKEDITOR.replace( 'offer', {
-	toolbar : "Bookcase"
-});
+	CKEDITOR.replace( 'ckeditor', {
+		toolbar : "Bookcase"
+	});
+	CKEDITOR.replace( 'requirments', {
+		toolbar : "Bookcase"
+	});
+	CKEDITOR.replace( 'offer', {
+		toolbar : "Bookcase"
+	});
 </script>

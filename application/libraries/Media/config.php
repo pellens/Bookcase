@@ -22,6 +22,7 @@
 			"General" => array(
 				"Photos"		=> "admin/lib/media/photos_overview",
 				"Albums"        => "admin/lib/media/albums_overview",
+				"Add album"     => "admin/lib/media/add_album",
 				"Files"         => "admin/lib/media/files_overview"
 			),
 			"Settings" => array(
@@ -36,6 +37,15 @@
 
 		"fn" => array(
 
+			"albums_overview" => array(
+				"desc"     => "Get a list of all albums.",
+				"view"     => "backend/Media/albums_overview",
+				"fn"  => array(
+					"list" => "albums_overview"
+				),
+				"active_link" => "modules"
+			),
+
 			"photos_overview" => array(
 				"desc"      => "Get a list of all photos.",
 				"view"      => "backend/Media/photos_overview",
@@ -43,6 +53,23 @@
 					"list" => "photos_overview"
 				),
 				"active_link" => "settings"
+			),
+
+			"add_album" => array(
+				"desc"      => "Add a new album.",
+				"view" 		=> "backend/Media/add_album",
+				"submit" 	=> "add_album",
+				"redirect"  => "admin/lib/media/albums_overview",
+				"active_link" => "modules"
+			),
+
+			"edit_album" => array(
+				"desc"      => "Edit an album.",
+				"view" 		=> "backend/Media/add_album",
+				"submit" 	=> "edit_album",
+				"item"      => "album",
+				"redirect"  => "admin/lib/media/albums_overview",
+				"active_link" => "modules"
 			),
 
 			"image_styles" => array(

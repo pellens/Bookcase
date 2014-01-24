@@ -24,7 +24,7 @@
 		<textarea name="meta_keywords" id="meta_keywords"><?=$keywords;?></textarea>
 	</p>
 </div>
-<div class="form-inline">
+<div>
 	<p>
 		<label for="follow">Follow</label>
 		<select name="follow" id="follow">

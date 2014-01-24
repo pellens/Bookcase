@@ -39,7 +39,7 @@ CKEDITOR.editorConfig = function( config )
 	[
 		
 		{ name: 'editing', items : [ 'Find','Replace','-','SelectAll','-' ] },
-		{ name: 'basicstyles', items : [ 'Bold','Italic','RemoveFormat','-','NumberedList','BulletedList','-','Blockquote','Link','Unlink','Table','-','PasteFromWord' ] },
+		{ name: 'basicstyles', items : [ 'Bold','Italic','RemoveFormat','-','NumberedList','BulletedList','-','Blockquote','Link','Unlink','-','PasteFromWord' ] },
 		{ name: 'links', items : [  ] },
 		{ name: 'clipboard', items : [ ,'-','Undo','Redo' ] },
 		{ name: 'tools', items : [ 'Source','Maximize' ] }

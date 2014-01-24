@@ -5,8 +5,6 @@ class Media {
 	var $path   = "";
 	var $target = "";
 
-
-
 	var $image        = "";
 	var $small_image  = "";
 	var $name         = "";
@@ -152,23 +150,31 @@ class Media {
 			$CI->load->dbforge();
 			
 			$fields = array(
-				"id" => array(
-							"type"           => "INT",
-                            'auto_increment' => TRUE
-						),
-				"title" => array(
-							"type" => "varchar",
-							"constraint" => "300",
-						),
-				"url_title" => array(
-							"type" => "varchar",
-							"constraint" => "300",
-						)
+				"id" 		=> array( "type" => "INT", 'auto_increment' => TRUE ),
+				"title" 	=> array( "type" => "varchar", "constraint" => "300" ),
+				"url_title" => array( "type" => "varchar", "constraint" => "300" )
 			);
 		
 			$CI->dbforge->add_field($fields);
 			$CI->dbforge->add_key('id', TRUE);
 			$CI->dbforge->create_table('media_albums',TRUE);	
+		}
+
+		// SLIDESHOWS
+		if (!$CI->db->table_exists('media_album_photos'))
+		{
+
+			$CI->load->dbforge();
+			
+			$fields = array(
+				"id" 		=> array( "type" => "INT", 'auto_increment' => TRUE ),
+				"album_id" 	=> array( "type" => "INT" ),
+				"photo_id"  => array( "type" => "INT" )
+			);
+		
+			$CI->dbforge->add_field($fields);
+			$CI->dbforge->add_key('id', TRUE);
+			$CI->dbforge->create_table('media_album_photos',TRUE);	
 		}
 	
 	}
@@ -503,7 +509,7 @@ class Media {
 
 
 	
-	public function albums()
+	public function albums_overview()
 	{
 		$CI  =& get_instance();
 		

@@ -1,6 +1,6 @@
 <div class="full">
 
-	<form method="post">
+	<?=form_open();?>
 
 	<h2>Add user role</h2>
 
@@ -19,5 +19,7 @@
 	<div class="actions">
 		<input type="submit" value="Save user role"/>
 	</div>
+
+	<?=form_close();?>
 
 </div>

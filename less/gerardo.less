@@ -15,6 +15,32 @@ a {
 	color: #1586DF;
 }
 
+/* CKEDITOR */
+
+.cke_chrome {
+	.box-shadow(none) !important;
+	border:1px solid #CCC !important;
+
+	.cke_top {
+		.gradient-bg(#FFF,#F9F9F9);
+		border-bottom: 1px solid #CCC;
+
+		.cke_toolgroup {
+			border:1px solid #CCC;
+			.gradient-bg(#FFF,#F4F4F4);
+		}
+	}
+
+	.cke_contents {
+		height:150px !important;
+	}
+
+	.cke_bottom {
+		border-top:1px solid #CCC;
+		.gradient-bg(#FFF,#F4F4F4);
+	}
+}
+
 .button {
 
 	display: inline-block;
@@ -138,13 +164,14 @@ a {
 		}
 
 		h3 {
-			background-color: #E8F0F5;
+			background-color: #FFF;
 			color:#36597E;
 			margin:0;
 			font-family: 'Open Sans', sans-serif;
 			font-weight: 300;
 			font-size: 16px;
-			padding:15px 20px;
+			padding:15px 20px 15px 20px;
+			border-bottom: 1px solid #DDD;
 		}
 
 		form {
