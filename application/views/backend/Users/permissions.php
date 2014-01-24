@@ -29,7 +29,7 @@
 				<tr>
 					<th><?=$array["title"];?></th>
 					<? foreach($roles as $role):?>
-					<th width="1%"><?=$role->title;?></th>
+					<th style="text-align:center;" width="1%"><?=$role->title;?></th>
 					<? endforeach;?>
 				</tr>
 			</thead>
@@ -44,7 +44,7 @@
 
 							<? foreach($roles as $role):?>
 							<? $checked = (isset($permissions[$role->id][$key]) && $permissions[$role->id][$key] == 1) ? "checked" : "";?>
-							<td><input type="checkbox" <?=$checked;?> name="func[<?=$key;?>][<?=$role->id;?>]"/></td>
+							<td style="text-align:center;"><input type="checkbox" <?=$checked;?> name="func[<?=$key;?>][<?=$role->id;?>]"/></td>
 							<? endforeach;?>
 
 						</tr>

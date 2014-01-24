@@ -24,7 +24,7 @@
 				"Add user" => "admin/lib/users/add_user",
 				"Users overview" => "admin/lib/users/users_overview",
 				"Add role" => "admin/lib/users/add_role",
-				"User roles" => "admin/lib/users/user_roles",
+				"Roles overview" => "admin/lib/users/user_roles",
 				"Permissions" => "admin/lib/users/permissions"
 			)
 		)
@@ -103,6 +103,15 @@
 				),
 				"item"      => "user",
 				"redirect"  => "admin/lib/users/users_overview",
+				"active_link" => "settings"
+			),
+
+			"edit_role" => array(
+				"desc"      => "Edit a user role.",
+				"view" 		=> "backend/Users/add_role",
+				"submit" 	=> "edit_role",
+				"item"      => "role",
+				"redirect"  => "admin/lib/users/user_roles",
 				"active_link" => "settings"
 			)
 

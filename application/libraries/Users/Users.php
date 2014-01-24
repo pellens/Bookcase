@@ -210,6 +210,36 @@ class Users {
 
 	/**
 
+		EDIT A USER ROLE
+
+	**/
+
+	public function edit_role($role)
+	{
+		$CI =& get_instance();
+		foreach($_POST as $key => $value):
+			$fields[$key] = $CI->input->post($key,true);
+		endforeach;
+		$CI->db->where("id",$fields["id"])->update("users_roles",$fields);
+		return true;
+	}
+
+	/**
+
+		GET A USER ROLE
+
+	**/
+
+	public function role($role)
+	{
+		$CI =& get_instance();
+		$CI->db->where("id",$role);
+		$result = $CI->db->get("users_roles")->result();
+		return $result[0];
+	}
+
+	/**
+
 		GET ALL PERMISSIONS
 
 	**/

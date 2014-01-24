@@ -20,7 +20,9 @@
 		"icon"  => "fa-picture-o",
 		"nav" => array(
 			"General" => array(
-				"Photos"		=> "admin/lib/media/photos_overview"
+				"Photos"		=> "admin/lib/media/photos_overview",
+				"Albums"        => "admin/lib/media/albums_overview",
+				"Files"         => "admin/lib/media/files_overview"
 			),
 			"Settings" => array(
 				"Image styles"    => "admin/lib/media/image_styles",
