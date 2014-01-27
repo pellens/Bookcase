@@ -4,6 +4,7 @@ class Media {
 
 	var $path   = "";
 	var $target = "";
+	var $album  = "";
 
 	var $image        = "";
 	var $small_image  = "";
@@ -29,7 +30,6 @@ class Media {
 	var $fixedResize  = true;
 	var $thumbed      = true;
 	var $squared      = true;
-
 
 	
 	public function __construct($params = array())
@@ -175,6 +175,23 @@ class Media {
 			$CI->dbforge->add_field($fields);
 			$CI->dbforge->add_key('id', TRUE);
 			$CI->dbforge->create_table('media_album_photos',TRUE);	
+		}
+
+		// SLIDESHOWS
+		if (!$CI->db->table_exists('media_album_videos'))
+		{
+
+			$CI->load->dbforge();
+			
+			$fields = array(
+				"id" 		=> array( "type" => "INT", 'auto_increment' => TRUE ),
+				"album_id" 	=> array( "type" => "INT" ),
+				"video_id"  => array( "type" => "INT" )
+			);
+		
+			$CI->dbforge->add_field($fields);
+			$CI->dbforge->add_key('id', TRUE);
+			$CI->dbforge->create_table('media_album_videos',TRUE);	
 		}
 	
 	}
@@ -686,8 +703,26 @@ class Media {
 	public function add_album($fields)
 	{
 		$CI  =& get_instance();
+
+		// IS THERE A VIDEO ADDED?
+		if(isset($fields["video_id"])) $fields = $CI->media->add_video($fields);
+		if(isset($fields["videos"]))
+		{
+			$videos = $fields["videos"];
+			unset($fields["videos"]);
+		}
+
 		$fields["title"] = $CI->input->post("title",true);
 		$CI->db->insert("media_albums",$fields);
+
+		$album_id = $CI->db->insert_id();
+
+		foreach($videos as $video):
+			$film["video_id"] = $video;
+			$film["album_id"] = $album_id;
+			$CI->db->insert("media_album_videos",$film);
+			unset($film);
+		endforeach;
 
 		return true;
 	}
@@ -719,7 +754,25 @@ class Media {
 			$items[$key] = $CI->input->post($key,true);
 		endforeach;
 
+		// DELETE CURRENT VIDEOS
+		$CI->db->where("album_id",$CI->input->post("id",true))->delete("media_album_videos");
+
+		// IS THERE A VIDEO ADDED?
+		if(isset($items["video_id"])) $items = $CI->media->add_video($fields);
+		if(isset($items["videos"]))
+		{
+			$videos = $items["videos"];
+			unset($items["videos"]);
+		}
+
 		$CI->db->where("id",$items["id"])->update("media_albums",$items);
+
+		foreach($videos as $video):
+			$film["video_id"] = $video;
+			$film["album_id"] = $items["id"];
+			$CI->db->insert("media_album_videos",$film);
+			unset($film);
+		endforeach;
 
 		return true;
 	}
@@ -734,7 +787,9 @@ class Media {
 	{
 		$CI  =& get_instance();
 
-		$albums = $CI->db->where("id",$album)->get("media_albums")->result();
+		$this->album = $album;
+
+		$albums = $CI->db->where("id",$this->album)->get("media_albums")->result();
 		return $albums[0];
 	}
 
@@ -744,12 +799,26 @@ class Media {
 
 	**/
 
-	public function album_photos($album)
+	public function album_photos($album = false)
 	{
+		$this->album = ($album) ? $album : $this->album;
 		$CI  =& get_instance();
-		return $CI->db->where("album_id",$album)->get("media_album_photos")->result();
+		return $CI->db->where("album_id",$this->album)->get("media_album_photos")->result();
 	}
 
+	/**
+
+		GET VIDEOS WITHIN ALBUM
+
+	**/
+
+
+	public function album_videos($album = false)
+	{
+		$this->album = ($album) ? $album : $this->album;
+		$CI  =& get_instance();
+		return $CI->db->where("mav.album_id",$this->album)->from("media_album_videos AS mav")->join("media_videos AS mv","mv.id = mav.video_id","left")->get()->result();
+	}
 
 
 
