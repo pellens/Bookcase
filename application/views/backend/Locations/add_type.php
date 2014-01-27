@@ -1,12 +1,12 @@
-
-
 <div class="full">
 
 	<?=form_open();?>
 
 	<h2>New location type</h2>
 
-	<div class="block">
+	<ul class="tabs"></ul>
+
+	<div class="block" data-pane="Content">
 
 		<!-- IF WE EDIT AN ITEM, ADD THE ID -->
 		<input type="hidden" name="id" value="<?=@$item->id;?>"/>
@@ -25,12 +25,15 @@
 		</p>
 	</div>
 
-	<h3>SEO &amp; Social media</h3>
-	<div class="block">
+	<div class="block" data-pane="SEO">
 		<?
 			$data["item"] = @$item;
 			$this->load->view("backend/snippets/seo_social",$data);
 		?>
+	</div>
+
+	<div class="block" data-pane="Media">
+
 	</div>
 
 	<div class="actions">

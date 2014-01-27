@@ -1,16 +1,13 @@
-<div class="left">
+<div class="full">
 
-	<div class="tabs">
+	<h2>Product categories</h2>
 
-		<ul class="links">
-			<li class="active" data-pane="contacts">Categories overview</li>
-		</ul>
+	<div class="block">
 
-		<div class="panes">
-			<div class="pane active" data-pane="contacts">
-				<table class="table table-bordered table-striped">
+				<table class="table table-bordered">
 					<thead>
 					<tr>
+					<th width="1%"><input type="checkbox"/></th>
 					<th>Category title</th>
 					<th>Number of products</th>
 					<th>&nbsp;</th>
@@ -19,29 +16,27 @@
 				<tbody>
 				<? foreach($list as $cat):?>
 					<tr>
-						<td><?=$cat->title;?></td>
+						<td width="1%"><input type="checkbox"/></td>
+						<td><?=anchor("admin/lib/products/edit_category/".$cat->id,$cat->title);?></td>
 						<td>x</td>
-						<td>
-							<?=anchor("admin/lib/products/edit_category/".$cat->id,"Edit");?>
-							<?=anchor("admin/lib/products/del_category/".$cat->id,"Delete","class='del' data-alert='Are you sure you want to delete this category?'");?>
+						<td class='actions'>
+							<?=anchor("admin/lib/products/del_category/".$cat->id,"<i class='fa fa-times'></i>","class='del' data-alert='Are you sure you want to delete this category?'");?>
 						</td>
 					</tr>
 				<? endforeach;?>
-				</table>
 				</tbody>
-			</div>
+				</table>
+				
+	</div>
+	<div class="block stats">
+
+		<div>
+			<ul>
+				<li><i class="fa fa-shopping-cart"></i> <?=count($this->products->products_overview());?> products</li>
+				<li><i class="fa fa-th-list"></i> <?=count($list);?> categories</li>
+			</ul>
 		</div>
 
-	</div>
-
-</div>
-
-<div class="right">
-
-	<div class="box">
-		<ul class="inbox-stats">
-			<li><?=count($list);?> products</li>
-		</ul>
 	</div>
 
 </div>

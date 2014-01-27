@@ -1,4 +1,7 @@
-<p><label>YouTube or Vimeo URL</label> <input type="text" id="video"/> <input type="button" class=" button blue" id="add_video" value="Add video"/></p>
+<p>
+	<label>YouTube or Vimeo URL</label>
+	<span class="help-text">Type here the url of a YouTube or Vimeo movie.</span>
+	<input type="text" id="video"/> <input type="button" class="button dark" id="add_video" value="Add video"/></p>
 
 <div class="videos">
 	

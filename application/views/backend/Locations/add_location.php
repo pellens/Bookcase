@@ -14,9 +14,9 @@
 						<p><label for="adres">Adres</label><input type="text" name="adres" id="adres" value="<?=@$item->adres;?>"/>
 						<span class="status">
 							<? if(isset($item->adres)):?>
-							<i class="icon-check-sign"></i>
+							<i class="fa fa-check-circle-o"></i>
 							<? else: ?>
-							<i class="icon-check"></i>
+							<i class="fa fa-circle-o"></i>
 							<? endif;?>
 						</span></p>
 						
@@ -158,7 +158,7 @@ function fillInAddress() {
  $("#lat").val(place.geometry.location.lat());
  $("#lng").val(place.geometry.location.lng());
 
-  $(".status").html("<i class='icon-check-sign'></i>");
+  $(".status").html("<i class='fa fa-check-circle-o'></i>");
 }
 // [END region_fillform]
 

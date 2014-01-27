@@ -25,6 +25,28 @@ function equalizeHeight()
 
 $(document).ready(function(){
 
+	$(".block").each(function(){
+		if($(this).attr("data-pane"))
+		{
+			var title = $(this).attr("data-pane");
+			var row = "<li data-pane='"+title+"'>"+title+"</li>";
+			$(".tabs").append(row);
+			$(this).addClass("pane").attr("data-pane",title);
+		}
+	});
+
+	$(".full .block.pane").first().addClass("active");
+	$(".tabs li").first().addClass("active");
+
+	$(".tabs li").bind("click",function(){
+		$(".tabs li").removeClass("active");
+		$(this).addClass("active");
+
+		var pane = $(this).attr("data-pane");
+		$(".block").removeClass("active");
+		$(".block[data-pane="+pane+"]").addClass("active");
+	});
+
 	equalizeHeight();
 
 	$('.table').filterTable({

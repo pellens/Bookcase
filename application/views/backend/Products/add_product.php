@@ -1,70 +1,45 @@
-<?=form_open();?>
+<div class="full">
 
-	<div class="left">
-		<div class="tabs">
-			<ul class="links">
-				<li data-pane="add">Add product</li>
-				<li class="active" data-pane="photos">Photos</li>
-				<li data-pane="videos">Videos</li>
-				<li data-pane="seo">Searchengines</li>
-			</ul>
-			<div class="panes">
+	<?=form_open();?>
 
-				<!-- ADD PRODUCT -->
+	<h2>Add a new product</h2>
 
-				<div class=" pane" data-pane="add">
+	<ul class="tabs"></ul>
 
-					<p><label for="title">Title</label> <input type="text" name="title" id="title" value="<?=@$item->title;?>"/></p>
-					<p><label for="price">Price</label> <input type="text" name="price" id="price" value="<?=@$item->price;?>"/></p>
-					<p><label for="category">Category</label> <?=$this->products->categories_overview(null,true,"select");?></p>
-					<p><label for="description">Description</label></p>
-					<input type="hidden" value="<?=@$item->id;?>" name="id"/>
+	<div class="block" data-pane="Content">
+		<p><label for="title">Title</label> <input type="text" name="title" id="title" value="<?=@$item->title;?>"/></p>
+		<p><label for="price">Price</label> <input type="text" name="price" id="price" value="<?=@$item->price;?>"/></p>
+		<p><label for="category">Category</label> <?=$this->products->categories_overview(null,true,"select");?></p>
+		<p><label for="description">Description</label></p>
+		<input type="hidden" value="<?=@$item->id;?>" name="id"/>
 	
-					<p><textarea name="description" id="ckeditor"><?=@$item->description;?></textarea></p>
-
-				</div>
-	
-				<!-- SEO & SOCIAL MEDIA SETTINGS -->
-
-				<div class="pane" data-pane="seo">
-					<?
-						$data["item"] = @$item;
-						$this->load->view("backend/snippets/seo_social",$data);
-					?>
-				</div>
-
-				<!-- ADD PHOTOS -->
-
-				<div class="active pane" data-pane="photos">
-
-					<? 
-						$this->media->resizeImage("seventies.png");
-
-						$data["item"] = @$item;
-						$this->load->view("backend/snippets/photos_upload",$data);
-						unset($data);
-					?>
-				</div>
-
-				<!-- ADD VIDEOS -->
-				<div class="pane" data-pane="videos">
-					<?
-						$this->products->product(@$item->id);
-						$data["videos"] = $this->products->product_videos();
-						$this->load->view("backend/snippets/videos_add",$data);
-						unset($data);
-					?>
-				</div>
-
-			</div>
-
-		</div>
+		<p><textarea name="description" id="ckeditor"><?=@$item->description;?></textarea></p>
 	</div>
-	
-	<div class="right">
-		<div class="box">
+
+	<div class="block" data-pane="Media">
+
+		<? 
+			//$this->media->resizeImage("seventies.png");
+
+			$data["item"] = @$item;
+			$this->load->view("backend/snippets/photos_upload",$data);
+			unset($data);
+		?>
+
+	</div>
+
+	<div class="block" data-pane="Videos">
+		<?
+			$this->products->product(@$item->id);
+			$data["videos"] = $this->products->product_videos();
+			$this->load->view("backend/snippets/videos_add",$data);
+			unset($data);
+		?>
+	</div>
+
+	<div class="block" data-pane="Locations">
 		<p><label>Linked to location:</label></p>
-		<ul>
+		<ul class="checkbox-list">
 			<?
 				$locations = array();
 				foreach($this->products->product_locations() as $loc):
@@ -77,12 +52,20 @@
 			<li><label><input type="checkbox" value="<?=$loc->id;?>" <?=$checked;?> name="location[]"/> <?=$loc->title;?></label></li>
 			<? endforeach;?>
 		</ul>
-		</div>
-
-		<div class="box">
-		<p><input type="submit" value="Save product" class="button green"/></p>
-		</div>
 	</div>
+
+	<div class="block" data-pane="SEO">
+		<?
+			$data["item"] = @$item;
+			$this->load->view("backend/snippets/seo_social",$data);
+		?>
+	</div>
+
+	<div class="actions">
+		<input type="submit" value="Save product"/>
+	</div>
+
+</div>
 
 <?=form_close();?>
 

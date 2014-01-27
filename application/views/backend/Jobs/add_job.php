@@ -12,15 +12,18 @@
 		<p><label for="title">Title</label> <input type="text" name="title" id="title" value="<?=@$item->title;?>"/></p>
 
 		<p><label for="description">Description</label></p>
+		<span class="help-text">Type here a short description of the job, make it clear what it's about.</span>
 		<p><textarea name="description" id="ckeditor"><?=@$item->description;?></textarea></p>
 
 	</div>
 
-	<h3>Requirements &amp; offer</h3>
+	<h3>Requirements</h3>
 	<div class="block">
-		<p><label for="requirments">Requirments</label></p>
 		<p><textarea name="requirments" id="requirments"><?=@$item->requirments;?></textarea></p>
-		<p><label for="offer">Offer</label></p>
+	</div>
+
+	<h3>Offer</h3>
+	<div class="block">
 		<p><textarea name="offer" id="offer"><?=@$item->offer;?></textarea></p>
 	</div>
 

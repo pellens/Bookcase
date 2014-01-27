@@ -198,6 +198,9 @@ class Media {
 								"timestamp" : "'.time().'",
 								"token"     : "'.md5("unique_salt" . time()).'"
 							},
+							"buttonText" : "Upload photos or files",
+							"width" : 250,
+							"height" : 40,
 							"swf"      : "'.base_url().'js/core/uploadify.swf",
 							// "uploader" : "'.base_url().'js/core/uploadify.php",
 							"uploader" : "'.base_url(lang()."/admin/upload_file").'",
@@ -500,22 +503,6 @@ class Media {
 	
 
 
-
-	/**
-
-	**/
-
-
-
-
-	
-	public function albums_overview()
-	{
-		$CI  =& get_instance();
-		
-		return $CI->db->order_by("id")->get("media_albums")->result();
-	}
-	
 	public function delete_uploaded_files_script()
 	{
 		return "<script>$(document).ready(function(){
@@ -690,7 +677,78 @@ class Media {
 		return $result[0];
 	}
 
+	/**
 
+		ADD A NEW ALBUM
+
+	**/
+
+	public function add_album($fields)
+	{
+		$CI  =& get_instance();
+		$fields["title"] = $CI->input->post("title",true);
+		$CI->db->insert("media_albums",$fields);
+
+		return true;
+	}
+
+
+	/**
+
+		ALBUMS OVERVIEW
+
+	**/
+
+	public function albums_overview()
+	{
+		$CI  =& get_instance();
+		return $CI->db->order_by("id")->get("media_albums")->result();
+	}
+
+	/**
+		
+		EDIT AN ALBUM
+
+	**/
+
+	public function edit_album($fields)
+	{
+		$CI  =& get_instance();
+
+		foreach($_POST as $key => $value):
+			$items[$key] = $CI->input->post($key,true);
+		endforeach;
+
+		$CI->db->where("id",$items["id"])->update("media_albums",$items);
+
+		return true;
+	}
+
+	/**
+
+		GET A SPECIFIC ALBUM
+
+	**/
+
+	public function album($album)
+	{
+		$CI  =& get_instance();
+
+		$albums = $CI->db->where("id",$album)->get("media_albums")->result();
+		return $albums[0];
+	}
+
+	/**
+
+		GET PHOTOS WITHIN ALBUM
+
+	**/
+
+	public function album_photos($album)
+	{
+		$CI  =& get_instance();
+		return $CI->db->where("album_id",$album)->get("media_album_photos")->result();
+	}
 
 
 
