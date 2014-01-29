@@ -45,6 +45,12 @@ a {
 
 	display: inline-block;
 	border:none;
+	line-height: 30px;
+	font-size: 12px;
+	text-decoration: none;
+	padding:0 10px;
+	.border-radius(3px);
+	vertical-align: middle;
 
 	&.green {
 
@@ -320,6 +326,38 @@ a {
 							}
 						}
 
+						&.filetype {
+							figure {
+								text-align: center;
+								line-height: 90px;
+
+								img {
+									width:48px;
+									height:48px;
+								}
+							}
+
+							p {
+								width: 60%;
+								margin-left: 140px;
+							}
+						}
+
+						span.filetitle {
+							position: absolute;
+							top: 0;
+							left: 0;
+							margin-left: 80px;
+							font-size: 11px;
+							font-weight: bold;
+							word-break: break-all;
+							width: 140px;
+							line-height: 15px;
+							margin-top: 30px;
+							height: 30px;
+							overflow: hidden;
+						}
+
 						span.crop {
 							position: absolute;
 							top: 0;
@@ -497,6 +535,17 @@ a {
 					a.del:hover {
 						color: red;
 						text-decoration: none;
+					}
+				}
+
+				td {
+
+					.file-icon {
+						width:16px;
+						height:16px;
+						margin-right: 10px;
+						display: inline-block;
+						vertical-align: middle;
 					}
 				}
 			}

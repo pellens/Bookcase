@@ -78,6 +78,17 @@ a {
 .button {
   display: inline-block;
   border: none;
+  line-height: 30px;
+  font-size: 12px;
+  text-decoration: none;
+  padding: 0 10px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  border-radius: 3px;
+  -ms-behavior: url(/PIE.htc);
+  vertical-align: middle;
 }
 .button.green {
   background-color: #27ae60;
@@ -306,6 +317,10 @@ a {
   margin: 1px 20px 1px 1px;
   overflow: hidden;
 }
+.main .full form .uploadholder .media .item figure img {
+  width: 90px;
+  height: 90px;
+}
 .main .full form .uploadholder .media .item p {
   line-height: 30px;
   margin: 0;
@@ -324,6 +339,32 @@ a {
   padding: 0;
   vertical-align: top;
   font-size: 12px;
+}
+.main .full form .uploadholder .media .item.filetype figure {
+  text-align: center;
+  line-height: 90px;
+}
+.main .full form .uploadholder .media .item.filetype figure img {
+  width: 48px;
+  height: 48px;
+}
+.main .full form .uploadholder .media .item.filetype p {
+  width: 60%;
+  margin-left: 140px;
+}
+.main .full form .uploadholder .media .item span.filetitle {
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin-left: 80px;
+  font-size: 11px;
+  font-weight: bold;
+  word-break: break-all;
+  width: 140px;
+  line-height: 15px;
+  margin-top: 30px;
+  height: 30px;
+  overflow: hidden;
 }
 .main .full form .uploadholder .media .item span.crop {
   position: absolute;
@@ -499,6 +540,13 @@ a {
 .main .full .block .table td.actions a.del:hover {
   color: red;
   text-decoration: none;
+}
+.main .full .block .table td .file-icon {
+  width: 16px;
+  height: 16px;
+  margin-right: 10px;
+  display: inline-block;
+  vertical-align: middle;
 }
 .main .full .stats {
   padding: 4px;

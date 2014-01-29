@@ -93,9 +93,38 @@ class Admin extends CI_Controller {
 					//$this->media->make_image_square($targetFile,"600");
 					//$this->media->resize_default_image($targetFile);
 
-					echo "images/".$filename;
+					$filearray = array(
+						"src" 		=> "uploads/images/".$filename,
+						"filetype" 	=> "image",
+						"ext" 		=> $ext,
+						"title" 	=> $filename
+					);
 				}
+				else
+				{
+					$targetFile = rtrim($targetPath,'/') . '/files/' . $filename;
+					move_uploaded_file($tempFile,$targetFile);
+
+					$filearray = array(
+						"src" 		=> "uploads/files/".$filename,
+						"filetype" 	=> "file",
+						"ext" 		=> $ext,
+						"title" 	=> $filename
+					);
+				}
+
+				$fields["file_type"]      = $ext;
+				$fields["file_size"]	  = filesize($targetFile);
+				$fields["date"] 		  = time();
+				$fields["original_title"] = $imageFileClean.".".$ext;
+				$fields["new_title"]      = $filearray["title"];
+				$fields["path"]			  = $filearray["src"];
 				
+				echo json_encode($filearray);
+
+				
+
+				$this->db->insert("media_uploads",$fields);
 				
 			} else {
 				echo 'Filetype';
@@ -118,7 +147,7 @@ class Admin extends CI_Controller {
 		$this->load->library($lib);
 		$data["main"] = $admin["fn"][$fn]["view"];
 		$data["title"] = @$admin["fn"][$fn]["title"];
-		
+
 		if($fn)
 		{
 			if($submitted):

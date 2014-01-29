@@ -5,6 +5,7 @@ class Media {
 	var $path   = "";
 	var $target = "";
 	var $album  = "";
+	var $file   = false;
 
 	var $image        = "";
 	var $small_image  = "";
@@ -60,7 +61,7 @@ class Media {
 			$fields = array(
 				"id" 				=> array( "type" => "INT", 		'auto_increment' => TRUE ),
 				"original_title" 	=> array( "type" => "varchar", 	"constraint" => "300" ),
-				"new_title" 		=> array( "type" => "INT", 		"default" => 0 ),
+				"new_title" 		=> array( "type" => "varchar", 	"constraint" => "300" ),
 				"date" 				=> array( "type" => "INT", 		"default" => 0 ),
 				"file_type" 		=> array( "type" => "varchar", 	"constraint" => "300" ),
 				"file_size" 		=> array( "type" => "varchar", 	"constraint" => "300" ),
@@ -232,11 +233,27 @@ class Media {
 								{
 									var fill = $(".edit.uploadify").html();
 									
-									var row = "<div class=\"item\">";
-										row+= "<figure><img src=\"'.base_url().'uploads/"+data+"\"/></figure>";
+									var obj = JSON.parse(data);
+									console.log(obj);
+
+									if(obj.filetype == "image")
+									{
+										var row = "<div class=\"item\">";
+										row+= "<span class=\"crop\"><a href=\"'.base_url("admin/crop").'?image="+obj.src+"\" onclick=\"return triggerPopup(\'"+data+"\');\" data-crop=\""+data+"\" class=\"crop\"><i class=\"fa fa-crop\"></i> Crop</a></span>";
+										row+= "<figure><img src=\"'.base_url('"+obj.src+"').'\"/></figure>";
+									}
+									else
+									{
+										var row = "<div class=\"item filetype\">";
+										row+= "<span class=\"filetitle\">"+obj.title+"</span>";
+										row+= "<figure><img src=\"'.base_url('images/core/icons/filetypes/"+obj.ext+".png').'\"/></figure>";
+									}
+
+										
 										row+= "<p><label for=\"title\">Title</label><input type=\"text\" name=\"title[]\" id=\"title\"/></p>";
 										row+= "<p><label for=\"alt\">Description</label><input type=\"text\" name=\"alt[]\" id=\"alt\"/></p>";
-										row+= "<span class=\"crop\"><a href=\"'.base_url("admin/crop").'?image="+data+"\" onclick=\"return triggerPopup(\'"+data+"\');\" data-crop=\""+data+"\" class=\"crop\"><i class=\"fa fa-crop\"></i> Crop</a></span>";
+										
+										
 										row+= "</div>";
             						
             						$(".edit.uploadify").html(row + fill);
@@ -830,6 +847,24 @@ class Media {
 		$CI  =& get_instance();
 
 		return $CI->db->get("media_uploads")->result();
+	}
+
+
+	/**
+
+		GET A SPECIFIC FILE
+
+	**/
+
+	public function file($file)
+	{
+
+		$this->file = $file;
+		$CI  =& get_instance();
+
+		$result = $CI->db->where("id",$this->file)->get("media_uploads")->result();
+		return $result[0];
+
 	}
 
 

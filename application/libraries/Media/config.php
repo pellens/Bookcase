@@ -83,12 +83,21 @@
 			),
 
 			"edit_album" => array(
-				"desc"      => "Edit an album.",
-				"view" 		=> "backend/Media/add_album",
-				"submit" 	=> "edit_album",
-				"item"      => "album",
-				"redirect"  => "admin/lib/media/albums_overview",
-				"active_link" => "modules"
+				"desc"      	=> "Edit an album.",
+				"view" 			=> "backend/Media/add_album",
+				"submit" 		=> "edit_album",
+				"item"      	=> "album",
+				"redirect"  	=> "admin/lib/media/albums_overview",
+				"active_link" 	=> "modules"
+			),
+
+			"edit_file" => array(
+				"desc" 			=> "Edit files.",
+				"view"      	=> "backend/Media/edit_file",
+				"submit"    	=> "edit_file",
+				"item"      	=> "file",
+				"redirect"  	=> "admin/lib/media/files_overview",
+				"active_link" 	=> "modules"
 			),
 
 			"image_styles" => array(
