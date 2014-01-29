@@ -26,42 +26,6 @@ class Admin extends CI_Controller {
 		$this->load->view('backend/index',$data);
 	}
 
-	//public function settings($library,$page,$option=null)
-	//{
-	//	$data["active_link"] = "settings";
-	//	$data["main"] = "backend/Core/".$page;
-//
-	//	$this->load->view("backend/index",$data);
-	//}
-
-	//public function settings($page)
-	//{
-//
-	//	switch($page)
-	//	{
-	//		case "website-settings" :
-//
-	//			// UPDATE CORE SETTINGS
-	//			if(isset($_POST) && count($_POST) > 0)
-	//			{
-	//				$this->db->update("core_settings",$_POST);
-	//			}
-//
-	//			$data["settings"] = $this->core->general_settings();
-	//			break;
-//
-	//		case "image-styles" :
-//
-	//			break;
-//
-	//	}
-//
-	//	$data["active_link"] = "settings";
-	//	$data["main"] = "backend/Core/".$page;
-//
-	//	$this->load->view("backend/index",$data);
-	//}
-
 	public function modules()
 	{
 
@@ -153,6 +117,7 @@ class Admin extends CI_Controller {
 		(@include_once (APPPATH."/libraries/".ucwords($lib)."/config.php")) or die("This library is not installed or doesn't have a config-file...");
 		$this->load->library($lib);
 		$data["main"] = $admin["fn"][$fn]["view"];
+		$data["title"] = @$admin["fn"][$fn]["title"];
 		
 		if($fn)
 		{
@@ -162,6 +127,7 @@ class Admin extends CI_Controller {
 				redirect($admin["fn"][$fn]["redirect"],"refresh");
 
 			else:
+
 
 				if(isset($admin["fn"][$fn]["fn"]))
 				{

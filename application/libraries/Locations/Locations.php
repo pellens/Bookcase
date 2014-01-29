@@ -63,14 +63,31 @@ class Locations {
 			$CI->dbforge->create_table('locations_items',TRUE);	
 		}
 
+		/**
+			
+			LINK VIDEOS WITH LOCATION ITEM
+
+		**/
+		if (!$CI->db->table_exists('locations_item_video'))
+		{
+			$CI->load->dbforge();
+			$fields = array(
+				"id" 			=> array( "type" => "INT", 'auto_increment' => TRUE ),
+				"video_id" 		=> array( "type" => "INT" ),
+				"location_id" 	=> array( "type" => "INT" )
+			);
+			$CI->dbforge->add_field($fields);
+			$CI->dbforge->add_key('id', TRUE);
+			$CI->dbforge->create_table('locations_item_video',TRUE);	
+		}
+
 		if (!$CI->db->table_exists('locations_types'))
 		{
 
 			$CI->load->dbforge();
 			
 			$fields = array(
-				"id" => array( "type"           => "INT",
-                            'auto_increment' => TRUE
+				"id" => array( "type" => "INT", 'auto_increment' => TRUE
 						),
 				"title" => array( "type" => "varchar",
 							"constraint" => "300",
@@ -181,32 +198,81 @@ class Locations {
 		return true;
 	}
 
-	public function add_location()
+	public function add_location($fields)
 	{
 		$CI =& get_instance();
+
+		// IS THERE A VIDEO ADDED?
+		if(isset($fields["video_id"])) $fields = $CI->media->add_video($fields);
+		if(isset($fields["videos"]))
+		{
+			$videos = $fields["videos"];
+			unset($fields["videos"]);
+		}
 
 		$fields = $this->prep_data();
 		$CI->db->insert("locations_items",$fields);
+
+		$location_id = $CI->db->insert_id();
+
+		// LINK VIDEO TO PRODUCT ITEM
+		if(isset($videos)):
+			foreach($videos as $video):
+				$v["video_id"] = $video;
+				$v["location_id"] = $location_id;
+				$CI->db->insert("locations_item_video",$v);
+				unset($v);
+			endforeach;
+			unset($videos);
+		endif;
+
 		return true;
 	}
 
-	public function edit_location()
+	public function edit_location($item)
 	{
 		$CI =& get_instance();
 
 		$fields = $this->prep_data();
+
+		// DELETE CURRENT VIDEOS & LOCATIONS
+		$CI->db->where("location_id",$CI->input->post("id",true))->delete("locations_item_video");
+		// IS THERE A VIDEO ADDED?
+		if(isset($item["video_id"])) $item = $CI->media->add_video($item);
+
+		// LINK VIDEO TO PRODUCT ITEM
+		if(isset($item["videos"])):
+			foreach($item["videos"] as $video):
+				$v["video_id"]    = $video;
+				$v["location_id"] = $CI->input->post("id",true);
+				$CI->db->insert("locations_item_video",$v);
+				unset($v);
+			endforeach;
+			unset($item["videos"]);
+		endif;
+
+
 		$CI->db->where("id",$CI->input->post("id",true))->update("locations_items",$fields);
 		return true;
 	}
 
-	public function item($id)
+	public function location($id)
 	{
 		$CI =& get_instance();
 
 		$this->location = $id;
 
-		$result = $CI->db->where("id",$id)->get("locations_items")->result();
+		$result = $CI->db->where("id",$this->location)->get("locations_items")->result();
 		return $result[0];
+	}
+
+	public function location_videos($id=false)
+	{
+		$this->location = ($id) ? $id : $this->location;
+		$CI =& get_instance();
+
+		$result = $CI->db->where("lv.location_id",$this->location)->from("locations_item_video AS lv")->join("media_videos AS mv","mv.id = lv.video_id","left")->get()->result();
+		return $result;
 	}
 
 	public function type($id)

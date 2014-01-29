@@ -188,7 +188,8 @@ a {
   cursor: pointer;
   font-size: 12px;
   color: #8896AD;
-  font-weight: bold;
+  font-weight: 600;
+  font-family: 'Open Sans', sans-serif;
 }
 .main .full .tabs li.active {
   background-color: #FFF;
@@ -232,6 +233,15 @@ a {
 }
 .main .full form label {
   margin-bottom: 0;
+}
+.main .full form label.error {
+  color: #EB6F62;
+}
+.main .full form span.req {
+  color: #EB6F62;
+  margin-left: 5px;
+  font-weight: bold;
+  font-size: 16px;
 }
 .main .full form span.help-text {
   font-size: 11px;
@@ -278,6 +288,83 @@ a {
   text-transform: uppercase;
   font-weight: bold;
 }
+.main .full form .uploadholder .media {
+  margin-top: 30px;
+  border-bottom: 1px solid #DDD;
+}
+.main .full form .uploadholder .media .item {
+  border: 1px solid #DDD;
+  margin-bottom: -1px;
+  height: 92px;
+  text-align: left;
+  position: relative;
+}
+.main .full form .uploadholder .media .item figure {
+  float: left;
+  height: 90px;
+  width: 90px;
+  margin: 1px 20px 1px 1px;
+  overflow: hidden;
+}
+.main .full form .uploadholder .media .item p {
+  line-height: 30px;
+  margin: 0;
+  padding: 0;
+  height: 30px;
+  margin-top: 10px;
+  display: inline-block;
+  width: 70%;
+  margin-left: 80px;
+}
+.main .full form .uploadholder .media .item p label {
+  display: inline-block;
+  width: 90px;
+  line-height: 30px;
+  margin: 0;
+  padding: 0;
+  vertical-align: top;
+  font-size: 12px;
+}
+.main .full form .uploadholder .media .item span.crop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin-left: 105px;
+  background-color: #EEE;
+  border: 1px solid #CCC;
+  width: 70px;
+  height: 30px;
+  margin-top: 25px;
+  background-image: -moz-linear-gradient(top,#FFF,#F4F4F4);
+  background-image: -ms-linear-gradient(top,#FFF,#F4F4F4);
+  background-image: -webkit-gradient(linear,0 0,0 100%,from(#FFF),to(#F4F4F4));
+  background-image: -webkit-linear-gradient(top,#FFF,#F4F4F4);
+  background-image: -o-linear-gradient(top,#FFF,#F4F4F4);
+  background-image: linear-gradient(top,#FFF,#F4F4F4);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='@start',endColorstr='@stop',GradientType=0);
+  filter: progid:DXimagetransform.microsoft.gradient(enabled=false);
+  -pie-background: linear-gradient(#FFF,#F4F4F4);
+  -ms-behavior: url(/PIE.htc);
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  border-radius: 3px;
+  -ms-behavior: url(/PIE.htc);
+}
+.main .full form .uploadholder .media .item span.crop a {
+  line-height: 30px;
+  text-decoration: none;
+  text-align: center;
+  display: block;
+  color: #555;
+}
+.main .full form .uploadholder .media .item span.crop a i {
+  font-size: 16px;
+  margin-right: 3px;
+  color: #222;
+}
 .main .full form input[type=text],
 .main .full form input[type=email],
 .main .full form input[type=password],
@@ -290,7 +377,19 @@ a {
   -ms-behavior: url(/boxsizing.htc);
   height: 30px;
 }
-.main .full form .actions input[type=submit] {
+.main .full form input[type=text].error,
+.main .full form input[type=email].error,
+.main .full form input[type=password].error,
+.main .full form select.error {
+  border: 1px solid #EB6F62;
+}
+.main .full form p .button {
+  line-height: 30px;
+  margin: 0;
+  display: inline-block;
+  vertical-align: top;
+}
+.main .full .actions input[type=submit] {
   display: inline-block;
   background-color: #27ae60;
   border: none;
@@ -303,12 +402,6 @@ a {
   color: #FFF;
   line-height: 35px;
   padding: 0 15px;
-}
-.main .full form p .button {
-  line-height: 30px;
-  margin: 0;
-  display: inline-block;
-  vertical-align: top;
 }
 .main .full .block {
   background: #FFF;

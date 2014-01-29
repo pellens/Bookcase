@@ -102,6 +102,7 @@ class Media {
 			$CI->dbforge->create_table('media_videos',TRUE);	
 		}
 
+
 		/**
 
 			IMAGE STYLES AANMAKEN
@@ -234,9 +235,8 @@ class Media {
 									var row = "<div class=\"item\">";
 										row+= "<figure><img src=\"'.base_url().'uploads/"+data+"\"/></figure>";
 										row+= "<p><label for=\"title\">Title</label><input type=\"text\" name=\"title[]\" id=\"title\"/></p>";
-										row+= "<p><label for=\"alt\">Alternative</label><input type=\"text\" name=\"alt[]\" id=\"alt\"/></p>";
-										row+= "<p><label>Description</label><textarea name=\"description[]\"></textarea></p>";
-										row+= "<span class=\"crop\"><a href=\"'.base_url("admin/crop").'?image="+data+"\" onclick=\"return triggerPopup(\'"+data+"\');\" data-crop=\""+data+"\" class=\"crop\"><img src=\"'.base_url("images/crop.png").'\" class=\"icon\"/> Crop this image</a></span>";
+										row+= "<p><label for=\"alt\">Description</label><input type=\"text\" name=\"alt[]\" id=\"alt\"/></p>";
+										row+= "<span class=\"crop\"><a href=\"'.base_url("admin/crop").'?image="+data+"\" onclick=\"return triggerPopup(\'"+data+"\');\" data-crop=\""+data+"\" class=\"crop\"><i class=\"fa fa-crop\"></i> Crop</a></span>";
 										row+= "</div>";
             						
             						$(".edit.uploadify").html(row + fill);
@@ -343,7 +343,6 @@ class Media {
 				$fields["model"]       = @$model;
 				$fields["date"]        = $date;
 				$fields["date_posted"] = time();
-				$fields["journey"]     = $_POST["journey"];
 				$fields["status"]      = 10;
 				
 				$this->db->insert("v2_act_photos",$fields);
@@ -820,7 +819,18 @@ class Media {
 		return $CI->db->where("mav.album_id",$this->album)->from("media_album_videos AS mav")->join("media_videos AS mv","mv.id = mav.video_id","left")->get()->result();
 	}
 
+	/**
 
+		GET A LIST OF ALL FILES
+
+	**/
+
+	public function files_overview()
+	{
+		$CI  =& get_instance();
+
+		return $CI->db->get("media_uploads")->result();
+	}
 
 
 	public function file_data($files,$view=false)

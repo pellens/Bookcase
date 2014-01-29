@@ -1,41 +1,3 @@
-.button {
-  font-size: 13px;
-  -moz-border-radius-topright: 3px;
-  -webkit-border-top-right-radius: 3px;
-  border-top-right-radius: 3px;
-  -moz-border-radius-topleft: 3px;
-  -webkit-border-top-left-radius: 3px;
-  border-top-left-radius: 3px;
-  -moz-border-radius-bottomright: 3px;
-  -webkit-border-bottom-right-radius: 3px;
-  border-bottom-right-radius: 3px;
-  -moz-border-radius-bottomleft: 3px;
-  -webkit-border-bottom-left-radius: 3px;
-  border-bottom-left-radius: 3px;
-  text-decoration: none;
-  font-family: Helvetica;
-  margin: 0;
-  padding: 0 10px;
-  font-family: 'Open Sans', sans-serif;
-}
-.button:hover {
-  text-decoration: none;
-}
-.button.blue {
-  background-color: #0854c5;
-  background-image: -moz-linear-gradient(top,#0073cc,#0854c5);
-  background-image: -ms-linear-gradient(top,#0073cc,#0854c5);
-  background-image: -webkit-gradient(linear,0 0,0 100%,from(#0073cc),to(#0854c5));
-  background-image: -webkit-linear-gradient(top,#0073cc,#0854c5);
-  background-image: -o-linear-gradient(top,#0073cc,#0854c5);
-  background-image: linear-gradient(top,#0073cc,#0854c5);
-  background-repeat: repeat-x;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='@start',endColorstr='@stop',GradientType=0);
-  filter: progid:dximagetransform.microsoft.gradient(enabled=false);
-  border: 1px solid #082867;
-  color: #FFF;
-  text-shadow: 0 1px 1px #082867;
-}
 .progress {
   width: 100%;
   float: right;
@@ -692,45 +654,6 @@ body {
   margin: 0;
   padding: 0;
   font-size: 11px;
-}
-.media.uploadify .item {
-  width: 100%;
-  height: 132px;
-  background-color: #FFF;
-  border: 1px solid #CCC;
-  box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  *behavior: url(/boxsizing.htc);
-  margin-bottom: 5px;
-}
-.media.uploadify .item figure {
-  width: 120px;
-  height: 120px;
-  overflow: hidden;
-  float: left;
-  padding: 0;
-  -moz-border-radius-topright: 3px;
-  -webkit-border-top-right-radius: 3px;
-  border-top-right-radius: 3px;
-  -moz-border-radius-topleft: 3px;
-  -webkit-border-top-left-radius: 3px;
-  border-top-left-radius: 3px;
-  -moz-border-radius-bottomright: 3px;
-  -webkit-border-bottom-right-radius: 3px;
-  border-bottom-right-radius: 3px;
-  -moz-border-radius-bottomleft: 3px;
-  -webkit-border-bottom-left-radius: 3px;
-  border-bottom-left-radius: 3px;
-  margin: 5px 15px 5px 5px;
-}
-.media.uploadify .item p {
-  margin: 5px 0 -10px 0;
-}
-.media.uploadify .item p label {
-  float: left;
-  line-height: 30px;
-  width: 100px;
 }
 .video {
   border: 1px solid #CCC;

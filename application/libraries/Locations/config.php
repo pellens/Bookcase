@@ -20,10 +20,10 @@
 		"icon"  => "fa-map-marker",
 		"nav" => array(
 			"General" => array(
-				"All locations"		=> "admin/lib/locations/locations_overview",
-				"Add location" 		=> "admin/lib/locations/add_location",
-				"Locationtypes" 	=> "admin/lib/locations/types_overview",
-				"Add locationtype"  => "admin/lib/locations/add_type"
+				"Locations"		=> "admin/lib/locations/locations_overview",
+				"New location" 		=> "admin/lib/locations/add_location",
+				"Location types" 	=> "admin/lib/locations/types_overview",
+				"New location type"  => "admin/lib/locations/add_type"
 			)
 		)
 
@@ -34,6 +34,7 @@
 		"fn" => array(
 
 			"locations_overview" => array(
+				"title"     => "Locations",
 				"desc"      => "Get a list of all locations.",
 				"view"      => "backend/Locations/locations_overview",
 				"fn" => array(
@@ -52,6 +53,7 @@
 			),
 
 			"add_location" => array(
+				"title"     => "New location",
 				"desc"      => "Add a new location.",
 				"view" 		=> "backend/Locations/add_location",
 				"submit" 	=> "add_location",
@@ -60,10 +62,11 @@
 			),
 
 			"edit_location" => array(
+				"title"     => "Edit location",
 				"desc"      => "Edit a location.",
 				"view" 		=> "backend/Locations/add_location",
 				"submit" 	=> "edit_location",
-				"item"      => "item",
+				"item"      => "location",
 				"redirect"  => "admin/lib/locations/locations_overview",
 				"active_link" => "modules"
 			),
@@ -79,6 +82,7 @@
 			),
 
 			"add_type" => array(
+				"title"     => "New location type",
 				"desc"      => "Add a location type.",
 				"view" 		=> "backend/Locations/add_type",
 				"submit" 	=> "add_type",
@@ -87,6 +91,7 @@
 			),
 
 			"edit_type" => array(
+				"title"     => "Edit location type",
 				"desc"      => "Edit a location type.",
 				"view" => "backend/Locations/add_type",
 				"submit" => "edit_type",
@@ -106,6 +111,7 @@
 			),
 
 			"types_overview" => array(
+				"title"     => "Location types",
 				"desc"      => "Get a list of all location types.",
 				"view" 		=> "backend/Locations/types_overview",
 				"fn" => array(

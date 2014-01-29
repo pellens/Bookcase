@@ -20,10 +20,12 @@
 		"icon"  => "fa-picture-o",
 		"nav" => array(
 			"General" => array(
-				"Photos"		=> "admin/lib/media/photos_overview",
-				"Albums"        => "admin/lib/media/albums_overview",
-				"Add album"     => "admin/lib/media/add_album",
-				"Files"         => "admin/lib/media/files_overview"
+				"Photos &amp; files"	=> "admin/lib/media/files_overview",
+				"Videos"				=> "admin/lib/media/video_overview",
+				"Albums"        		=> "admin/lib/media/albums_overview",
+				"Add file"      		=> "admin/lib/media/add_file",
+				"Add album"     		=> "admin/lib/media/add_album"
+				
 			),
 			"Settings" => array(
 				"Image styles"    => "admin/lib/media/image_styles",
@@ -46,6 +48,15 @@
 				"active_link" => "modules"
 			),
 
+			"files_overview" => array(
+				"desc"     => "Get a list of all files.",
+				"view"     => "backend/Media/files_overview",
+				"fn"  => array(
+					"list" => "files_overview"
+				),
+				"active_link" => "modules"
+			),
+
 			"photos_overview" => array(
 				"desc"      => "Get a list of all photos.",
 				"view"      => "backend/Media/photos_overview",
@@ -60,6 +71,14 @@
 				"view" 		=> "backend/Media/add_album",
 				"submit" 	=> "add_album",
 				"redirect"  => "admin/lib/media/albums_overview",
+				"active_link" => "modules"
+			),
+
+			"add_file" => array(
+				"desc"      => "Upload new files.",
+				"view" 		=> "backend/Media/add_file",
+				"submit" 	=> "add_file",
+				"redirect"  => "admin/lib/media/files_overview",
 				"active_link" => "modules"
 			),
 

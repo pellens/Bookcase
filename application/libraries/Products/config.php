@@ -35,6 +35,7 @@
 		"fn" => array(
 
 			"products_overview" => array(
+				"title"     => "Products",
 				"desc"      => "Get a list of all products.",
 				"view"      => "backend/Products/products_overview",
 				"fn" => array(
@@ -44,6 +45,7 @@
 			),
 
 			"add_product" => array(
+				"title"     => "New product",
 				"desc"      => "Add a new product.",
 				"view" 		=> "backend/Products/add_product",
 				"submit" 	=> "add_product",
@@ -52,9 +54,10 @@
 			),
 
 			"del_product" => array(
+				"title"     => "Edit product",
 				"desc"      => "Delete a product.",
-				"view" => "",
-				"redirect" => "admin/lib/products/products_overview",
+				"view" 		=> "",
+				"redirect" 	=> "admin/lib/products/products_overview",
 				"fn" => array(
 					"delete" => "del_product"
 				),
@@ -62,6 +65,7 @@
 			),
 
 			"edit_product" => array(
+				"title"     => "Edit product",
 				"desc"      => "Edit a product.",
 				"view" 		=> "backend/Products/add_product",
 				"submit" 	=> "edit_product",

@@ -13,18 +13,8 @@
 		$revisit 	= $item->revisit;
 	endif;
 ?>
-<div class="form-seo">
-	<p>
-		<label for="meta_description">Description</label>
-		<span class="info">What will be the description in the search results of Google etc.</span>
-		<textarea name="meta_description" id="meta_description"><?=$desc;?></textarea>
-	</p>
-	<p>
-		<label for="meta_keywords">Keywords</label>
-		<textarea name="meta_keywords" id="meta_keywords"><?=$keywords;?></textarea>
-	</p>
-</div>
-<div>
+
+
 	<p>
 		<label for="follow">Follow</label>
 		<select name="follow" id="follow">
@@ -48,4 +38,14 @@
 			<option <?=($revisit == "14 days") ? "selected='selected'" : "";?> value="14 days">After 14 days</option>
 		</select>
 	</p>
-</div>
+
+	<p>
+		<label for="meta_description">Description</label>
+		<span class="help-text">What will be the description in the search results of Google etc.</span>
+		<textarea name="meta_description" class="required" id="meta_description"><?=$desc;?></textarea>
+	</p>
+	<p>
+		<label for="meta_keywords">Keywords</label>
+		<span class="help-text">Keywords are not supported by Google, but are to build up tags.</span>
+		<textarea name="meta_keywords" id="meta_keywords"><?=$keywords;?></textarea>
+	</p>

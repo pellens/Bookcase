@@ -23,7 +23,60 @@ function equalizeHeight()
 	});
 }
 
+function ArrNoDupe(a) {
+    var temp = {};
+    for (var i = 0; i < a.length; i++)
+        temp[a[i]] = true;
+    var r = [];
+    for (var k in temp)
+        r.push(k);
+    return r;
+}
+
+
 $(document).ready(function(){
+
+	$(".required").each(function(){
+		$(this).parent("p").children("label").append("<span class='req'>*</span>");
+	});
+
+	$("form").bind("submit",function(){
+
+		var panes = new Array();
+		var error = 0;
+		$(".required").each(function(){
+
+			var val = $(this).val();
+
+			if(val != "" && val != " ")
+			{
+				$(this).parent("p").children("label").removeClass("error");
+			}
+			else
+			{
+				var pane = $(this).parent("p").parent(".pane").attr("data-pane");
+				$(this).parent("p").children("label").addClass("error");
+				error = 1;
+				panes.push(pane);
+			}
+		});
+
+		var panes = ArrNoDupe(panes);
+
+		if(error == 1)
+		{
+			for(var i = 0; i <= panes.length-1; i++)
+			{
+				$(".tabs li[data-pane="+panes[i]+"]").append("<span class='req'>*</span>");
+			}
+
+			return false;
+		}
+		else {
+			return true;
+		}
+
+	});
 
 	$(".block").each(function(){
 		if($(this).attr("data-pane"))
