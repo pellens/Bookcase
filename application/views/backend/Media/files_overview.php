@@ -10,6 +10,7 @@
 				<th>Title</th>
 				<th>Type</th>
 				<th>Size</th>
+				<th>Date</th>
 				<th>&nbsp;</th>
 			</tr>
 			</thead>
@@ -20,6 +21,7 @@
 				<td><?=anchor("admin/lib/media/edit_file/".$file->id,$file->original_title);?></td>
 				<td><img src="<?=base_url("images/core/icons/filetypes/".$file->file_type.".png");?>" class="file-icon"/> <?=$file->file_type;?></td>
 				<td><?=filesize_to_mb($file->file_size);?></td>
+				<td><?=time_elapsed_string($file->date);?></td>
 				<td class="actions">
 					<?=anchor("admin/lib/media/del_file/".$file->id,"<i class='fa fa-times'></i>","class='del' data-alert='Are you sure you want to delete this file?'");?>
 				</td>

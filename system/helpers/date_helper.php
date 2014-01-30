@@ -61,6 +61,69 @@ if ( ! function_exists('now'))
 	}
 }
 
+if( ! function_exists('time_elapsed_string'))
+{
+	function time_elapsed_string($ptime)
+	{
+	    $etime = time() - $ptime;
+	
+	    if ($etime < 1)
+	    {
+	        return '0 seconds';
+	    }
+	
+	    $a = array( 12 * 30 * 24 * 60 * 60  =>  'year',
+	                30 * 24 * 60 * 60       =>  'month',
+	                24 * 60 * 60            =>  'day',
+	                60 * 60                 =>  'hour',
+	                60                      =>  'minute',
+	                1                       =>  'second'
+	                );
+	
+	    foreach ($a as $secs => $str)
+	    {
+	        $d = $etime / $secs;
+	        if ($d >= 1)
+	        {
+	            $r = round($d);
+	            return $r . ' ' . $str . ($r > 1 ? 's' : '') . ' ago';
+	        }
+	    }
+	}
+}
+
+
+if( ! function_exists('time_to_read'))
+{
+	function time_to_read($content)
+	{
+		$word = str_word_count(strip_tags($content));
+		$m = floor($word / 200);
+		$s = floor($word % 200 / (200 / 60));
+		$est = $m . ' minute' . ($m == 1 ? '' : 's') . ', ' . $s . ' second' . ($s == 1 ? '' : 's');
+		return $est;
+		
+	}
+}
+
+if ( ! function_exists('jqui_unix'))
+{
+	function jqui_unix($jqui)
+	{
+		$date = explode("/",$jqui);
+		return mktime(12,0,0,$date[0],$date[1],$date[2]);
+	}
+}
+
+if ( ! function_exists('unix_jqui'))
+{
+	function unix_jqui($unix)
+	{
+		return date("m/d/Y H:i:s",$unix);
+	}
+}
+
+
 // ------------------------------------------------------------------------
 
 /**
