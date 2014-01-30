@@ -19,7 +19,7 @@
 					<tr>
 						<td width="1%"><input type="checkbox"/></td>
 						<td><?=anchor("admin/lib/jobs/edit_job/".$job->id,$job->title);?></td>
-						<td><?=strip_tags($job->description);?></td>
+						<td><?=character_limiter(strip_tags($job->description),40);?></td>
 						<td><?=date("d M Y",$job->date);?></td>
 						<td class="actions">
 							<?=anchor("admin/lib/jobs/del_job/".$job->id,"<i class='fa fa-times'></i>","class='del' data-alert='Are you sure you want to delete this job?'");?>

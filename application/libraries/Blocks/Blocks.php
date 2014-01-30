@@ -168,11 +168,12 @@ class Blocks {
 		return $block;
 	}
 	
-	function blocks_overview()
+	function blocks_overview($lang = false)
 	{
+		$lang = (!$lang) ? lang() : $lang;
 		$CI =& get_instance();
 		
-		return $CI->db->order_by("title","ASC")->from("blocks")->join("blocks_content","blocks_content.block_id = blocks.id","left")->get()->result();
+		return $CI->db->order_by("title","ASC")->where("blocks_content.lang",$lang)->from("blocks")->join("blocks_content","blocks_content.block_id = blocks.id","left")->get()->result();
 	}
 	
 	function blocks_page( $page )
