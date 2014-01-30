@@ -1,6 +1,6 @@
 <div class="full">
 
-	<h2>Product categories</h2>
+	<h2>Product categories <?=anchor("admin/lib/products/add_category","New category","class='button light'");?></h2>
 
 	<div class="block">
 
@@ -18,7 +18,7 @@
 					<tr>
 						<td width="1%"><input type="checkbox"/></td>
 						<td><?=anchor("admin/lib/products/edit_category/".$cat->id,$cat->title);?></td>
-						<td>x</td>
+						<td><?=count($this->products->category_products($cat->id));?></td>
 						<td class='actions'>
 							<?=anchor("admin/lib/products/del_category/".$cat->id,"<i class='fa fa-times'></i>","class='del' data-alert='Are you sure you want to delete this category?'");?>
 						</td>

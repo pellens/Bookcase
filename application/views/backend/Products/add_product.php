@@ -7,7 +7,7 @@
 	<ul class="tabs"></ul>
 
 	<div class="block" data-pane="Content">
-		<p><label for="title">Title</label> <input type="text" name="title" id="title" value="<?=@$item->title;?>"/></p>
+		<p><label for="title">Title</label> <input type="text" name="title" id="title" class="required" value="<?=@$item->title;?>"/></p>
 		<p><label for="price">Price</label> <input type="text" name="price" id="price" value="<?=@$item->price;?>"/></p>
 		<p><label for="category">Category</label> <?=$this->products->categories_overview(null,true,"select");?></p>
 		<p><label for="description">Description</label></p>

@@ -84,6 +84,9 @@ class Core {
 							"type" => "varchar",
 							"constraint" => "300"
 						),
+				"analytics_code" => array(
+							"type" => "text"
+						),
 				"lang" => array(
 							"type" => "varchar",
 							"constraint" => "10"

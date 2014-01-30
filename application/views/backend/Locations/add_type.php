@@ -11,7 +11,7 @@
 		<!-- IF WE EDIT AN ITEM, ADD THE ID -->
 		<input type="hidden" name="id" value="<?=@$item->id;?>"/>
 
-		<p><label for="title">Type title</label> <input type="text" name="title" id="title" value="<?=@$item->title;?>"/></p>
+		<p><label for="title">Type title</label> <input type="text" class="required" name="title" id="title" value="<?=@$item->title;?>"/></p>
 		<p>
 			<label for="type">Parent locationtype</label>
 			<select name="parent">

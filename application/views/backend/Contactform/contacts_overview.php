@@ -1,42 +1,42 @@
-<div class="left">
+<div class="full">
 
-	<div class="tabs">
+	<h2>Contacts</h2>
 
-		<ul class="links">
-			<li class="active" data-pane="contacts">Contacts overview</li>
-		</ul>
-
-		<div class="panes">
-			<div class="pane active" data-pane="contacts">
-				<table class="table table-bordered table-striped">
-				<thead>
+	<div class="block">
+		<table class="table table-bordered table-striped">
+			<thead>
 				<tr>
-				<th>Contactperson</th>
-				<th>E-mail</th>
-				<th>&nbsp;</th>
-				</thead>
+					<th width="1%"><input type="checkbox"/></th>
+					<th>Name</th>
+					<th>E-mail</th>
+					<th>Tel</th>
+					<th>&nbsp;</th>
+				</tr>
+			</thead>
+			<tbody>
 				<? foreach($list as $mes):?>
 					<tr>
-						<td><?=ucwords(strtolower($mes->name));?></td>
+						<td width="1%"><input type="checkbox"/></td>
+						<td><?=anchor("admin/lib/contactform/contact/".$mes->id,ucwords(strtolower($mes->name)));?></td>
 						<td><?=mailto($mes->email,$mes->email);?></td>
-						<td><?=anchor("lib/contactform/contact/".$mes->id,"View contact");?></td>
+						<td><?=$mes->tel;?></td>
+						<td class="actions">
+							<?=anchor("admin/lib/contactform/del_contact/".$mes->id,"<i class='fa fa-times'></i>","class='del' data-alert='Are you sure you want to delete this contact?'");?>
+						</td>
 					</tr>
 				<? endforeach;?>
-				</table>
-			</div>
-		</div>
-
+			</tbody>
+		</table>
 	</div>
 
-</div>
+	<div class="block stats">
 
-<div class="right">
+		<div>
+			<ul>
+				<li><i class="fa fa-shopping-cart"></i> <?=count($list);?> contact(s)</li>
+			</ul>
+		</div>
 
-	<div class="box">
-		<ul class="inbox-stats">
-			<li>x contacts</li>
-			<li>x prospects</li>
-		</ul>
 	</div>
 
 </div>

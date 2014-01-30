@@ -256,14 +256,19 @@ class Locations {
 		return true;
 	}
 
-	public function location($id)
+	public function location($id=null)
 	{
 		$CI =& get_instance();
 
-		$this->location = $id;
+		$this->location = ($id==null) ? $this->location : $id;
 
-		$result = $CI->db->where("id",$this->location)->get("locations_items")->result();
-		return $result[0];
+		$result = $CI->db->where("id",$this->location)->get("locations_items");
+		if($result->num_rows != 0):
+			$result = $result->result();
+			return $result[0];
+		endif;
+
+		return false;
 	}
 
 	public function location_videos($id=false)

@@ -4,10 +4,9 @@
 
 	<h2>Website settings</h2>
 
-	
+	<ul class="tabs"></ul>
 
-	<h3>General</h3>
-	<div class="block">
+	<div class="block" data-pane="General">
 
 		<p>
 			<label>Website title</label>
@@ -22,8 +21,7 @@
 
 	</div>
 
-	<h3>Social media</h3>
-	<div class="block">
+	<div class="block" data-pane="Social">
 
 		<p>
 			<label>Facebook application ID</label>
@@ -61,6 +59,13 @@
 			<input type="text" name="google_client_secret"/>
 		</p>
 
+	</div>
+
+	<div class="block" data-pane="Analytics">
+		<p>
+			<label>Google analytics snippet</label>
+			<span class="help-text">Paste here your trackingcode from <a href="http://analytics.google.com" target="_blank">Google Analytics</a>.</span>
+			<textarea name="analytics-code"></textarea>
 	</div>
 
 	<div class="actions">

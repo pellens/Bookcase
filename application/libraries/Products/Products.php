@@ -770,6 +770,9 @@ class Products {
 		$CI->db->where("category_id",$id)->delete("products_category_video");
 		$CI->db->where("category_id",$id)->delete("products_category_location");
 
+		$fields["category_id"] = 0;
+		$CI->db->where("category_id",$id)->update("products_items",$fields);
+
 		// CATEGORY DELETEN
 		$CI->db->where("id",$id)->delete("products_categories");
 

@@ -25,8 +25,7 @@
 				
 			),
 			"Settings" => array(
-				"Forms"         => "admin/lib/contactform/forms_overview",
-				"Add form" 	=> "admin/lib/contactform/add_form"
+				"Forms"         => "admin/lib/contactform/forms_overview"
 			)
 		)
 

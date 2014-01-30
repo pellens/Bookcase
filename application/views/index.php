@@ -37,24 +37,27 @@
 		
 		<div class="textblock">
 			<?=$this->blocks->block("homepage_tekst",false);?>
+
+			<?=$this->blocks->block("footer_text",true);?>
 		</div>
 
 		<pre>
 
-		<? print_r($this->jobs->job(1));?>
-		<? print_r($this->jobs->job_locations());?>
-		<? print_r($this->jobs->job_videos());?>
+		<? //print_r($this->jobs->job(4));?>
+		<? //print_r($this->jobs->job_locations());?>
+		<? //print_r($this->jobs->job_videos());?>
+		<? //print_r($this->jobs->jobs_overview());?>
 		
-		<? //print_r($this->locations->item(1));?>
-		<? //print_r($this->locations->locations_overview());?>
-		<? //print_r($this->locations->types_overview());?>
-		<? //print_r($this->locations->types_overview(2));?>
+		<? print_r($this->locations->item(1));?>
+		<? print_r($this->locations->locations_overview());?>
+		<? print_r($this->locations->types_overview());?>
+		<? print_r($this->locations->types_overview(2));?>
 
-		<? //print_r($this->products->product(4));?>
+		<? //print_r($this->products->product(5));?>
 		<? //print_r($this->products->product_videos());?>
 		<? //print_r($this->products->product_locations());?>
 
-		<? //print_r($this->products->category(10));?>
+		<? //print_r($this->products->category(11));?>
 		<? //print_r($this->products->category_products());?>
 		<? //print_r($this->products->category_videos());?>
 		<? //print_r($this->products->category_locations());?>

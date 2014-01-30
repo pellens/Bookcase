@@ -44,6 +44,7 @@ $(document).ready(function(){
 
 		var panes = new Array();
 		var error = 0;
+
 		$(".required").each(function(){
 
 			var val = $(this).val();
@@ -65,6 +66,8 @@ $(document).ready(function(){
 
 		if(error == 1)
 		{
+			$(".tabs li .req").remove();
+
 			for(var i = 0; i <= panes.length-1; i++)
 			{
 				$(".tabs li[data-pane="+panes[i]+"]").append("<span class='req'>*</span>");
@@ -122,8 +125,6 @@ $(document).ready(function(){
 
 	$(".tabs .links li").bind("click",function(){
 
-		//equalHeights();
-
 		$(".tabs .links li").removeClass("active");
 		$(this).addClass("active");
 
@@ -131,6 +132,8 @@ $(document).ready(function(){
 
 		$(".tabs .panes .pane").removeClass("active");
 		$(".tabs .panes .pane[data-pane="+pane+"]").addClass("active");
+
+		equalizeHeight();
 
 	});
 

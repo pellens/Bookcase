@@ -8,6 +8,7 @@
 			<tr>
 				<th width="1%"><input type="checkbox"//th>
 				<th>Location</th>
+				<th>Type</th>
 				<th>Address</th>
 				<th width="1%"></th>
 			</tr>
@@ -17,6 +18,7 @@
 			<tr class="item" style="cursor:move;" id="item-<?=$loc->id;?>">
 				<td><input type="checkbox"/></td>
 				<td><?=anchor("admin/lib/locations/edit_location/".$loc->id,$loc->title);?></td>
+				<td><? $type = $this->locations->type($loc->type); echo $type->title;?></td>
 				<td><?=$loc->adres;?></td>
 				<td class="actions"><?=anchor("admin/lib/locations/del_location/".$loc->id,"<i class='fa fa-times'></i>","class='del' data-alert='Are you sure you want to delete this location?'");?></td>
 			</tr>

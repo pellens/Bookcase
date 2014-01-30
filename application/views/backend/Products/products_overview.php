@@ -1,6 +1,6 @@
 <div class="full">
 
-	<h2>Products overview</h2>
+	<h2>Products overview <?=anchor("admin/lib/products/add_product","New product","class='button light'");?></h2>
 
 	<div class="block">
 		<table class="table table-bordered">

@@ -433,7 +433,7 @@ class Contactform {
 
 		$CI =& get_instance();
 
-		$result = $CI->db->order_by("name")->get("contactform_contacts")->result();
+		$result = $CI->db->order_by("name","ASC")->get("contactform_contacts")->result();
 		return $result;
 
 	}

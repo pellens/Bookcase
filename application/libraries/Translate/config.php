@@ -20,9 +20,10 @@
 		"icon"  => "fa-globe",
 		"nav" => array(
 			"General" => array(
-				"Translation overiew" => "admin/lib/translate/translation_overview"
+				
 			),
 			"Settings" => array(
+				"Translations" => "admin/lib/translate/translation_overview",
 				"Supported languages" 	=> "admin/lib/translate/languages_overview",
 				"Add language" 		=> "admin/lib/translate/active_language"
 			)
@@ -40,7 +41,7 @@
 				"fn" => array(
 					"list" => "translation"
 				),
-				"active_link" => "modules"
+				"active_link" => "settings"
 			),
 
 			"languages_overview" => array(
