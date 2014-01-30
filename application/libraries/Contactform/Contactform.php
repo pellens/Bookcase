@@ -234,6 +234,8 @@ class Contactform {
 			$form.= $this->full_tag_open;
 			$form.= "<form action='".$this->action."' method='".$this->method."' title='".$this->form."'>\n";
 			
+			$form.= "<input type='hidden' value='".$this->subject."' name='subject'/>";
+
 			foreach($fields->result() as $item):
 			
 			    $form.= $this->row_open;	
@@ -452,10 +454,19 @@ class Contactform {
 		    			"type" => "varchar",
 		    			"constraint" => "2"
 		    		),
+		    "subject" => array(
+		    		"type" => "varchar",
+		    		"constraint" => "300"
+		    ),
 		    "fields" => array(
 		    			"type" => "text"
-		    		)
-		    );
+		    ),
+
+			"read" => array(
+				"type" => "INT",
+				"default" => "0"
+			)
+		);
 		
 		return $fields;
 	}
@@ -604,6 +615,7 @@ class Contactform {
 		$data["date"]      = time();
 		$fields["lang"]    = lang();
 		$fields["form_id"] = $data["form_id"];
+		$fields["subject"] = $data["subject"];
 		unset($data["redirect"]);
 		unset($data["form_id"]);
 		$fields["fields"]  = serialize($data);
@@ -624,6 +636,42 @@ class Contactform {
 		{
 			$CI->db->insert("contactform_contacts",$fields);
 		}
+	}
+
+	function submitter_submissions($email)
+	{
+		$CI =& get_instance();
+		$result = $CI->db->like("fields",$email)->order_by("id","DESC")->get("contactform_submitted");
+
+		if($result->num_rows > 0)
+		{
+			return $result->result();
+		}
+	}
+
+	function submission($id)
+	{
+		$CI =& get_instance();
+
+		// MARK AS READ
+		$fields["read"] = 1;
+		$CI->db->where("id",$id)->update("contactform_submitted",$fields);
+
+		$result = $CI->db->where("id",$id)->get("contactform_submitted")->result();
+		return $result[0];
+	}
+
+	function submitter($contact)
+	{
+		$CI =& get_instance();
+
+		if(is_numeric($contact)):
+			$result = $CI->db->where("id",$contact)->get("contactform_contacts")->result();
+		else:
+			$result = $CI->db->where("email",$contact)->get("contactform_contacts")->result();
+		endif;
+
+		return $result[0];
 	}
 
 	function receivers_overview($form_id)
@@ -685,14 +733,14 @@ class Contactform {
 	function submitted_forms()
 	{
 		$CI =& get_instance();
-		return $CI->db->select("name, contactform_forms.id as form_id, contactform_submitted.id, contactform_submitted.fields")->order_by("contactform_submitted.id","DESC")->join("contactform_forms","contactform_forms.id = contactform_submitted.form_id","left")->get("contactform_submitted")->result();
+		return $CI->db->select("name, contactform_forms.id as form_id, contactform_submitted.read, contactform_submitted.subject, contactform_submitted.id, contactform_submitted.fields")->order_by("contactform_submitted.id","DESC")->join("contactform_forms","contactform_forms.id = contactform_submitted.form_id","left")->get("contactform_submitted")->result();
 	}
 
 	function submission_stats()
 	{
 		$CI =& get_instance();
 		$array["inbox"]  = $CI->db->count_all_results("contactform_submitted");
-		$array["unread"] = 0;
+		$array["unread"] = $CI->db->where("read","0")->count_all_results("contactform_submitted");;
 
 		return $array;
 	}
@@ -728,13 +776,6 @@ class Contactform {
 		unset($fields);
 
 		return true;
-	}
-	
-	function add()
-	{
-		
-		
-		
 	}
 	
 	function item($id)

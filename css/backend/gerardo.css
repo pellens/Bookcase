@@ -570,6 +570,10 @@ a {
   display: inline-block;
   vertical-align: middle;
 }
+.main .full .block .table tr.unread {
+  font-weight: bold;
+  border-left: 2px solid #f1c40f;
+}
 .main .full .stats {
   padding: 4px;
 }

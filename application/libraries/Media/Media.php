@@ -41,12 +41,18 @@ class Media {
 		
 		// UPLOAD FOLDER AANMAKEN
 		$upload_path = './uploads';
+		$files_path = './uploads/files';
 
     	if ( ! file_exists($upload_path) )
     	{
     	    $create = mkdir($upload_path, 0777);
     	    $thumbs_folder = mkdir($upload_path . '/thumbs', 0777);
     	}
+
+    	if (!file_exists($files_path))
+		{
+			$create = mkdir($files_path, 0777);
+		}
     	
     	/**
 
@@ -127,6 +133,13 @@ class Media {
 		}
 		
 
+		/**
+
+			SLIDESHOWS AANMAKEN
+			// MSS VERVANGEN DOOR ALBUMS?
+
+		**/
+
 		// SLIDESHOWS
 		if (!$CI->db->table_exists('media_slideshows'))
 		{
@@ -144,6 +157,12 @@ class Media {
 			$CI->dbforge->add_key('id', TRUE);
 			$CI->dbforge->create_table('media_slideshows',TRUE);	
 		}
+
+		/**
+
+			CREATE ALBUM DATABASE
+
+		**/
 		
 		// SLIDESHOWS
 		if (!$CI->db->table_exists('media_albums'))

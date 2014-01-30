@@ -45,6 +45,24 @@
 				"active_link" => "modules"
 			),
 
+			"submission" => array(
+				"title" => "Message",
+				"desc" => "View a submitted message.",
+				"view" => "backend/contactform/message",
+				"item" => "submission",
+				"active_link" => "modules"
+			),
+
+			"contact" => array(
+				"title" => "Contactperson",
+				"desc" => "View contact details.",
+				"view" => "backend/Contactform/contact",
+				"submit" => "edit_submitter",
+				"item" => "submitter",
+				"redirect" => "admin/lib/contactform/contacts_overview",
+				"active_link" => "modules"
+			),
+
 			"contacts_overview" => array(
 				"desc"      => "Get a list of all submitters (contacts).",
 				"view"      => "backend/Contactform/contacts_overview",

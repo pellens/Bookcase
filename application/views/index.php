@@ -34,12 +34,19 @@
 			<?=crumbs();?>
 		</div>
 		
-		
+		<?
+			$config["subject"] = "More information about product #123";	
+			$this->contactform->initialize($config);
+			echo $this->contactform->generate("general_contactform");
+		?>
+
 		<div class="textblock">
 			<?=$this->blocks->block("homepage_tekst",false);?>
 
 			<?=$this->blocks->block("footer_text",true);?>
 		</div>
+
+		
 
 		<pre>
 
@@ -47,11 +54,11 @@
 		<? //print_r($this->jobs->job_locations());?>
 		<? //print_r($this->jobs->job_videos());?>
 		<? //print_r($this->jobs->jobs_overview());?>
-		
-		<? print_r($this->locations->item(1));?>
-		<? print_r($this->locations->locations_overview());?>
-		<? print_r($this->locations->types_overview());?>
-		<? print_r($this->locations->types_overview(2));?>
+
+		<? //print_r($this->locations->item(1));?>
+		<? //print_r($this->locations->locations_overview());?>
+		<? //print_r($this->locations->types_overview());?>
+		<? //print_r($this->locations->types_overview(2));?>
 
 		<? //print_r($this->products->product(5));?>
 		<? //print_r($this->products->product_videos());?>
