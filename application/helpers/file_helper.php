@@ -9,3 +9,22 @@
             return $mb." MB";
         }
     }
+
+    if( ! function_exists('general_filetype'))
+    {
+        function general_filetype($filetype)
+        {
+            switch($filetype)
+            {
+                case "JPG" :
+                case "JPEG" :
+                case "jpg" :
+                case "jpeg" :
+                case "gif" :
+                case "bmp" :
+                case "png" : return "image"; break;
+
+                default : return "file"; break;
+            }
+        }
+    }

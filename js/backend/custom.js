@@ -102,11 +102,14 @@ $(document).ready(function(){
 
 	equalizeHeight();
 
-	$('.table').filterTable({
-        minRows:1,
-        placeholder:'Search list',
-        label: ''
-    });
+	if($(".tabs").size() == 0)
+	{
+		$('.table').filterTable({
+    	    minRows:1,
+    	    placeholder:'Search list',
+    	    label: ''
+    	});
+    }
 
 	//equalHeights();
 
