@@ -18,7 +18,7 @@
 				<td width="1%"><input type="checkbox"/></td>
 				<td><?=$block->lang;?></td>
 				<td><?=anchor("admin/lib/blocks/edit_block/".$block->block_id,$block->title);?></td>
-				<td><?=character_limiter(strip_tags($block->content),100);?></td>
+				<td><?=character_limiter(strip_tags($block->content),60);?></td>
 			</tr>
 			<? endforeach;?>
 			</tbody>

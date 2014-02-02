@@ -65,7 +65,7 @@
 		<p>
 			<label>Google analytics snippet</label>
 			<span class="help-text">Paste here your trackingcode from <a href="http://analytics.google.com" target="_blank">Google Analytics</a>.</span>
-			<textarea name="analytics-code"></textarea>
+			<textarea name="analytics"><?=base64_decode($settings->analytics);?></textarea>
 	</div>
 
 	<div class="actions">

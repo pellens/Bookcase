@@ -119,7 +119,7 @@
 			$html = "";
 		    foreach($nav as $page)
 		    {
-		        $html .= '<ul><li data-id="'.$page['id'].'">';
+		        $html .= '<ul class="nav active tree"><li data-id="'.$page['id'].'">';
 		        $title = ($page["title"] == "") ? $page["name"] : $page["title"];
 		        $html .= '<a href="' . base_url("admin/page/edit/".$page["id"]) . '">' . $title . '</a>';
 		        $html .= GenerateNavHTML($page['sub']);

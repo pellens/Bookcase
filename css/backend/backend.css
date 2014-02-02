@@ -272,7 +272,7 @@ body {
   -webkit-border-top-right-radius: 5px;
   border-top-right-radius: 5px;
 }
-.sidebar .box .tree {
+/*.sidebar .box .tree {
   padding-left: 15px;
 }
 .sidebar .box .tree ul {
@@ -290,7 +290,7 @@ body {
   background-position: left 6px;
   display: block;
   padding-left: 23px;
-}
+}*/
 .sidebar .box .actions {
   border-top: 1px solid #c8d3e0;
   box-sizing: border-box;

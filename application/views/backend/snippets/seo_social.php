@@ -39,13 +39,44 @@
 		</select>
 	</p>
 
+	<hr/>
+
 	<p>
 		<label for="meta_description">Description</label>
 		<span class="help-text">What will be the description in the search results of Google etc.</span>
 		<textarea name="meta_description" class="required" id="meta_description"><?=$desc;?></textarea>
 	</p>
-	<p>
+
+	<hr/>
+	
+	<div class="google-preview">
+
+	</div>
+	<!--<p>
 		<label for="meta_keywords">Keywords</label>
 		<span class="help-text">Keywords are not supported by Google, but are to build up tags.</span>
 		<textarea name="meta_keywords" id="meta_keywords"><?=$keywords;?></textarea>
-	</p>
+	</p>-->
+
+	<script>
+	$(document).ready(function(){
+
+		fillGooglePreview();
+
+		$("#meta_description").bind("change keyup",function(){
+			fillGooglePreview();
+		});
+
+		function fillGooglePreview()
+		{
+			var desc  = $("#meta_description").val();
+			var title = $("input[name=title]").val();
+	
+			var row = "<span class='title'>"+title+"</span>";
+				row+= "<span class='url'><?=base_url(lang());?>/pagetitle</span>";
+				row+= "<span class='descr'>"+desc+"</span>";
+	
+			$(".google-preview").html(row);
+		}
+	});
+	</script>

@@ -21,6 +21,7 @@ class Core {
 	var $type         	  = "";
 	var $type_id      	  = "";
 	var $page_title   	  = "";
+	var $analytics        = "";
 	var $url          	  = "";
 	var $fb_app_id    	  = "";
 	var $website_title	  = "";
@@ -84,7 +85,7 @@ class Core {
 							"type" => "varchar",
 							"constraint" => "300"
 						),
-				"analytics_code" => array(
+				"analytics" => array(
 							"type" => "text"
 						),
 				"lang" => array(
@@ -299,8 +300,9 @@ class Core {
 		
 		**/
 		
-		$settings = $CI->db->get("core_settings")->result();
+		$settings 			 = $CI->db->get("core_settings")->result();
 		$this->website_title = $settings[0]->title;
+		$this->analytics     = $settings[0]->analytics;
 
 	}
 	
@@ -324,7 +326,7 @@ class Core {
 			
 		$general = $CI->db->get("core_settings")->result();
 		$config  = $CI->db->where("page",$this->page)->get("core_pages")->result();
-						
+		
 		$this->page_title       = $config[0]->title;
 		
 		// SEO
@@ -349,7 +351,14 @@ class Core {
 	{
 		$CI =& get_instance();
 		foreach($_POST as $key => $value):
-			$fields[$key] = $CI->input->post($key,true);
+			if($key == "analytics")
+			{
+				$fields[$key] = base64_encode($value);
+			}
+			else
+			{
+				$fields[$key] = $CI->input->post($key,true);
+			}
 		endforeach;
 
 		$CI->db->update("core_settings",$fields);
@@ -516,6 +525,8 @@ class Core {
         <!-- STYLE -->
         <link rel="icon"                type="image/x-icon" href="" />
         <link rel="shortcut icon"       type="image/x-icon" href="" />
+
+        '.base64_decode($this->analytics).'
 			';
 			
 			return $meta;
@@ -536,6 +547,12 @@ class Core {
 
 		// Navigation handling
 		unset($data["navigation"]);
+
+		if($data["homepage"] == 1)
+		{
+			$change["homepage"] = 0;
+			$CI->db->where("homepage","1")->update("core_pages",$change);
+		}
 
 		$CI->db->where("id",$data["id"])->update("core_pages",$data);
 

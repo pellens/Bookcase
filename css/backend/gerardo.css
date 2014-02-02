@@ -156,6 +156,45 @@ a {
   line-height: 35px;
   text-decoration: none;
 }
+.sidebar .box ul.nav.tree {
+  padding-left: 20px;
+  display: block !important;
+}
+.sidebar .box ul.nav.tree li:first-child a {
+  background-image: none;
+}
+.sidebar .box ul.nav.tree ul {
+  padding: 0 0 0 20px;
+  border-left: 1px dashed #2D353F;
+}
+.sidebar .box ul.nav.tree ul li a {
+  display: inline-block;
+  height: 32px;
+  padding-left: 0;
+}
+.google-preview {
+  background-image: url(../../images/core/logos/google-small.jpg);
+  padding-left: 100px;
+  background-position: 10px center;
+  background-repeat: no-repeat;
+}
+.google-preview span {
+  display: block;
+  line-height: 18px;
+}
+.google-preview .url {
+  color: #006621;
+  font-size: 13px;
+}
+.google-preview .title {
+  color: #1E0FBE;
+  text-decoration: underline;
+  font-size: 16px;
+}
+.google-preview .desc {
+  color: #444;
+  font-size: 13px;
+}
 .main {
   padding: 10px 20px;
   margin: 0;

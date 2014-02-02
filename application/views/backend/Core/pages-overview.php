@@ -1,35 +1,31 @@
 <div class="full">
 
-	<div class="tabs">
-		<ul class="links">
-			<li class="active" data-pane="pages">Pages overview</li>
-		</ul>
+	<h2>Website pages</h2>
 
-		<div class="panes">
-			<div class="pane active" data-pane="pages">
+	<div class="block">
 
-				<table class="table table-bordered table-striped">
+				<table class="table table-bordered">
 					<thead>
 					<tr>
+						<th width="1%">&nbsp;</th>
 						<th>Page title</th>
-						<th>Page machine name</th>
+						<th>Machine name</th>
 						<th>Progress</th>
-						<th>&nbsp;</th>
 					</tr>
 					</thead>
 					<tbody>
 					<? foreach($pages as $page):?>
 					<tr>
-						<td><?=$page["title"];?></td>
+						<td>
+							<? if($page["visible"] == 0):?><i class="fa fa-eye-slash"></i><? endif;?>
+							<? if($page["homepage"] == 1):?><i class="fa fa-home"></i><? endif;?>
+						</td>
+						<td><?=anchor("admin/page/edit/".$page["id"],$page["title"]);?></td>
 						<td><?=$page["page"];?></td>
-						<td width="200">
+						<td width="250">
 							<div class="progress">
 								<div class="bar" style="width:<?=$page["progress"];?>"></div>
 							</div>
-						</td>
-						<td>
-							<?=anchor($page["url"],"Visit");?>
-							<?=anchor("admin/page/edit/".$page["id"],"Edit");?>
 						</td>
 					</tr>
 					<? endforeach;?>
