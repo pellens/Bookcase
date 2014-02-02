@@ -72,7 +72,7 @@
 			var desc  = $("#meta_description").val();
 			var title = $("input[name=title]").val();
 	
-			var row = "<span class='title'>"+title+"</span>";
+			var row = "<span class='title'>"+title+" - <?=$this->core->website_title;?></span>";
 				row+= "<span class='url'><?=base_url(lang());?>/pagetitle</span>";
 				row+= "<span class='descr'>"+desc+"</span>";
 	
