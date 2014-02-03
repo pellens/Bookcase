@@ -142,10 +142,10 @@ class Admin extends CI_Controller {
 	{
 
 		$submitted = (isset($_POST) && count($_POST) > 0) ? true : false;
-		
-		(@include_once (APPPATH."/libraries/".ucwords($lib)."/config.php")) or die("This library is not installed or doesn't have a config-file...");
+
+		(@include_once (APPPATH."/libraries/".strtolower($lib)."/config.php")) or die("This library is not installed or doesn't have a config-file...");
 		$this->load->library($lib);
-		$data["main"] = $admin["fn"][$fn]["view"];
+		$data["main"]  = $admin["fn"][$fn]["view"];
 		$data["title"] = @$admin["fn"][$fn]["title"];
 
 		if($fn)
