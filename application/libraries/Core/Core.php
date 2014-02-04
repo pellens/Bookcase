@@ -100,55 +100,11 @@ class Core {
 			
 			unset($fields);
 			
-			$fields["title"] = "CodeIgniter Bookcase";
+			$fields["title"]  = "CodeIgniter Bookcase";
+			$fields["slogan"] = "Custom made CMS";
 			$CI->db->insert("core_settings",$fields);
 		}
-		
-		if (!$CI->db->table_exists('core_admins'))
-		{
-		    $CI->load->dbforge();
-		
-		    $fields = array(
-		    	"id" => array(
-		    				"type"           => "INT",
-        	                'auto_increment' => TRUE
-		    			),
-		    	"email" => array(
-		    				"type" => "varchar",
-		    				"constraint" => "300",
-		    			),
-		    	"password" => array(
-		    				"type" => "varchar",
-		    				"constraint" => "300"
-		    			),
-		    	"name" => array(
-		    				"type" => "varchar",
-		    				"constraint" => "300"
-		    			),
-		    	"created_at" => array(
-		    				"type" => "varchar",
-		    				"constraint" => "300"
-		    			),
-		    	"last_login"  => array(
-		    				"type" => "varchar",
-		    				"constraint" => "300"
-		    			),
-		    	"avatar" => array(
-		    				"type" => "varchar",
-		    				"constraint" => "300"
-		    			),
-		    	"role" => array(
-		    				"type" => "INT"
-		    			)
-		    );
 
-		    $CI->dbforge->add_field($fields);
-		    $CI->dbforge->add_key('id', TRUE);
-		    $CI->dbforge->create_table('core_admins',TRUE);
-		    
-		    unset($fields);
-
-		}
 
 		if (!$CI->db->table_exists('core_libraries'))
 		{
@@ -185,35 +141,7 @@ class Core {
 		    unset($fields);
 
 		}
-		
-		if (!$CI->db->table_exists('core_admins_roles'))
-		{
-		    $CI->load->dbforge();
-		
-		    $fields = array(
-		    	"id" => array(
-		    				"type"           => "INT",
-        	                'auto_increment' => TRUE
-		    			),
-		    	"title" => array(
-		    				"type" => "varchar",
-		    				"constraint" => "300",
-		    			)
-		    );
-		    
-		    
-		    $CI->dbforge->add_field($fields);
-		    $CI->dbforge->add_key('id', TRUE);
-		    $CI->dbforge->create_table('core_admins_roles',TRUE);
-		    unset($fields);
-		    
-		    $fields["title"] = "Administrator";
-		    
-		    $CI->db->insert("core_admins_roles",$fields);
-		    unset($fields);
-		
-		}
-		
+
 		// FILE DATABASE AANMAKEN
     	if (!$CI->db->table_exists('core_pages'))
 		{
@@ -612,8 +540,12 @@ class Core {
 				$i++;
 			endforeach;
 
-			
-			return $data;
+			if(isset($data)) {
+				return $data;
+			} else {
+				return false;
+			}
+
 		}
 	
 	}
@@ -653,10 +585,9 @@ class Core {
 
         	while (false !== ($entry = readdir($handle)))
         	{
-            	if ($entry != "." && $entry != ".." && $entry != ".DS_Store")
+            	if ($entry != "." && $entry != ".." && $entry != ".DS_Store" && $entry != "index.html")
             	{
-                	
-                	$filename    = "./application/libraries/".$entry."/config.php";
+                	$filename    = FCPATH."application/libraries/".$entry."/config.php";
 
 					if (file_exists($filename))
 					{

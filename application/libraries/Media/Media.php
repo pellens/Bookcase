@@ -98,8 +98,8 @@ class Media {
 				"video_id" 		=> array( "type" => "varchar", "constraint" => "50" ),
 				"image_default" => array( "type" => "varchar", "constraint" => "500" ),
 				"image_hq" 		=> array( "type" => "varchar", "constraint" => "500" ),
-				"title" 		=> array( "type" => "varchar", "default" => "300" ),
-				"date" 			=> array( "type" => "INT", "default" => 0 ),
+				"title" 		=> array( "type" => "varchar", "constraint" => "300" ),
+				"date" 			=> array( "type" => "INT" ),
 				"description" 	=> array( "type" => "text" ),
 				"url" 			=> array( "type" => "varchar", "constraint" => "300" )
 			);
@@ -250,16 +250,14 @@ class Media {
 								}
 								else
 								{
-									var fill = $(".edit.uploadify").html();
-									
 									var obj = JSON.parse(data);
 									console.log(obj);
 
 									if(obj.filetype == "image")
 									{
 										var row = "<div class=\"item\">";
-										row+= "<span class=\"crop\"><a href=\"'.base_url("admin/crop").'?image="+obj.src+"\" onclick=\"return triggerPopup(\'"+data+"\');\" data-crop=\""+data+"\" class=\"crop\"><i class=\"fa fa-crop\"></i> Crop</a></span>";
-										row+= "<figure><img src=\"'.base_url('"+obj.src+"').'\"/></figure>";
+										row+= "<span class=\"crop\"><a href=\"'.base_url("admin/crop").'?image="+obj.src+"\" onclick=\"return triggerPopup(\'"+obj.src+"\');\" data-crop=\""+data+"\" class=\"crop\"><i class=\"fa fa-crop\"></i> Crop</a></span>";
+										row+= "<figure><img src=\"'.base_url('uploads/images/120_120/"+obj.title+"').'\"/></figure>";
 									}
 									else
 									{
@@ -275,7 +273,7 @@ class Media {
 										
 										row+= "</div>";
             						
-            						$(".edit.uploadify").html(row + fill);
+            						$(".edit.uploadify").append(row);
             					}
         					}
 						});
@@ -284,8 +282,28 @@ class Media {
 	}
 
 
+	/**
+
+		GET GENERAL FILE TYPE
+	
+	**/
+
+	public function get_file_type($ext)
+	{
+		switch(strtolower($ext))
+		{
+			case "jpg"  :
+			case "jpeg" :
+			case "png"  :
+			case "gif"  : return "image"; break;
+
+			default : return "file"; break;
+		}
+	}
 
 	/**
+
+		GET EXIFF DATA FROM IMAGE
 
 	**/
 
@@ -495,6 +513,18 @@ class Media {
 		
 		
 		
+	}
+
+	function is_cropped($image,$w,$h)
+	{
+		if(file_exists('uploads/images/'.$w.'_'.$h.'/'.$image))
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
 	}
 	
 	function createSquare()
@@ -865,7 +895,7 @@ class Media {
 	{
 		$CI  =& get_instance();
 
-		return $CI->db->get("media_uploads")->result();
+		return $CI->db->order_by("id","DESC")->get("media_uploads")->result();
 	}
 
 
