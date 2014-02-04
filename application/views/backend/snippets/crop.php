@@ -19,9 +19,9 @@
 
 	.image {
 		float:left;
-		background-color: #EEE;
-		width:600px;
-		height:300px;
+		background-color: #E7EBF1;
+		width:650px;
+		height:350px;
 	}
 
 	.cropbox {
@@ -42,9 +42,9 @@
 	}
 
 	.init {
-		width:400px;
-		height:260px;
-		line-height: 250px;
+		width: 490px;
+		height: 380px;
+		line-height: 380px;
 		text-align: center;
 		color:#555;
 		text-shadow:0 1px 1px #FFF;
@@ -54,41 +54,42 @@
 		margin:0;
 		padding:0;
 		float:left;
-		border-right: 1px solid #FFF;
 	}
 
 	.jcroptabs {
 		list-style: none;
 		margin: 0;
-		padding:5px;
+		padding:0;
 		width:150px;
+		background-color: #1B1E24;
+		height:400px;
 	}
 
 	.jcroptabs li {
 		float:left;
-		background: #FFF;
-		margin: 0 0 1px 0;
-		padding:5px 0 5px 10px;
+		margin: 0;
+		padding:10px 0 10px 10px;
 		line-height: 16px;
 		width:139px;
 		cursor:pointer;
+		color:#FFF;
 	}
 
 	.jcroptabs li span {
 		font-size: 10px;
-		color:#888;
+		color:#CCC;
 	}
 
 	.jcroptabs li.active {
 		font-weight: bold;
+		background: #22262E;
 	}
 
 	.panes {
 		float:left;
 		padding:5px;
-		border-left: 1px solid #CCC;
-		width:350px;
-		height:250px;
+		width: 490px;
+		height: 390px;
 	}
 
 	.panes .jcrop-holder {
@@ -96,8 +97,11 @@
 	}
 	
 	.bottom {
-		height: 35px;
-		width:590px;
+		position: absolute;
+		z-index: 10;
+		bottom: 0;
+		left: 0;
+		width: 150px;
 	}
 	
 	.close {
@@ -118,12 +122,14 @@
 	<?
 		foreach($image_styles as $style)
 		{
-			$array[] = array("name" => $style->title, "b"=>$style->width, "h"=>$style->height);
+			$array[] = array("id"=>$style->id, "name" => $style->title, "b"=>$style->width, "h"=>$style->height);
 		}
 	?>
 
 </head>
 <body>
+
+	<?=form_open();?>
 
 		<!-- VOOR DE HIDDEN FORM -->
 		<div id="form" class="jcrop"></div>
@@ -131,14 +137,10 @@
 		<!-- IMAGE KOMT HIER SAMEN MET VERSCHILLENDE FORMATEN -->
 		<div class="image">
 			<div class="tabs"></div>
-			<div class="panes"><img src="<?=base_url("uploads/".$_GET['image']);?>?rand=<?=rand()*1000;?>" class="cropbox" /></div>
-		</div>
-		
-		<div class="bottom">
-			<a href="#" class="close">Close croptool</a>
+			<div class="panes"><img src="<?=base_url($_GET['image']);?>?rand=<?=rand()*1000;?>" class="cropbox" /></div>
 		</div>
 
-	<script language="Javascript">
+		<script language="Javascript">
 
 			$(document).ready(function(){
 
@@ -154,40 +156,44 @@
 				<?
 					foreach($array as $img):
 					
-					$old_image = $_SERVER['DOCUMENT_ROOT'] . "/Bookcase/uploads/" . $_GET["image"];
+					$old_image = FCPATH . $_GET["image"];
 					$size = getimagesize($old_image);
-					$max_w = ($size[0]/100)*98;
-					$max_h = ($size[1]/100)*98;
+					$max_w = $size[0];
+					$max_h = $size[1];
 				?>
 				
 					// CROPS TOEWIJZEN
-					$('.cropbox').Jcrop({
+					$('.cropbox').each(function() {
+						$(this).Jcrop({
 					    aspectRatio: <?=$img["b"]/$img["h"];?>,
 					    onSelect: function(coords){
-					    	$("#x_<?=$img['name'];?>_<?=md5($_GET["image"]);?>",opener.document).val(coords.x);
-					    	$("#y_<?=$img['name'];?>_<?=md5($_GET["image"]);?>",opener.document).val(coords.y);
-					    	$("#w_<?=$img['name'];?>_<?=md5($_GET["image"]);?>",opener.document).val(coords.w);
-					    	$("#h_<?=$img['name'];?>_<?=md5($_GET["image"]);?>",opener.document).val(coords.h);
-					    	$("#t_<?=$img['name'];?>_<?=md5($_GET["image"]);?>",opener.document).val("<?=strtolower($img['name']);?>");
+					    	$("#x_<?=$img['name'];?>").val(coords.x);
+					    	$("#y_<?=$img['name'];?>").val(coords.y);
+					    	$("#w_<?=$img['name'];?>").val(coords.w);
+					    	$("#h_<?=$img['name'];?>").val(coords.h);
+					    	$("#t_<?=$img['name'];?>").val("<?=$img['id'];?>");
+					    	$("#image_width").val($(".jcrop-holder").width());
+					    	$("#image_height").val($(".jcrop-holder").height());
 					    },
-					    boxWidth: 500,
-					    boxHeight: 250,
-					    maxSize: [<?=$max_w.",".$max_h;?>]
+					    boxWidth: 480,
+					    boxHeight: 390
+					    //maxSize: [<?=$max_w.",".$max_h;?>]
+						});
 					});
 					
 					// BESTAAN DE INPUTVELDEN AL?
-					if( !$("#x_<?=$img['name'];?>_<?=md5($_GET["image"]);?>",opener.document).length > 0 )
+					if( !$("#x_<?=$img['name'];?>").length > 0 )
 					{
 					
 						// FORM OPBOUWEN VOOR COORDINATEN IN TE PLAATSEN
-						var string = "<input type='hidden' id='x_<?=$img['name'];?>_<?=md5($_GET["image"]);?>' value='' name='x[]'/>";
-							string+= "<input type='hidden' id='y_<?=$img['name'];?>_<?=md5($_GET["image"]);?>' value='' name='y[]'/>";
-							string+= "<input type='hidden' id='w_<?=$img['name'];?>_<?=md5($_GET["image"]);?>' value='' name='w[]'/>";
-							string+= "<input type='hidden' id='h_<?=$img['name'];?>_<?=md5($_GET["image"]);?>' value='' name='h[]'/>";
-							string+= "<input type='hidden' id='t_<?=$img['name'];?>_<?=md5($_GET["image"]);?>' value='' name='t[]'/>";
+						var string = "<input type='text' id='x_<?=$img['name'];?>' value='' name='x[]'/>";
+							string+= "<input type='text' id='y_<?=$img['name'];?>' value='' name='y[]'/>";
+							string+= "<input type='text' id='w_<?=$img['name'];?>' value='' name='w[]'/>";
+							string+= "<input type='text' id='h_<?=$img['name'];?>' value='' name='h[]'/>";
+							string+= "<input type='text' id='t_<?=$img['name'];?>' value='' name='t[]'/>";
 							
 						//$("#form.jcrop").append(string);
-						$("#test",opener.document).append(string);
+						$("#test").append(string);
 					
 					}
 	
@@ -195,6 +201,11 @@
 					$(".tabs ul.jcroptabs").prepend("<li><?=$img['name'];?><br/><span><?=$img['b'].'x'.$img['h'];?></span></li>");
 
 				<? endforeach;?>
+
+				string = "<input type='text' id='image_width' value='' name='image_width'/>";
+				string+= "<input type='text' id='image_height' value='' name='image_height'/>";
+
+				$("#test").append(string);
 
 				$(".panes").append("<div class='init'>Bewerk de afbeelding door formaten links te selecteren.</div>");
 				$(".image").append("<div class='error'>Gelieve al de formaten toe te passen op deze afbeelding.</div>");
@@ -237,6 +248,17 @@
 
 
 		</script>
+
+		<div id="test">
+			<? $size = getimagesize($_GET["image"]); ?>
+			<input type='text' id='image_name' value='<?=$_GET["image"];?>' name='image_name'/>
+		</div>
+
+		<div class="bottom">
+			<input type="submit" value="Save cropped images"/>
+		</div>
+
+	<?=form_close();?>
 
 </body>
 </html>

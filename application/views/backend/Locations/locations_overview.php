@@ -14,7 +14,7 @@
 			</tr>
 			</thead>
 			<tbody>
-			<? foreach($list as $loc):?>
+			<? if(isset($list) && count($list) > 0): foreach($list as $loc):?>
 			<tr class="item" style="cursor:move;" id="item-<?=$loc->id;?>">
 				<td><input type="checkbox"/></td>
 				<td><?=anchor("admin/lib/locations/edit_location/".$loc->id,$loc->title);?></td>
@@ -24,7 +24,9 @@
 			</tr>
 
 			<? $countries[] = $loc->country;?>
-			<? endforeach;?>
+			<? endforeach; else: ?>
+			<tr><td colspan="5">There are not locations added. <?=anchor("admin/lib/locations/add_location","Add a new location");?></td></tr>
+			<?endif;?>
 			</tbody>
 		</table>
 	

@@ -3,9 +3,11 @@
 	$data["modules"] = $this->core->libraries(true);
 
 	foreach($data["modules"] as $module):
-		include(APPPATH."/libraries/".ucwords($module["title"])."/config.php");
+		include(APPPATH."/libraries/".strtolower($module["title"])."/config.php");
 		if(isset($nav)) $data["nav"][$module["title"]] = $nav;
 	endforeach;
+
+	asort($data["nav"]);
 
 	foreach($data["nav"] as $lib => $array):
 

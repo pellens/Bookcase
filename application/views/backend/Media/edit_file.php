@@ -10,7 +10,7 @@
 			
 			<figure class="preview">
 				<? if(general_filetype($item->file_type) == "image"):?>
-					<img src="http://placehold.it/100x100"/>
+					<img src="<?=base_url("uploads/images/120_120/".$item->new_title);?>" class="photo"/>
 				<? else:?>
 					<img src="<?=base_url("images/core/icons/filetypes/".$item->file_type);?>.png"/>
 				<? endif;?>
@@ -55,8 +55,8 @@
 				<tbody>
 					<? foreach($this->media->image_styles() as $style):?>
 					<tr>
-						<td><i class="fa fa-check"></i></td>
-						<td>Crop</td>
+						<td><i class="fa fa-<?=($this->media->is_cropped($item->new_title,$style->width,$style->height)) ? "check" : "warning";?>"></i></td>
+						<td><a href="<?=base_url("admin/crop");?>?image=<?=$item->path;?>" onclick="return triggerPopup('<?=$item->path;?>');"><i class=\"fa fa-crop\"></i> Crop</a></td>
 						<td><?=$style->title;?></td>
 						<td><?=$style->width;?> px</td>
 						<td><?=$style->height;?> px</td>

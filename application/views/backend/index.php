@@ -24,40 +24,9 @@
     	<!--<script type="text/javascript" src="<?=base_url("js/core")?>/bootstrap.js"></script>-->
     	<script type="text/javascript" src="<?=base_url("js/core/jquery.uploadify.min.js")?>"></script>
       <script type="text/javascript" src="<?=base_url("js/backend")?>/custom.js"></script>
-        <script type="text/javascript" src="<?=base_url("js/core")?>/jquery.filtertable.min.js"></script>
+      <script type="text/javascript" src="<?=base_url("js/core")?>/jquery.filtertable.min.js"></script>
       <script type="text/javascript" src="<?=base_url("ckeditor/ckeditor.js?rand=".rand()*100000);?>"></script>
-    	<!--<script type="text/javascript" src="<?=base_url("js/backend")?>/jquery.fancytree-all.js"></script>
-    	<script type="text/javascript" src="<?=base_url("js/backend")?>/jquery.fancytree-dnd.js"></script>-->
     	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places&sensor=true"></script>
-
-    	<script type="text/javascript">
-    $(function(){
-
-        
-
-      /*$("#tree").fancytree({
-      extensions: ["dnd"],
-      dnd: {
-        preventVoidMoves: true, // Prevent dropping nodes 'before self', etc.
-        preventRecursiveMoves: true, // Prevent dropping nodes on own descendants
-        autoExpandMS: 400,
-        dragStart: function(node, data) {
-          return true;
-        },
-        dragEnter: function(node, data) {
-
-           return true;
-        },
-        dragDrop: function(node, data) {
-          data.otherNode.moveTo(node, data.hitMode);
-        }
-      },
-      activate: function(e, data) {
-        window.location = data.node.data.href;
-      }
-    });*/
-    });
-  </script>
 
 	</head>
 	<body class="row">
@@ -95,6 +64,13 @@
 		</div>
 
 	</div>
+
+	<script>
+	function triggerPopup(file)
+	{
+		window.open('<?=base_url("admin/crop");?>?image='+file, "_blank", "width=650,height=400,scrollbars=no,toolbar=0,status=0,location=0,resizable=yes,screenx=0,screeny=0"); return false;
+	}
+	</script>
 
 	</body>
 </html>

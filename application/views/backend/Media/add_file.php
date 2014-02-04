@@ -8,8 +8,6 @@
 		<div class="block">
 
 			<? 
-				//$this->media->resizeImage("seventies.png");
-	
 				$data["item"] = @$item;
 				$this->load->view("backend/snippets/photos_upload",$data);
 				unset($data);
